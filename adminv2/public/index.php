@@ -232,9 +232,17 @@ class Helper
 
                     <div class="form-group" id="dynamicFields">
                         <?php foreach ($configFlattened as $key => $value) : ?>
+                            <?php if (strpos($key, "horizontal_separator")) : ?>
+                                <hr>
+                                <?php continue; ?>
+                            <?php endif; ?>
                             <div class="form-field">
                                 <label for="<?= $key ?>" class=""><?= Helper::BeautifySlug($key) ?></label>
-                                <input type="text" class="" id="<?= $key ?>" name="<?= $key ?>" value="<?= $value ?>">
+                                <?php if (strlen($value) >= 60) : ?>
+                                    <textarea name="<?= $key ?>" id="<?= $key ?>" cols="30" rows="5"><?= $value ?></textarea>
+                                <?php else : ?>
+                                    <input type="text" class="" id="<?= $key ?>" name="<?= $key ?>" value="<?= $value ?>">
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     </div>

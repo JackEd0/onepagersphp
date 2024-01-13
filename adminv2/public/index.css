@@ -132,6 +132,7 @@ button.link:focus {
     right: -20px;
   }
 
+  .form-field textarea,
   .form-field input {
     border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
@@ -142,6 +143,12 @@ button.link:focus {
     color: white;
     outline: none;
     transition: all 0.2s;
+  }
+
+  .form-field textarea {
+    height: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .form-field input::placeholder {
@@ -157,11 +164,6 @@ button.link:focus {
 
   .form-field input:hover::placeholder {
     color: #d61e2d;
-  }
-
-  .form-field label {
-    display: block;
-    margin-bottom: 8px;
   }
 /* ---------------- form ---------------- */
 
@@ -211,19 +213,48 @@ button.link:focus {
   }
 
   .container h2 {
-    margin-bottom: 16px;
+    margin-bottom: 30px;
+    text-align: center;
   }
 
   .header form {
     display: inline-block;
   }
 
-  .container .form-field input,
-  .container button.btn {
+  .container .form-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .container .form-field textarea,
+  .container .form-field input {
     border-radius: 0;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: white;
+    color: #555;
+  }
+
+  .container .form-field textarea:hover,
+  .container .form-field textarea:focus,
+  .container .form-field input:hover,
+  .container .form-field input:focus {
+    background: white;
+    color: #d61e2d;
+  }
+
+  .container .form-field label {
+    text-align: right;
+    width: 35%;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .container button.btn {
+    border-radius: 0;
     margin-top: 30px;
   }
 

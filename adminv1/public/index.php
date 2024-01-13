@@ -34,7 +34,6 @@ $configFlattened = Helper::Flatten($config);
 
 class Helper
 {
-
     /**
      * Flatten an array
      *

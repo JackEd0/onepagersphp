@@ -1,0 +1,53 @@
+{
+    "full_name": "John Smith 2356",
+    "name": "John",
+    "profession_en": "Full stack developer",
+    "profession_fr": "D\u00e9veloppeur full stack \u00e8",
+    "email": "example@gmail.com",
+    "default_lang": "en",
+    "resume_file": "\/pdf\/resume-example.pdf",
+    "about_en": "I am passionate about Technology and speak English and French. <br>Do not hesitate to contact me.",
+    "about_fr": "Je suis passionn\u00e9 de technologie et parle l'anglais et le fran\u00e7ais. <br>N'h\u00e9sitez pas \u00e0 me contacter.",
+    "realisations": [
+        {
+            "title": "Theme page",
+            "preview": "theme.png",
+            "link": "https:\/\/example.com",
+            "description": "Theme page for Realisation 1"
+        },
+        {
+            "title": "One-Page-CRUD",
+            "preview": "one-page-crud.jpg",
+            "link": "https:\/\/example.com",
+            "description": "Single Page to CRUD entities"
+        }
+    ],
+    "linkedin": "https:\/\/ca.linkedin.com\/in\/john-smith-3816582c151",
+    "github": "https:\/\/github.com\/JohnSmith",
+    "main_language": "PHP",
+    "main_skills": [
+        "PHP",
+        "Wordpress",
+        "HTML5",
+        "MySQL",
+        "Laravel"
+    ],
+    "skills": [
+        [
+            "JAVA",
+            "JSF",
+            "PYTHON",
+            "CSS",
+            "C++",
+            "JAVASCRIPT",
+            "AJAX",
+            "SQL",
+            "ASSEMBLEUR X86"
+        ],
+        [
+            "BOOTSTRAP",
+            "JOOMLA",
+            "WIX"
+        ]
+    ]
+}

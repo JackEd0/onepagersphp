@@ -1,4 +1,5 @@
 /vendor/
+**/vendor/
 .env
 public/config.json
 public/site.json

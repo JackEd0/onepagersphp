@@ -217,6 +217,17 @@ button.link:focus {
     text-align: center;
   }
 
+  .container h3,
+  .container h4 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .container h3 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+  }
+
   .header form {
     display: inline-block;
   }

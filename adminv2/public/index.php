@@ -1,6 +1,7 @@
 <?php
 
-define("CONFIG_FILE_PATH", __DIR__ . "/site.json");
+define("CONFIG_FILE_PATH", __DIR__ . "/site2.json");
+// define("CONFIG_FILE_PATH", __DIR__ . "/site.json");
 define("ASSETS_PATH", "/adminv2/public/");
 define("EMV_PATH", __DIR__ . "/../.env");
 define("HOME_ADMIN_URL", "/admin2/");
@@ -25,6 +26,8 @@ if (isset($_POST["formSubmitted"]) && Helper::IsLoggedIn() ) {
     unset($config["formSubmitted"]);
     unset($config["password"]);
     $config = Helper::Deflatten($config);
+    $previousVersionConfig = json_decode(file_get_contents(CONFIG_FILE_PATH), true);
+    $config = array_merge($previousVersionConfig, $config);
     file_put_contents(CONFIG_FILE_PATH, json_encode($config, JSON_PRETTY_PRINT));
     header("Location: " . HOME_ADMIN_URL);
     die();
@@ -227,15 +230,11 @@ class Helper
 
             <main class="">
                 <h2>Edit Configuration</h2>
-                <form id="configForm" method="post">
+                <form method="post">
                     <input type="hidden" name="formSubmitted" value="1">
 
-                    <div class="form-group" id="dynamicFields">
+                    <!-- <div class="section--admin">
                         <?php foreach ($configFlattened as $key => $value) : ?>
-                            <?php if (strpos($key, "horizontal_separator")) : ?>
-                                <hr>
-                                <?php continue; ?>
-                            <?php endif; ?>
                             <div class="form-field">
                                 <label for="<?= $key ?>" class=""><?= Helper::BeautifySlug($key) ?></label>
                                 <?php if (strlen($value) >= 60) : ?>
@@ -245,9 +244,175 @@ class Helper
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
+                    </div> -->
+
+                    <div class="section--company">
+                        <?php
+                        $companyInformation = [
+                            "companyName" => "Name of the company",
+                            "companyAddress" => "Address",
+                            "companyPhone" => "Phone",
+                            "companyEmail" => "Email",
+                        ];
+                        ?>
+                        <?php foreach ($companyInformation as $key => $label) : ?>
+                            <?php if (isset($configFlattened[$key])) : ?>
+                                <div class="form-field">
+                                    <label for="<?= $key ?>" class=""><?= $label ?></label>
+                                    <input type="text" class="" id="<?= $key ?>" name="<?= $key ?>" value="<?= $configFlattened[$key] ?>">
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
 
-                    <button type="submit" class="btn" id="save">Save</button>
+                    <div class="section-menu">
+                        <h3>Header Section</h3>
+                        <?php
+                        $menuItems = [
+                            0 => "Left menu",
+                            1 => "Right menu",
+                        ];
+                        ?>
+                        <?php foreach ($menuItems as $key => $label) : ?>
+                            <h4><?= $label ?></h4>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteMenuItems__%s__name", $key) ?>">Name</label>
+                                <input type="text" class="" id="<?= sprintf("websiteMenuItems__%s__name", $key) ?>" name="<?= sprintf("websiteMenuItems__%s__name", $key) ?>" value="<?= $configFlattened[sprintf("websiteMenuItems__%s__name", $key)] ?>">
+                            </div>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteMenuItems__%s__link", $key) ?>">Link</label>
+                                <input type="text" class="" id="<?= sprintf("websiteMenuItems__%s__link", $key) ?>" name="<?= sprintf("websiteMenuItems__%s__link", $key) ?>" value="<?= $configFlattened[sprintf("websiteMenuItems__%s__link", $key)] ?>">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="section--hero">
+                        <h3>Hero Section</h3>
+                        <?php
+                        $heroInformation = [
+                            "websiteWelcomeText" => "Welcome Text",
+                            "websiteWelcomeText2" => "Welcome Text Subtitle",
+                            "websiteWelcomeButtonText" => "Welcome Button Text",
+                            "websiteWelcomeButtonLink" => "Welcome Button Link",
+                        ];
+                        ?>
+                        <?php foreach ($heroInformation as $key => $label) : ?>
+                            <?php if (isset($configFlattened[$key])) : ?>
+                                <div class="form-field">
+                                    <label for="<?= $key ?>" class=""><?= $label ?></label>
+                                    <input type="text" class="" id="<?= $key ?>" name="<?= $key ?>" value="<?= $configFlattened[$key] ?>">
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="section--services">
+                        <h3>Services Section</h3>
+                        <?php
+                        $websiteServices = [
+                            0 => "Left",
+                            1 => "Center",
+                            2 => "Right",
+                        ]
+                        ?>
+                        <div class="form-field">
+                            <label for="websiteServicesTitle">Services Title</label>
+                            <input type="text" class="" id="websiteServicesTitle" name="websiteServicesTitle" value="<?= $configFlattened["websiteServicesTitle"] ?>">
+                        </div>
+                        <div class="form-field">
+                            <label for="websiteServicesText">Services Text</label>
+                            <textarea name="websiteServicesText" id="websiteServicesText" cols="30" rows="5"><?= $configFlattened["websiteServicesText"] ?></textarea>
+                        </div>
+                        <?php foreach ($websiteServices as $key => $label) : ?>
+                            <h4><?= $label ?></h4>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteServices__%s__name", $key) ?>">Title</label>
+                                <input type="text" class="" id="<?= sprintf("websiteServices__%s__name", $key) ?>" name="<?= sprintf("websiteServices__%s__name", $key) ?>" value="<?= $configFlattened[sprintf("websiteServices__%s__name", $key)] ?>">
+                            </div>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteServices__%s__image", $key) ?>">Title</label>
+                                <input type="text" class="" id="<?= sprintf("websiteServices__%s__image", $key) ?>" name="<?= sprintf("websiteServices__%s__image", $key) ?>" value="<?= $configFlattened[sprintf("websiteServices__%s__image", $key)] ?>">
+                            </div>
+                            <div class="form-field">
+                                <label for="websiteServicesText">Description</label>
+                                <textarea name="<?= sprintf("websiteServices__%s__description", $key) ?>" id="<?= sprintf("websiteServices__%s__description", $key) ?>" cols="30" rows="5"><?= $configFlattened[sprintf("websiteServices__%s__description", $key)] ?></textarea>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="section--contact">
+                        <h3>Contact Section</h3>
+                        <?php
+                        $websiteContactsDays = 7;
+                        ?>
+                        <div class="form-field">
+                            <label for="websiteContactTitle">Title</label>
+                            <input type="text" class="" id="websiteContactTitle" name="websiteContactTitle" value="<?= $configFlattened["websiteContactTitle"] ?>">
+                        </div>
+                        <div class="form-field">
+                            <label for="websiteContactText">Text</label>
+                            <textarea name="websiteContactText" id="websiteContactText" cols="30" rows="5"><?= $configFlattened["websiteContactText"] ?></textarea>
+                        </div>
+                        <h4>Schedule</h4>
+                        <?php for ($i = 0; $i < $websiteContactsDays; $i++) : ?>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteContactSchedule__%s__day", $i) ?>" class="hidden">Day <?= $i + 1 ?></label>
+                                <input type="text" class="" id="<?= sprintf("websiteContactSchedule__%s__day", $i) ?>" name="<?= sprintf("websiteContactSchedule__%s__day", $i) ?>" value="<?= $configFlattened[sprintf("websiteContactSchedule__%s__day", $i)] ?>">
+                            </div>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteContactSchedule__%s__hours", $i) ?>" class="hidden">Openning Hours</label>
+                                <input type="text" class="" id="<?= sprintf("websiteContactSchedule__%s__hours", $i) ?>" name="<?= sprintf("websiteContactSchedule__%s__hours", $i) ?>" value="<?= $configFlattened[sprintf("websiteContactSchedule__%s__hours", $i)] ?>">
+                            </div>
+                        <?php endfor; ?>
+                    </div>
+
+                    <div class="section--footer">
+                        <h3>Footer Section</h3>
+                        <?php
+                        $footerMenuItems = [
+                            0 => "",
+                            1 => "",
+                            2 => "",
+                            3 => "",
+                        ];
+                        $footerSocialMedia1 = [
+                            0 => "Facebook",
+                            1 => "Twitter",
+                            2 => "Instagram",
+                        ];
+                        $footerSocialMedia2 = [
+                            0 => "YouTube",
+                            1 => "LinkedIn",
+                            2 => "Snapchat",
+                        ];
+                        ?>
+                        <?php foreach ($footerSocialMedia1 as $key => $label) : ?>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteFooterSocialMediaLine1__%s__link", $key) ?>"><?= $label ?></label>
+                                <input type="text" class="" id="<?= sprintf("websiteFooterSocialMediaLine1__%s__link", $key) ?>" name="<?= sprintf("websiteFooterSocialMediaLine1__%s__link", $key) ?>" value="<?= $configFlattened[sprintf("websiteFooterSocialMediaLine1__%s__link", $key)] ?>">
+                                <input type="hidden" name="<?= sprintf("websiteFooterSocialMediaLine1__%s__name", $key) ?>" value="<?= $configFlattened[sprintf("websiteFooterSocialMediaLine1__%s__name", $key)] ?>">
+                                <input type="hidden" name="<?= sprintf("websiteFooterSocialMediaLine1__%s__icon", $key) ?>" value="<?= $configFlattened[sprintf("websiteFooterSocialMediaLine1__%s__icon", $key)] ?>">
+                            </div>
+                        <?php endforeach; ?>
+                        <?php foreach ($footerSocialMedia2 as $key => $label) : ?>
+                            <div class="form-field">
+                                <label for="<?= sprintf("websiteFooterSocialMediaLine2__%s__link", $key) ?>"><?= $label ?></label>
+                                <input type="text" class="" id="<?= sprintf("websiteFooterSocialMediaLine2__%s__link", $key) ?>" name="<?= sprintf("websiteFooterSocialMediaLine2__%s__link", $key) ?>" value="<?= $configFlattened[sprintf("websiteFooterSocialMediaLine2__%s__link", $key)] ?>">
+                                <input type="hidden" name="<?= sprintf("websiteFooterSocialMediaLine2__%s__name", $key) ?>" value="<?= $configFlattened[sprintf("websiteFooterSocialMediaLine2__%s__name", $key)] ?>">
+                                <input type="hidden" name="<?= sprintf("websiteFooterSocialMediaLine2__%s__icon", $key) ?>" value="<?= $configFlattened[sprintf("websiteFooterSocialMediaLine2__%s__icon", $key)] ?>">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="section--policy">
+                        <h3>Privacy Policy</h3>
+                        <div class="form-field">
+                            <label for="websitePolicyText">Text</label>
+                            <textarea name="websitePolicyText" id="websitePolicyText" cols="30" rows="5"><?= $configFlattened["websitePolicyText"] ?></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Save</button>
                     <a class="link--cancel" href="<?= HOME_ADMIN_URL ?>">Cancel</a>
                 </form>
             </main>

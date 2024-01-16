@@ -1,0 +1,131 @@
+{
+    "companyName": "Dentist at Montreal",
+    "companyAddress": "5100 boul. Robert-Bourassa Laval, QC H7E 0A6",
+    "companyPhone": "514-555-5555",
+    "companyEmail": "info@dentisteatmontreal.com",
+    "websiteRoutes": {
+        "#": "Home",
+        "#services": "Home",
+        "#contact": "Home",
+        "#policy": "Policy"
+    },
+    "websiteMenuItems": [
+        {
+            "name": "Services",
+            "link": "/#services"
+        },
+        {
+            "name": "Contact",
+            "link": "/#contact"
+        }
+    ],
+    "websiteWelcomeText": "Welcome to patients!",
+    "websiteWelcomeText2": "Your dental clinic in Montreal for all your needs.",
+    "websiteWelcomeButtonText": "Show me more",
+    "websiteWelcomeButtonLink": "/#services",
+    "websiteServicesTitle": "Our services",
+    "websiteServicesText": "Our dental clinic in Montreal offers a wide range of dental services. We are proud to offer you the best dental care in a warm and welcoming environment. Our team of dentists and dental hygienists will be happy to welcome you and answer all your questions.",
+    "websiteServices": [
+        {
+            "name": "Invisalign",
+            "description": "Do you dream of having a beautiful smile? Do you want to improve the health and esthetics of your mouth while straightening your smile? Discuss options with your dentist and transform this dream into reality!<br>How will orthodontic treatments improve my life ?<br><br>A beautiful straight smile is also more practical. Straight teeth make cleaning the gums and teeth much easier, for optimal dental health with proper care. Futhermore, it reduces the risk of abnormal wear and injury to the teeth.",
+            "image": "/img/invisalign.jpg"
+        },
+        {
+            "name": "Dental Implants",
+            "description": "A dental implant is an artificial tooth root that is placed into your gum, more precisely in your jaw. Our dentists install a porcelain crown or procelain bridge on the dental implant. Dental implants may be an option for people who have broken or lost a tooth due to periodontal disease, an injury, or some other reason.",
+            "image": "/img/dental-implants.jpg"
+        },
+        {
+            "name": "CEREC Crown",
+            "description": "The crown is a “hat” in the shape of a tooth that completely covers the decayed or damaged tooth. The dentist prepares some of the natural tooth to make room for the crown. The crown protects the tooth and restores its original color and shape.<br><br>CEREC's modern digital technology allows your dentist from Dentistealaval.com, in certain circumstances - after a complete exam - to make your aesthetic and resistant crown on-site in a single appointment, from the preparation of your tooth to the cementation of your crown.",
+            "image": "/img/crown.jpg"
+        }
+    ],
+    "websiteContactTitle": "Contact us",
+    "websiteContactText": "Contact us today to book an appointment at <strong>{companyEmail}</strong> or call us at <strong>{companyPhone}</strong>.",
+    "websiteContactSchedule": [
+        {
+            "day": "Monday",
+            "hours": "8:00 AM - 5:00 PM"
+        },
+        {
+            "day": "Tuesday",
+            "hours": "8:00 AM - 5:00 PM"
+        },
+        {
+            "day": "Wednesday",
+            "hours": "8:00 AM - 5:00 PM"
+        },
+        {
+            "day": "Thursday",
+            "hours": "8:00 AM - 5:00 PM"
+        },
+        {
+            "day": "Friday",
+            "hours": "8:00 AM - 5:00 PM"
+        },
+        {
+            "day": "Saturday",
+            "hours": "8:00 AM - 5:00 PM"
+        },
+        {
+            "day": "Sunday",
+            "hours": "Closed"
+        }
+    ],
+    "websiteFooterMenuItems": [
+        {
+            "name": "Dentist at Montreal",
+            "link": "/#"
+        },
+        {
+            "name": "Services",
+            "link": "/#services"
+        },
+        {
+            "name": "Contact",
+            "link": "/#contact"
+        },
+        {
+            "name": "Privacy Policy",
+            "link": "/#policy"
+        }
+    ],
+    "websiteFooterSocialMediaLine1": [
+        {
+            "name": "Facebook",
+            "link": "https://www.facebook.com/",
+            "icon": "fa-facebook-f"
+        },
+        {
+            "name": "Twitter",
+            "link": "https://twitter.com/",
+            "icon": "fa-twitter"
+        },
+        {
+            "name": "Instagram",
+            "link": "https://www.instagram.com/",
+            "icon": "fa-instagram"
+        }
+    ],
+    "websiteFooterSocialMediaLine2": [
+        {
+            "name": "YouTube",
+            "link": "",
+            "icon": "fa-youtube"
+        },
+        {
+            "name": "LinkedIn",
+            "link": "https://www.linkedin.com/",
+            "icon": "fa-linkedin-in"
+        },
+        {
+            "name": "Snapchat",
+            "link": "",
+            "icon": "fa-snapchat"
+        }
+    ],
+    "websitePolicyTitle": "Privacy Policy",
+    "websitePolicyText": "This privacy policy has been compiled to better serve those who are concerned with how their 'Personally Identifiable Information' (PII) is being used online.<br><br>PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context.<br><br>Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.<br><br>What personal information do we collect from the people that visit our blog, website or app?<br><br>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address, phone number or other details to help you with your experience.<br><br>The use of cookies is for the sole purpose of improving the user experience on our website.<br><br>When do we collect information?<br><br>We collect information from you when you register on our site, place an order, subscribe to a newsletter, respond to a survey, fill out a form or enter information on our site.<br><br>How do we use your information?<br><br>We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features in the following ways:<br><br>To personalize your experience and to allow us to deliver the type of content and product offerings in which you are most interested.<br><br>To improve our website in order to better serve you.<br><br>To allow us to better service you in responding to your customer service requests.<br><br>To administer a contest, promotion, survey or other site feature.<br><br>To quickly process your transactions.<br><br>To send periodic emails regarding your order or other products and services.<br><br>How do we protect your information?<br><br>Our website is scanned on a regular basis for security holes and known vulnerabilities in order to make your visit to our site as safe as possible.<br><br>We use regular Malware Scanning.<br><br>We do not use an SSL certificate.<br><br>We only provide articles and information. We never ask for personal or private information like names, email addresses, or credit card numbers.<br><br>Do we use 'cookies'?<br><br>Yes. Cookies are small files that a site or its service provider transfers to your computer's hard drive through your Web browser (if you allow) that enables the site's or service provider's systems to recognize your browser and capture and remember certain information.<br><br>They are also used to help us understand your preferences based on previous or current site activity, which enables us to provide you with improved services.<br><br>We also use cookies to help us compile aggregate data about site traffic and site interaction so that we can offer better site experiences and tools in the future.<br><br>We use cookies to:<br><br>Understand and save user's preferences for future visits.<br><br>Keep track of advertisements.<br><br>Compile aggregate data about site traffic and site interactions in order to offer better site experiences"
+}

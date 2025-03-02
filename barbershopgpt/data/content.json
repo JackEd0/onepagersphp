@@ -1,0 +1,74 @@
+{
+    "languages": ["en", "fr", "es"],
+    "content": {
+      "en": {
+        "title": "Barbershop Deluxe",
+        "hero": "Get a Fresh Look Today!",
+        "services": [
+          {
+            "name": "Haircut",
+            "price": "$25",
+            "description": "A classic haircut tailored to you.",
+            "image": "assets/haircut.jpg"
+          },
+          {
+            "name": "Beard Trimse",
+            "price": "$15",
+            "description": "Shape and style your beard.",
+            "image": "assets/beard-trim.jpg"
+          }
+        ],
+        "hours": "Mon-Sat: 9 AM - 8 PM | Sun: Closed",
+        "contact": {
+          "address": "123 Main Street, New York, NY 10001",
+          "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11175.755765553382!2d-73.5586806534727!3d45.55155381484073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91b8ca09fce95%3A0x58d274cee42f4885!2sJoliette!5e0!3m2!1sen!2sca!4v1740941928772!5m2!1sen!2sca"
+        }
+      },
+      "fr": {
+        "title": "Salon de Coiffure Deluxe",
+        "hero": "Obtenez un look frais aujourd'hui!",
+        "services": [
+          {
+            "name": "Coupe de cheveux",
+            "price": "25€",
+            "description": "Une coupe classique sur mesure.",
+            "image": "assets/haircut.jpg"
+          },
+          {
+            "name": "Taille de barbe",
+            "price": "15€",
+            "description": "Façonnez et stylisez votre barbe.",
+            "image": "assets/beard-trim.jpg"
+          }
+        ],
+        "hours": "Lun-Sam : 9h - 20h | Dim : Fermé",
+        "contact": {
+          "address": "123 Rue Principale, Paris, 75001",
+          "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11175.755765553382!2d-73.5586806534727!3d45.55155381484073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91b8ca09fce95%3A0x58d274cee42f4885!2sJoliette!5e0!3m2!1sen!2sca!4v1740941928772!5m2!1sen!2sca"
+        }
+      },
+      "es": {
+        "title": "Barbería Deluxe",
+        "hero": "¡Consigue un nuevo estilo hoy!",
+        "services": [
+          {
+            "name": "Corte de pelo",
+            "price": "25€",
+            "description": "Un corte clásico hecho a medida.",
+            "image": "assets/haircut.jpg"
+          },
+          {
+            "name": "Recorte de barba",
+            "price": "15€",
+            "description": "Dale forma y estilo a tu barba.",
+            "image": "assets/beard-trim.jpg"
+          }
+        ],
+        "hours": "Lun-Sáb: 9 AM - 8 PM | Dom: Cerrado",
+        "contact": {
+          "address": "123 Calle Principal, Madrid, 28001",
+          "map_embed": "https://www.google.com/maps/embed?...(Tu URL de Google Maps aquí)..."
+        }
+      }
+    }
+  }

@@ -44,6 +44,10 @@ sushi1/
 2. Open `index.html` in your web browser
 3. The website is ready to use!
 
+```sh
+php -S localhost:8000
+```
+
 ## Customization
 
 ### Colors

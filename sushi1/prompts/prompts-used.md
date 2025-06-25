@@ -1,5 +1,25 @@
 # This file contains a list of prompts used for the project
 
+## RAW
+
+```text
+i want to create an admin.html page that will be used to edit the data of index.html
+for example the website has a navigation with 'hero, gallery, etc...'. i want to keep them in the index.html and add their value to a site-config.json 
+Then the admin.html will read this json and can edit it, like the interface for a wordpress theme. to save the json use a php file save-config.php that will be called with ajax.
+add selectors to the index.html to facilitate the site-config.json,
+example for navigation: <div data-config-selector="navigation"><a href="#hero" data-config-selector="navigation-item-1">...
+```
+
+```text
+move the script from index.html to a file index.js, do the same with admin.html (admin.js)
+```
+
+```text
+update the populateNavigation() function, it uses the selector 'navigation-items' but it does not exist in index.html
+add the selector to index.html and site-config.json
+```
+
+
 ## Chat Session Summary - Admin System Creation
 
 ### **Project Overview**

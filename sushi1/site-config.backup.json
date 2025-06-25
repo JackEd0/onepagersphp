@@ -13,7 +13,7 @@
             },
             {
                 "id": "gallery",
-                "text": "Menu",
+                "text": "Menu Su",
                 "href": "#gallery"
             },
             {
@@ -34,7 +34,7 @@
         "subtitle": "Discover the art of sushi making with our master chefs. Fresh ingredients, traditional techniques, and modern presentation.",
         "buttons": [
             {
-                "text": "View Our Menu",
+                "text": "View Our Menuf",
                 "href": "#gallery",
                 "style": "primary"
             },

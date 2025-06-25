@@ -48,6 +48,9 @@ sushi1/
 php -S localhost:8000
 ```
 
+*Sakura Sushi - Premium Japanese Cuisine* <http://localhost:8000/index.html#hero>
+*Sakura Sushi - Admin Panel* <http://localhost:8000/admin.html>
+
 ## Customization
 
 ### Colors

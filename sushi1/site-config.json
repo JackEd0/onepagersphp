@@ -1,0 +1,175 @@
+{
+  "site": {
+    "title": "Sakura Sushi - Premium Japanese Cuisine",
+    "logo": "🍣",
+    "brand": "Sakura Sushi"
+  },
+  "navigation": {
+    "items": [
+      {
+        "id": "hero",
+        "text": "Home",
+        "href": "#hero"
+      },
+      {
+        "id": "gallery",
+        "text": "Menu",
+        "href": "#gallery"
+      },
+      {
+        "id": "testimonials",
+        "text": "Reviews",
+        "href": "#testimonials"
+      },
+      {
+        "id": "contact",
+        "text": "Contact",
+        "href": "#contact"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Experience Authentic Japanese Cuisine",
+    "titleHighlight": "Authentic",
+    "subtitle": "Discover the art of sushi making with our master chefs. Fresh ingredients, traditional techniques, and modern presentation.",
+    "buttons": [
+      {
+        "text": "View Our Menu",
+        "href": "#gallery",
+        "style": "primary"
+      },
+      {
+        "text": "Make Reservation",
+        "href": "#contact",
+        "style": "secondary"
+      }
+    ]
+  },
+  "gallery": {
+    "title": "Our Signature Menu",
+    "subtitle": "Each dish is carefully crafted using the finest ingredients and traditional Japanese techniques",
+    "items": [
+      {
+        "id": "dragon-roll",
+        "name": "Dragon Roll",
+        "description": "Fresh eel, avocado, and cucumber wrapped in rice and nori",
+        "price": "$18",
+        "tag": "Popular",
+        "emoji": "🍣",
+        "color": "red"
+      },
+      {
+        "id": "salmon-nigiri",
+        "name": "Salmon Nigiri",
+        "description": "Premium salmon over perfectly seasoned sushi rice",
+        "price": "$12",
+        "tag": "Fresh",
+        "emoji": "🐟",
+        "color": "blue"
+      },
+      {
+        "id": "california-roll",
+        "name": "California Roll",
+        "description": "Crab, avocado, and cucumber in a classic combination",
+        "price": "$14",
+        "tag": "Classic",
+        "emoji": "🥢",
+        "color": "green"
+      },
+      {
+        "id": "bento-box",
+        "name": "Bento Box",
+        "description": "Assorted sushi, tempura, and miso soup",
+        "price": "$24",
+        "tag": "Complete",
+        "emoji": "🍱",
+        "color": "purple"
+      },
+      {
+        "id": "ramen-bowl",
+        "name": "Ramen Bowl",
+        "description": "Rich broth with noodles, pork, and fresh vegetables",
+        "price": "$16",
+        "tag": "Warm",
+        "emoji": "🍜",
+        "color": "yellow"
+      },
+      {
+        "id": "mochi-ice-cream",
+        "name": "Mochi Ice Cream",
+        "description": "Sweet rice dough filled with premium ice cream",
+        "price": "$8",
+        "tag": "Dessert",
+        "emoji": "🍰",
+        "color": "pink"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What Our Guests Say",
+    "subtitle": "Don't just take our word for it - hear from our satisfied customers",
+    "items": [
+      {
+        "id": "sarah-johnson",
+        "name": "Sarah Johnson",
+        "role": "Food Blogger",
+        "content": "The best sushi I've ever had! The Dragon Roll was absolutely incredible. Fresh ingredients and amazing presentation.",
+        "rating": 5,
+        "initial": "S"
+      },
+      {
+        "id": "michael-chen",
+        "name": "Michael Chen",
+        "role": "Regular Customer",
+        "content": "Authentic Japanese flavors with a modern twist. The Bento Box is perfect for lunch, and the service is exceptional.",
+        "rating": 5,
+        "initial": "M"
+      },
+      {
+        "id": "emma-rodriguez",
+        "name": "Emma Rodriguez",
+        "role": "First-time Visitor",
+        "content": "The Ramen Bowl is absolutely divine! Rich broth, perfect noodles, and the atmosphere is so cozy and welcoming.",
+        "rating": 5,
+        "initial": "E"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Visit Us Today",
+    "subtitle": "Make a reservation or stop by for an unforgettable dining experience",
+    "info": {
+      "address": {
+        "label": "Address",
+        "value": "123 Cherry Blossom Lane\nDowntown District, City"
+      },
+      "phone": {
+        "label": "Phone",
+        "value": "(555) 123-4567"
+      },
+      "email": {
+        "label": "Email",
+        "value": "info@sakurasushi.com"
+      },
+      "hours": {
+        "label": "Hours",
+        "value": "Mon-Sat: 11:00 AM - 10:00 PM\nSunday: 12:00 PM - 9:00 PM"
+      }
+    },
+    "reservation": {
+      "title": "Make a Reservation",
+      "timeSlots": [
+        "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
+        "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"
+      ]
+    }
+  },
+  "footer": {
+    "description": "Experience the authentic taste of Japan with our master chefs. Fresh ingredients, traditional techniques, and modern presentation in every dish.",
+    "hours": {
+      "weekdays": "Mon-Sat: 11:00 AM - 10:00 PM",
+      "sunday": "Sunday: 12:00 PM - 9:00 PM"
+    },
+    "copyright": "© 2024 Sakura Sushi. All rights reserved."
+  }
+} 

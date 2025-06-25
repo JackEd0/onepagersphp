@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sakura Sushi - Premium Japanese Cuisine</title>
+    <title data-config-selector="site-title">Sakura Sushi - Premium Japanese Cuisine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,17 +28,17 @@
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
                     <div class="w-8 h-8 bg-sushi-red rounded-full flex items-center justify-center">
-                        <span class="text-white font-bold text-sm">🍣</span>
+                        <span class="text-white font-bold text-sm" data-config-selector="site-logo">🍣</span>
                     </div>
-                    <span class="text-xl font-bold text-sushi-dark">Sakura Sushi</span>
+                    <span class="text-xl font-bold text-sushi-dark" data-config-selector="site-brand">Sakura Sushi</span>
                 </div>
                 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#hero" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Home</a>
-                    <a href="#gallery" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Menu</a>
-                    <a href="#testimonials" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Reviews</a>
-                    <a href="#contact" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Contact</a>
+                <div class="hidden md:flex items-center space-x-8" data-config-selector="navigation">
+                    <a href="#hero" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="navigation-item-1">Home</a>
+                    <a href="#gallery" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="navigation-item-2">Menu</a>
+                    <a href="#testimonials" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="navigation-item-3">Reviews</a>
+                    <a href="#contact" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="navigation-item-4">Contact</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
@@ -50,12 +50,12 @@
             </div>
             
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4" data-config-selector="mobile-navigation">
                 <div class="flex flex-col space-y-4">
-                    <a href="#hero" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Home</a>
-                    <a href="#gallery" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Menu</a>
-                    <a href="#testimonials" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Reviews</a>
-                    <a href="#contact" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200">Contact</a>
+                    <a href="#hero" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="mobile-navigation-item-1">Home</a>
+                    <a href="#gallery" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="mobile-navigation-item-2">Menu</a>
+                    <a href="#testimonials" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="mobile-navigation-item-3">Reviews</a>
+                    <a href="#contact" class="text-sushi-dark hover:text-sushi-red transition-colors duration-200" data-config-selector="mobile-navigation-item-4">Contact</a>
                 </div>
             </div>
         </nav>
@@ -65,19 +65,19 @@
     <section id="hero" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sushi-light to-white pt-20">
         <div class="container mx-auto px-6 text-center">
             <div class="max-w-4xl mx-auto">
-                <h1 class="text-5xl md:text-7xl font-bold text-sushi-dark mb-8 leading-tight">
+                <h1 class="text-5xl md:text-7xl font-bold text-sushi-dark mb-8 leading-tight" data-config-selector="hero-title">
                     Experience
-                    <span class="text-sushi-red">Authentic</span>
+                    <span class="text-sushi-red" data-config-selector="hero-title-highlight">Authentic</span>
                     Japanese Cuisine
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed" data-config-selector="hero-subtitle">
                     Discover the art of sushi making with our master chefs. Fresh ingredients, traditional techniques, and modern presentation.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#gallery" class="bg-sushi-red text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transition-colors duration-200">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center" data-config-selector="hero-buttons">
+                    <a href="#gallery" class="bg-sushi-red text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-red-700 transition-colors duration-200" data-config-selector="hero-button-1">
                         View Our Menu
                     </a>
-                    <a href="#contact" class="border-2 border-sushi-red text-sushi-red px-8 py-4 rounded-full text-lg font-semibold hover:bg-sushi-red hover:text-white transition-all duration-200">
+                    <a href="#contact" class="border-2 border-sushi-red text-sushi-red px-8 py-4 rounded-full text-lg font-semibold hover:bg-sushi-red hover:text-white transition-all duration-200" data-config-selector="hero-button-2">
                         Make Reservation
                     </a>
                 </div>
@@ -89,99 +89,99 @@
     <section id="gallery" class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-sushi-dark mb-6">Our Signature Menu</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-sushi-dark mb-6" data-config-selector="gallery-title">Our Signature Menu</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-config-selector="gallery-subtitle">
                     Each dish is carefully crafted using the finest ingredients and traditional Japanese techniques
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-config-selector="gallery-items">
                 <!-- Menu Item 1 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-config-selector="gallery-item-1">
                     <div class="h-64 bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
-                        <span class="text-6xl">🍣</span>
+                        <span class="text-6xl" data-config-selector="gallery-item-1-emoji">🍣</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-sushi-dark mb-2">Dragon Roll</h3>
-                        <p class="text-gray-600 mb-4">Fresh eel, avocado, and cucumber wrapped in rice and nori</p>
+                        <h3 class="text-xl font-bold text-sushi-dark mb-2" data-config-selector="gallery-item-1-name">Dragon Roll</h3>
+                        <p class="text-gray-600 mb-4" data-config-selector="gallery-item-1-description">Fresh eel, avocado, and cucumber wrapped in rice and nori</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-sushi-red">$18</span>
-                            <span class="text-sm text-gray-500">Popular</span>
+                            <span class="text-2xl font-bold text-sushi-red" data-config-selector="gallery-item-1-price">$18</span>
+                            <span class="text-sm text-gray-500" data-config-selector="gallery-item-1-tag">Popular</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Menu Item 2 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-config-selector="gallery-item-2">
                     <div class="h-64 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                        <span class="text-6xl">🐟</span>
+                        <span class="text-6xl" data-config-selector="gallery-item-2-emoji">🐟</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-sushi-dark mb-2">Salmon Nigiri</h3>
-                        <p class="text-gray-600 mb-4">Premium salmon over perfectly seasoned sushi rice</p>
+                        <h3 class="text-xl font-bold text-sushi-dark mb-2" data-config-selector="gallery-item-2-name">Salmon Nigiri</h3>
+                        <p class="text-gray-600 mb-4" data-config-selector="gallery-item-2-description">Premium salmon over perfectly seasoned sushi rice</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-sushi-red">$12</span>
-                            <span class="text-sm text-gray-500">Fresh</span>
+                            <span class="text-2xl font-bold text-sushi-red" data-config-selector="gallery-item-2-price">$12</span>
+                            <span class="text-sm text-gray-500" data-config-selector="gallery-item-2-tag">Fresh</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Menu Item 3 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-config-selector="gallery-item-3">
                     <div class="h-64 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                        <span class="text-6xl">🥢</span>
+                        <span class="text-6xl" data-config-selector="gallery-item-3-emoji">🥢</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-sushi-dark mb-2">California Roll</h3>
-                        <p class="text-gray-600 mb-4">Crab, avocado, and cucumber in a classic combination</p>
+                        <h3 class="text-xl font-bold text-sushi-dark mb-2" data-config-selector="gallery-item-3-name">California Roll</h3>
+                        <p class="text-gray-600 mb-4" data-config-selector="gallery-item-3-description">Crab, avocado, and cucumber in a classic combination</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-sushi-red">$14</span>
-                            <span class="text-sm text-gray-500">Classic</span>
+                            <span class="text-2xl font-bold text-sushi-red" data-config-selector="gallery-item-3-price">$14</span>
+                            <span class="text-sm text-gray-500" data-config-selector="gallery-item-3-tag">Classic</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Menu Item 4 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-config-selector="gallery-item-4">
                     <div class="h-64 bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                        <span class="text-6xl">🍱</span>
+                        <span class="text-6xl" data-config-selector="gallery-item-4-emoji">🍱</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-sushi-dark mb-2">Bento Box</h3>
-                        <p class="text-gray-600 mb-4">Assorted sushi, tempura, and miso soup</p>
+                        <h3 class="text-xl font-bold text-sushi-dark mb-2" data-config-selector="gallery-item-4-name">Bento Box</h3>
+                        <p class="text-gray-600 mb-4" data-config-selector="gallery-item-4-description">Assorted sushi, tempura, and miso soup</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-sushi-red">$24</span>
-                            <span class="text-sm text-gray-500">Complete</span>
+                            <span class="text-2xl font-bold text-sushi-red" data-config-selector="gallery-item-4-price">$24</span>
+                            <span class="text-sm text-gray-500" data-config-selector="gallery-item-4-tag">Complete</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Menu Item 5 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-config-selector="gallery-item-5">
                     <div class="h-64 bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center">
-                        <span class="text-6xl">🍜</span>
+                        <span class="text-6xl" data-config-selector="gallery-item-5-emoji">🍜</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-sushi-dark mb-2">Ramen Bowl</h3>
-                        <p class="text-gray-600 mb-4">Rich broth with noodles, pork, and fresh vegetables</p>
+                        <h3 class="text-xl font-bold text-sushi-dark mb-2" data-config-selector="gallery-item-5-name">Ramen Bowl</h3>
+                        <p class="text-gray-600 mb-4" data-config-selector="gallery-item-5-description">Rich broth with noodles, pork, and fresh vegetables</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-sushi-red">$16</span>
-                            <span class="text-sm text-gray-500">Warm</span>
+                            <span class="text-2xl font-bold text-sushi-red" data-config-selector="gallery-item-5-price">$16</span>
+                            <span class="text-sm text-gray-500" data-config-selector="gallery-item-5-tag">Warm</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Menu Item 6 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" data-config-selector="gallery-item-6">
                     <div class="h-64 bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
-                        <span class="text-6xl">🍰</span>
+                        <span class="text-6xl" data-config-selector="gallery-item-6-emoji">🍰</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-sushi-dark mb-2">Mochi Ice Cream</h3>
-                        <p class="text-gray-600 mb-4">Sweet rice dough filled with premium ice cream</p>
+                        <h3 class="text-xl font-bold text-sushi-dark mb-2" data-config-selector="gallery-item-6-name">Mochi Ice Cream</h3>
+                        <p class="text-gray-600 mb-4" data-config-selector="gallery-item-6-description">Sweet rice dough filled with premium ice cream</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-sushi-red">$8</span>
-                            <span class="text-sm text-gray-500">Dessert</span>
+                            <span class="text-2xl font-bold text-sushi-red" data-config-selector="gallery-item-6-price">$8</span>
+                            <span class="text-sm text-gray-500" data-config-selector="gallery-item-6-tag">Dessert</span>
                         </div>
                     </div>
                 </div>
@@ -193,17 +193,17 @@
     <section id="testimonials" class="py-24 bg-sushi-light">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-sushi-dark mb-6">What Our Guests Say</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-sushi-dark mb-6" data-config-selector="testimonials-title">What Our Guests Say</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-config-selector="testimonials-subtitle">
                     Don't just take our word for it - hear from our satisfied customers
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-config-selector="testimonials-items">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <div class="bg-white rounded-2xl p-8 shadow-lg" data-config-selector="testimonial-1">
                     <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400">
+                        <div class="flex text-yellow-400" data-config-selector="testimonial-1-rating">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
@@ -221,20 +221,20 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">"The best sushi I've ever had! The Dragon Roll was absolutely incredible. Fresh ingredients and amazing presentation."</p>
+                    <p class="text-gray-600 mb-4" data-config-selector="testimonial-1-content">"The best sushi I've ever had! The Dragon Roll was absolutely incredible. Fresh ingredients and amazing presentation."</p>
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-sushi-red rounded-full flex items-center justify-center text-white font-bold">S</div>
+                        <div class="w-10 h-10 bg-sushi-red rounded-full flex items-center justify-center text-white font-bold" data-config-selector="testimonial-1-initial">S</div>
                         <div class="ml-3">
-                            <p class="font-semibold text-sushi-dark">Sarah Johnson</p>
-                            <p class="text-sm text-gray-500">Food Blogger</p>
+                            <p class="font-semibold text-sushi-dark" data-config-selector="testimonial-1-name">Sarah Johnson</p>
+                            <p class="text-sm text-gray-500" data-config-selector="testimonial-1-role">Food Blogger</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <div class="bg-white rounded-2xl p-8 shadow-lg" data-config-selector="testimonial-2">
                     <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400">
+                        <div class="flex text-yellow-400" data-config-selector="testimonial-2-rating">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
@@ -255,20 +255,20 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">"Authentic Japanese flavors with a modern twist. The Bento Box is perfect for lunch, and the service is exceptional."</p>
+                    <p class="text-gray-600 mb-4" data-config-selector="testimonial-2-content">"Authentic Japanese flavors with a modern twist. The Bento Box is perfect for lunch, and the service is exceptional."</p>
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-sushi-red rounded-full flex items-center justify-center text-white font-bold">M</div>
+                        <div class="w-10 h-10 bg-sushi-red rounded-full flex items-center justify-center text-white font-bold" data-config-selector="testimonial-2-initial">M</div>
                         <div class="ml-3">
-                            <p class="font-semibold text-sushi-dark">Michael Chen</p>
-                            <p class="text-sm text-gray-500">Regular Customer</p>
+                            <p class="font-semibold text-sushi-dark" data-config-selector="testimonial-2-name">Michael Chen</p>
+                            <p class="text-sm text-gray-500" data-config-selector="testimonial-2-role">Regular Customer</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <div class="bg-white rounded-2xl p-8 shadow-lg" data-config-selector="testimonial-3">
                     <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400">
+                        <div class="flex text-yellow-400" data-config-selector="testimonial-3-rating">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
@@ -289,12 +289,12 @@
                             </svg>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">"The Ramen Bowl is absolutely divine! Rich broth, perfect noodles, and the atmosphere is so cozy and welcoming."</p>
+                    <p class="text-gray-600 mb-4" data-config-selector="testimonial-3-content">"The Ramen Bowl is absolutely divine! Rich broth, perfect noodles, and the atmosphere is so cozy and welcoming."</p>
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-sushi-red rounded-full flex items-center justify-center text-white font-bold">E</div>
+                        <div class="w-10 h-10 bg-sushi-red rounded-full flex items-center justify-center text-white font-bold" data-config-selector="testimonial-3-initial">E</div>
                         <div class="ml-3">
-                            <p class="font-semibold text-sushi-dark">Emma Rodriguez</p>
-                            <p class="text-sm text-gray-500">First-time Visitor</p>
+                            <p class="font-semibold text-sushi-dark" data-config-selector="testimonial-3-name">Emma Rodriguez</p>
+                            <p class="text-sm text-gray-500" data-config-selector="testimonial-3-role">First-time Visitor</p>
                         </div>
                     </div>
                 </div>
@@ -306,8 +306,8 @@
     <section id="contact" class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-sushi-dark mb-6">Visit Us Today</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-sushi-dark mb-6" data-config-selector="contact-title">Visit Us Today</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-config-selector="contact-subtitle">
                     Make a reservation or stop by for an unforgettable dining experience
                 </p>
             </div>
@@ -326,8 +326,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-sushi-dark">Address</p>
-                                    <p class="text-gray-600">123 Cherry Blossom Lane<br>Downtown District, City</p>
+                                    <p class="font-semibold text-sushi-dark" data-config-selector="contact-address-label">Address</p>
+                                    <p class="text-gray-600" data-config-selector="contact-address-value">123 Cherry Blossom Lane<br>Downtown District, City</p>
                                 </div>
                             </div>
                             
@@ -338,8 +338,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-sushi-dark">Phone</p>
-                                    <p class="text-gray-600">(555) 123-4567</p>
+                                    <p class="font-semibold text-sushi-dark" data-config-selector="contact-phone-label">Phone</p>
+                                    <p class="text-gray-600" data-config-selector="contact-phone-value">(555) 123-4567</p>
                                 </div>
                             </div>
                             
@@ -350,8 +350,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-sushi-dark">Email</p>
-                                    <p class="text-gray-600">info@sakurasushi.com</p>
+                                    <p class="font-semibold text-sushi-dark" data-config-selector="contact-email-label">Email</p>
+                                    <p class="text-gray-600" data-config-selector="contact-email-value">info@sakurasushi.com</p>
                                 </div>
                             </div>
                             
@@ -362,8 +362,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-sushi-dark">Hours</p>
-                                    <p class="text-gray-600">Mon-Sat: 11:00 AM - 10:00 PM<br>Sunday: 12:00 PM - 9:00 PM</p>
+                                    <p class="font-semibold text-sushi-dark" data-config-selector="contact-hours-label">Hours</p>
+                                    <p class="text-gray-600" data-config-selector="contact-hours-value">Mon-Sat: 11:00 AM - 10:00 PM<br>Sunday: 12:00 PM - 9:00 PM</p>
                                 </div>
                             </div>
                         </div>
@@ -372,7 +372,7 @@
                 
                 <!-- Reservation Form -->
                 <div class="bg-sushi-light rounded-2xl p-8">
-                    <h3 class="text-2xl font-bold text-sushi-dark mb-6">Make a Reservation</h3>
+                    <h3 class="text-2xl font-bold text-sushi-dark mb-6" data-config-selector="reservation-title">Make a Reservation</h3>
                     <form class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -445,11 +445,11 @@
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center space-x-2 mb-4">
                         <div class="w-8 h-8 bg-sushi-red rounded-full flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">🍣</span>
+                            <span class="text-white font-bold text-sm" data-config-selector="footer-logo">🍣</span>
                         </div>
-                        <span class="text-xl font-bold">Sakura Sushi</span>
+                        <span class="text-xl font-bold" data-config-selector="footer-brand">Sakura Sushi</span>
                     </div>
-                    <p class="text-gray-300 mb-4 max-w-md">
+                    <p class="text-gray-300 mb-4 max-w-md" data-config-selector="footer-description">
                         Experience the authentic taste of Japan with our master chefs. Fresh ingredients, traditional techniques, and modern presentation in every dish.
                     </p>
                     <div class="flex space-x-4">
@@ -484,20 +484,119 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Hours</h4>
                     <ul class="space-y-2 text-gray-300">
-                        <li>Mon-Sat: 11:00 AM - 10:00 PM</li>
-                        <li>Sunday: 12:00 PM - 9:00 PM</li>
+                        <li data-config-selector="footer-hours-weekdays">Mon-Sat: 11:00 AM - 10:00 PM</li>
+                        <li data-config-selector="footer-hours-sunday">Sunday: 12:00 PM - 9:00 PM</li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-300">&copy; 2024 Sakura Sushi. All rights reserved.</p>
+                <p class="text-gray-300" data-config-selector="footer-copyright">&copy; 2024 Sakura Sushi. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
+        // Load site configuration
+        async function loadSiteConfig() {
+            try {
+                const response = await fetch('site-config.json');
+                const config = await response.json();
+                applySiteConfig(config);
+            } catch (error) {
+                console.error('Error loading site configuration:', error);
+            }
+        }
+
+        // Apply site configuration to the page
+        function applySiteConfig(config) {
+            // Site title
+            document.querySelector('[data-config-selector="site-title"]').textContent = config.site.title;
+            document.querySelector('[data-config-selector="site-logo"]').textContent = config.site.logo;
+            document.querySelector('[data-config-selector="site-brand"]').textContent = config.site.brand;
+            document.querySelector('[data-config-selector="footer-logo"]').textContent = config.site.logo;
+            document.querySelector('[data-config-selector="footer-brand"]').textContent = config.site.brand;
+
+            // Navigation
+            config.navigation.items.forEach((item, index) => {
+                const desktopLink = document.querySelector(`[data-config-selector="navigation-item-${index + 1}"]`);
+                const mobileLink = document.querySelector(`[data-config-selector="mobile-navigation-item-${index + 1}"]`);
+                if (desktopLink) {
+                    desktopLink.textContent = item.text;
+                    desktopLink.href = item.href;
+                }
+                if (mobileLink) {
+                    mobileLink.textContent = item.text;
+                    mobileLink.href = item.href;
+                }
+            });
+
+            // Hero section
+            const heroTitle = document.querySelector('[data-config-selector="hero-title"]');
+            if (heroTitle) {
+                heroTitle.innerHTML = `Experience <span class="text-sushi-red" data-config-selector="hero-title-highlight">${config.hero.titleHighlight}</span> Japanese Cuisine`;
+            }
+            document.querySelector('[data-config-selector="hero-subtitle"]').textContent = config.hero.subtitle;
+            
+            config.hero.buttons.forEach((button, index) => {
+                const buttonElement = document.querySelector(`[data-config-selector="hero-button-${index + 1}"]`);
+                if (buttonElement) {
+                    buttonElement.textContent = button.text;
+                    buttonElement.href = button.href;
+                }
+            });
+
+            // Gallery section
+            document.querySelector('[data-config-selector="gallery-title"]').textContent = config.gallery.title;
+            document.querySelector('[data-config-selector="gallery-subtitle"]').textContent = config.gallery.subtitle;
+
+            config.gallery.items.forEach((item, index) => {
+                const itemIndex = index + 1;
+                document.querySelector(`[data-config-selector="gallery-item-${itemIndex}-name"]`).textContent = item.name;
+                document.querySelector(`[data-config-selector="gallery-item-${itemIndex}-description"]`).textContent = item.description;
+                document.querySelector(`[data-config-selector="gallery-item-${itemIndex}-price"]`).textContent = item.price;
+                document.querySelector(`[data-config-selector="gallery-item-${itemIndex}-tag"]`).textContent = item.tag;
+                document.querySelector(`[data-config-selector="gallery-item-${itemIndex}-emoji"]`).textContent = item.emoji;
+            });
+
+            // Testimonials section
+            document.querySelector('[data-config-selector="testimonials-title"]').textContent = config.testimonials.title;
+            document.querySelector('[data-config-selector="testimonials-subtitle"]').textContent = config.testimonials.subtitle;
+
+            config.testimonials.items.forEach((testimonial, index) => {
+                const itemIndex = index + 1;
+                document.querySelector(`[data-config-selector="testimonial-${itemIndex}-content"]`).textContent = `"${testimonial.content}"`;
+                document.querySelector(`[data-config-selector="testimonial-${itemIndex}-name"]`).textContent = testimonial.name;
+                document.querySelector(`[data-config-selector="testimonial-${itemIndex}-role"]`).textContent = testimonial.role;
+                document.querySelector(`[data-config-selector="testimonial-${itemIndex}-initial"]`).textContent = testimonial.initial;
+            });
+
+            // Contact section
+            document.querySelector('[data-config-selector="contact-title"]').textContent = config.contact.title;
+            document.querySelector('[data-config-selector="contact-subtitle"]').textContent = config.contact.subtitle;
+            document.querySelector('[data-config-selector="reservation-title"]').textContent = config.contact.reservation.title;
+
+            // Contact info
+            document.querySelector('[data-config-selector="contact-address-label"]').textContent = config.contact.info.address.label;
+            document.querySelector('[data-config-selector="contact-address-value"]').innerHTML = config.contact.info.address.value.replace('\n', '<br>');
+            document.querySelector('[data-config-selector="contact-phone-label"]').textContent = config.contact.info.phone.label;
+            document.querySelector('[data-config-selector="contact-phone-value"]').textContent = config.contact.info.phone.value;
+            document.querySelector('[data-config-selector="contact-email-label"]').textContent = config.contact.info.email.label;
+            document.querySelector('[data-config-selector="contact-email-value"]').textContent = config.contact.info.email.value;
+            document.querySelector('[data-config-selector="contact-hours-label"]').textContent = config.contact.info.hours.label;
+            document.querySelector('[data-config-selector="contact-hours-value"]').innerHTML = config.contact.info.hours.value.replace('\n', '<br>');
+
+            // Footer
+            document.querySelector('[data-config-selector="footer-description"]').textContent = config.footer.description;
+            document.querySelector('[data-config-selector="footer-hours-weekdays"]').textContent = config.footer.hours.weekdays;
+            document.querySelector('[data-config-selector="footer-hours-sunday"]').textContent = config.footer.hours.sunday;
+            document.querySelector('[data-config-selector="footer-copyright"]').textContent = config.footer.copyright;
+        }
+
+        // Load configuration when page loads
+        document.addEventListener('DOMContentLoaded', loadSiteConfig);
+
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');

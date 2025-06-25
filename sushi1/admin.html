@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakura Sushi - Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sushi-red': '#DC2626',
+                        'sushi-dark': '#1F2937',
+                        'sushi-light': '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-sushi-red rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">🍣</span>
+                    </div>
+                    <h1 class="text-xl font-bold text-sushi-dark">Sakura Sushi Admin</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="preview-btn" class="bg-sushi-red text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        Preview Site
+                    </button>
+                    <button id="save-btn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-80 bg-white shadow-sm border-r">
+            <nav class="p-6">
+                <ul class="space-y-2">
+                    <li>
+                        <button class="nav-tab w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="site">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                </svg>
+                                <span>Site Settings</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-tab w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="navigation">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                </svg>
+                                <span>Navigation</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-tab w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="hero">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                <span>Hero Section</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-tab w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="gallery">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Menu Items</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-tab w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="testimonials">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                </svg>
+                                <span>Testimonials</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-tab w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="contact">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Contact Info</span>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <!-- Site Settings Tab -->
+            <div id="site-tab" class="tab-content">
+                <h2 class="text-2xl font-bold text-sushi-dark mb-6">Site Settings</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6 space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Site Title</label>
+                        <input type="text" id="site-title" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Logo Emoji</label>
+                        <input type="text" id="site-logo" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent" placeholder="🍣">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Brand Name</label>
+                        <input type="text" id="site-brand" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tab -->
+            <div id="navigation-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-sushi-dark mb-6">Navigation Menu</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div id="navigation-items" class="space-y-4">
+                        <!-- Navigation items will be loaded here -->
+                    </div>
+                    <button id="add-nav-item" class="mt-4 bg-sushi-red text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        Add Navigation Item
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Section Tab -->
+            <div id="hero-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-sushi-dark mb-6">Hero Section</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6 space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Title Highlight</label>
+                        <input type="text" id="hero-title-highlight" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Subtitle</label>
+                        <textarea id="hero-subtitle" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Primary Button</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" id="hero-button-1-text" placeholder="Button Text" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                            <input type="text" id="hero-button-1-href" placeholder="Button Link" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Secondary Button</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" id="hero-button-2-text" placeholder="Button Text" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                            <input type="text" id="hero-button-2-href" placeholder="Button Link" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Tab -->
+            <div id="gallery-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-sushi-dark mb-6">Menu Items</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div id="gallery-items" class="space-y-6">
+                        <!-- Gallery items will be loaded here -->
+                    </div>
+                    <button id="add-gallery-item" class="mt-6 bg-sushi-red text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        Add Menu Item
+                    </button>
+                </div>
+            </div>
+
+            <!-- Testimonials Tab -->
+            <div id="testimonials-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-sushi-dark mb-6">Testimonials</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
+                        <input type="text" id="testimonials-title" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Subtitle</label>
+                        <input type="text" id="testimonials-subtitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div id="testimonial-items" class="space-y-6">
+                        <!-- Testimonial items will be loaded here -->
+                    </div>
+                    <button id="add-testimonial" class="mt-6 bg-sushi-red text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        Add Testimonial
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contact Tab -->
+            <div id="contact-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-sushi-dark mb-6">Contact Information</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6 space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
+                        <input type="text" id="contact-title" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Subtitle</label>
+                        <input type="text" id="contact-subtitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                        <textarea id="contact-address" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                        <input type="text" id="contact-phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="contact-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Hours</label>
+                        <textarea id="contact-hours" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent"></textarea>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Templates -->
+    <template id="nav-item-template">
+        <div class="nav-item border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-medium">Navigation Item</h3>
+                <button class="remove-nav-item text-red-600 hover:text-red-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Text</label>
+                    <input type="text" class="nav-text w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Link</label>
+                    <input type="text" class="nav-href w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="gallery-item-template">
+        <div class="gallery-item border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-medium">Menu Item</h3>
+                <button class="remove-gallery-item text-red-600 hover:text-red-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input type="text" class="gallery-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                    <input type="text" class="gallery-price w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Emoji</label>
+                    <input type="text" class="gallery-emoji w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tag</label>
+                    <input type="text" class="gallery-tag w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea class="gallery-description w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent" rows="2"></textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="testimonial-template">
+        <div class="testimonial-item border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-medium">Testimonial</h3>
+                <button class="remove-testimonial text-red-600 hover:text-red-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input type="text" class="testimonial-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                    <input type="text" class="testimonial-role w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Initial</label>
+                    <input type="text" class="testimonial-initial w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                    <select class="testimonial-rating w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <textarea class="testimonial-content w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sushi-red focus:border-transparent" rows="3"></textarea>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        let siteConfig = {};
+
+        // Load configuration
+        async function loadConfig() {
+            try {
+                const response = await fetch('site-config.json');
+                siteConfig = await response.json();
+                populateForm();
+            } catch (error) {
+                console.error('Error loading configuration:', error);
+            }
+        }
+
+        // Populate form with current configuration
+        function populateForm() {
+            // Site settings
+            document.getElementById('site-title').value = siteConfig.site.title;
+            document.getElementById('site-logo').value = siteConfig.site.logo;
+            document.getElementById('site-brand').value = siteConfig.site.brand;
+
+            // Hero section
+            document.getElementById('hero-title-highlight').value = siteConfig.hero.titleHighlight;
+            document.getElementById('hero-subtitle').value = siteConfig.hero.subtitle;
+            document.getElementById('hero-button-1-text').value = siteConfig.hero.buttons[0].text;
+            document.getElementById('hero-button-1-href').value = siteConfig.hero.buttons[0].href;
+            document.getElementById('hero-button-2-text').value = siteConfig.hero.buttons[1].text;
+            document.getElementById('hero-button-2-href').value = siteConfig.hero.buttons[1].href;
+
+            // Gallery section
+            document.getElementById('gallery-title').value = siteConfig.gallery.title;
+            document.getElementById('gallery-subtitle').value = siteConfig.gallery.subtitle;
+            populateGalleryItems();
+
+            // Testimonials section
+            document.getElementById('testimonials-title').value = siteConfig.testimonials.title;
+            document.getElementById('testimonials-subtitle').value = siteConfig.testimonials.subtitle;
+            populateTestimonials();
+
+            // Contact section
+            document.getElementById('contact-title').value = siteConfig.contact.title;
+            document.getElementById('contact-subtitle').value = siteConfig.contact.subtitle;
+            document.getElementById('contact-address').value = siteConfig.contact.info.address.value;
+            document.getElementById('contact-phone').value = siteConfig.contact.info.phone.value;
+            document.getElementById('contact-email').value = siteConfig.contact.info.email.value;
+            document.getElementById('contact-hours').value = siteConfig.contact.info.hours.value;
+
+            // Navigation
+            populateNavigation();
+        }
+
+        // Populate navigation items
+        function populateNavigation() {
+            const container = document.getElementById('navigation-items');
+            container.innerHTML = '';
+            
+            siteConfig.navigation.items.forEach((item, index) => {
+                const template = document.getElementById('nav-item-template');
+                const clone = template.content.cloneNode(true);
+                
+                clone.querySelector('.nav-text').value = item.text;
+                clone.querySelector('.nav-href').value = item.href;
+                
+                clone.querySelector('.remove-nav-item').addEventListener('click', () => {
+                    siteConfig.navigation.items.splice(index, 1);
+                    populateNavigation();
+                });
+                
+                container.appendChild(clone);
+            });
+        }
+
+        // Populate gallery items
+        function populateGalleryItems() {
+            const container = document.getElementById('gallery-items');
+            container.innerHTML = '';
+            
+            siteConfig.gallery.items.forEach((item, index) => {
+                const template = document.getElementById('gallery-item-template');
+                const clone = template.content.cloneNode(true);
+                
+                clone.querySelector('.gallery-name').value = item.name;
+                clone.querySelector('.gallery-description').value = item.description;
+                clone.querySelector('.gallery-price').value = item.price;
+                clone.querySelector('.gallery-tag').value = item.tag;
+                clone.querySelector('.gallery-emoji').value = item.emoji;
+                
+                clone.querySelector('.remove-gallery-item').addEventListener('click', () => {
+                    siteConfig.gallery.items.splice(index, 1);
+                    populateGalleryItems();
+                });
+                
+                container.appendChild(clone);
+            });
+        }
+
+        // Populate testimonials
+        function populateTestimonials() {
+            const container = document.getElementById('testimonial-items');
+            container.innerHTML = '';
+            
+            siteConfig.testimonials.items.forEach((item, index) => {
+                const template = document.getElementById('testimonial-template');
+                const clone = template.content.cloneNode(true);
+                
+                clone.querySelector('.testimonial-name').value = item.name;
+                clone.querySelector('.testimonial-role').value = item.role;
+                clone.querySelector('.testimonial-content').value = item.content;
+                clone.querySelector('.testimonial-initial').value = item.initial;
+                clone.querySelector('.testimonial-rating').value = item.rating;
+                
+                clone.querySelector('.remove-testimonial').addEventListener('click', () => {
+                    siteConfig.testimonials.items.splice(index, 1);
+                    populateTestimonials();
+                });
+                
+                container.appendChild(clone);
+            });
+        }
+
+        // Tab navigation
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('bg-gray-100');
+                });
+                
+                // Show target tab content
+                document.getElementById(`${targetTab}-tab`).classList.remove('hidden');
+                tab.classList.add('bg-gray-100');
+            });
+        });
+
+        // Add navigation item
+        document.getElementById('add-nav-item').addEventListener('click', () => {
+            siteConfig.navigation.items.push({
+                id: 'new-item',
+                text: 'New Item',
+                href: '#'
+            });
+            populateNavigation();
+        });
+
+        // Add gallery item
+        document.getElementById('add-gallery-item').addEventListener('click', () => {
+            siteConfig.gallery.items.push({
+                id: 'new-item',
+                name: 'New Item',
+                description: 'Description',
+                price: '$0',
+                tag: 'New',
+                emoji: '🍽️',
+                color: 'gray'
+            });
+            populateGalleryItems();
+        });
+
+        // Add testimonial
+        document.getElementById('add-testimonial').addEventListener('click', () => {
+            siteConfig.testimonials.items.push({
+                id: 'new-testimonial',
+                name: 'New Customer',
+                role: 'Customer',
+                content: 'Great experience!',
+                rating: 5,
+                initial: 'N'
+            });
+            populateTestimonials();
+        });
+
+        // Save configuration
+        async function saveConfig() {
+            // Update configuration from form values
+            updateConfigFromForm();
+            
+            try {
+                const response = await fetch('save-config.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(siteConfig)
+                });
+                
+                if (response.ok) {
+                    alert('Configuration saved successfully!');
+                } else {
+                    alert('Error saving configuration');
+                }
+            } catch (error) {
+                console.error('Error saving configuration:', error);
+                alert('Error saving configuration');
+            }
+        }
+
+        // Update configuration from form values
+        function updateConfigFromForm() {
+            // Site settings
+            siteConfig.site.title = document.getElementById('site-title').value;
+            siteConfig.site.logo = document.getElementById('site-logo').value;
+            siteConfig.site.brand = document.getElementById('site-brand').value;
+
+            // Hero section
+            siteConfig.hero.titleHighlight = document.getElementById('hero-title-highlight').value;
+            siteConfig.hero.subtitle = document.getElementById('hero-subtitle').value;
+            siteConfig.hero.buttons[0].text = document.getElementById('hero-button-1-text').value;
+            siteConfig.hero.buttons[0].href = document.getElementById('hero-button-1-href').value;
+            siteConfig.hero.buttons[1].text = document.getElementById('hero-button-2-text').value;
+            siteConfig.hero.buttons[1].href = document.getElementById('hero-button-2-href').value;
+
+            // Gallery section
+            siteConfig.gallery.title = document.getElementById('gallery-title').value;
+            siteConfig.gallery.subtitle = document.getElementById('gallery-subtitle').value;
+            
+            // Update gallery items from form
+            const galleryItems = [];
+            document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                galleryItems.push({
+                    id: siteConfig.gallery.items[index]?.id || `item-${index}`,
+                    name: item.querySelector('.gallery-name').value,
+                    description: item.querySelector('.gallery-description').value,
+                    price: item.querySelector('.gallery-price').value,
+                    tag: item.querySelector('.gallery-tag').value,
+                    emoji: item.querySelector('.gallery-emoji').value,
+                    color: siteConfig.gallery.items[index]?.color || 'gray'
+                });
+            });
+            siteConfig.gallery.items = galleryItems;
+
+            // Testimonials section
+            siteConfig.testimonials.title = document.getElementById('testimonials-title').value;
+            siteConfig.testimonials.subtitle = document.getElementById('testimonials-subtitle').value;
+            
+            // Update testimonials from form
+            const testimonialItems = [];
+            document.querySelectorAll('.testimonial-item').forEach((item, index) => {
+                testimonialItems.push({
+                    id: siteConfig.testimonials.items[index]?.id || `testimonial-${index}`,
+                    name: item.querySelector('.testimonial-name').value,
+                    role: item.querySelector('.testimonial-role').value,
+                    content: item.querySelector('.testimonial-content').value,
+                    initial: item.querySelector('.testimonial-initial').value,
+                    rating: parseInt(item.querySelector('.testimonial-rating').value)
+                });
+            });
+            siteConfig.testimonials.items = testimonialItems;
+
+            // Contact section
+            siteConfig.contact.title = document.getElementById('contact-title').value;
+            siteConfig.contact.subtitle = document.getElementById('contact-subtitle').value;
+            siteConfig.contact.info.address.value = document.getElementById('contact-address').value;
+            siteConfig.contact.info.phone.value = document.getElementById('contact-phone').value;
+            siteConfig.contact.info.email.value = document.getElementById('contact-email').value;
+            siteConfig.contact.info.hours.value = document.getElementById('contact-hours').value;
+
+            // Navigation
+            const navItems = [];
+            document.querySelectorAll('.nav-item').forEach((item, index) => {
+                navItems.push({
+                    id: siteConfig.navigation.items[index]?.id || `nav-${index}`,
+                    text: item.querySelector('.nav-text').value,
+                    href: item.querySelector('.nav-href').value
+                });
+            });
+            siteConfig.navigation.items = navItems;
+        }
+
+        // Event listeners
+        document.getElementById('save-btn').addEventListener('click', saveConfig);
+        document.getElementById('preview-btn').addEventListener('click', () => {
+            window.open('index.html', '_blank');
+        });
+
+        // Load configuration on page load
+        document.addEventListener('DOMContentLoaded', loadConfig);
+    </script>
+</body>
+</html> 

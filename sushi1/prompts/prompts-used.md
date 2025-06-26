@@ -3,7 +3,7 @@
 ## RAW
 
 ```text
-Create a single page website using HTML, js, css tailwind. The website is for a sushi restaurant. I want a modern design with big white spaces. Make the website responsive. Include at least the following sections: header, hero section, gallery of Sushi (it is the menu of the restaurant), contact page with opening hours. The header should be sticky when scrolling to the bottom.
+Create a single page website using HTML, js, css tailwind. The website is for a sushi restaurant. I want a modern design with big white spaces. Make the website responsive. Include at least the following sections: header, hero section, gallery of Sushi (it is the menu of the restaurant, in grid form), testimonies, contact page with opening hours. The header should be sticky when scrolling to the bottom. 
 ```
 
 ```text

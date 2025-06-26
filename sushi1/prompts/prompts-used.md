@@ -3,6 +3,10 @@
 ## RAW
 
 ```text
+Create a single page website using HTML, js, css tailwind. The website is for a sushi restaurant. I want a modern design with big white spaces. Make the website responsive. Include at least the following sections: header, hero section, gallery of Sushi (it is the menu of the restaurant), contact page with opening hours. The header should be sticky when scrolling to the bottom.
+```
+
+```text
 i want to create an admin.html page that will be used to edit the data of index.html
 for example the website has a navigation with 'hero, gallery, etc...'. i want to keep them in the index.html and add their value to a site-config.json 
 Then the admin.html will read this json and can edit it, like the interface for a wordpress theme. to save the json use a php file save-config.php that will be called with ajax.

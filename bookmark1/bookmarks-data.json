@@ -12,8 +12,8 @@
                 "git"
             ],
             "favorite": true,
-            "createdAt": "2025-08-03T02:00:04.921Z",
-            "updatedAt": "2025-08-03T02:00:04.921Z"
+            "createdAt": "2025-08-03T02:21:25.660Z",
+            "updatedAt": "2025-08-03T02:21:25.660Z"
         },
         {
             "id": "2",
@@ -27,8 +27,8 @@
                 "community"
             ],
             "favorite": false,
-            "createdAt": "2025-08-02T02:00:04.921Z",
-            "updatedAt": "2025-08-02T02:00:04.921Z"
+            "createdAt": "2025-08-02T02:21:25.660Z",
+            "updatedAt": "2025-08-02T02:21:25.660Z"
         },
         {
             "id": "3",
@@ -42,8 +42,53 @@
                 "learning"
             ],
             "favorite": true,
-            "createdAt": "2025-08-01T02:00:04.921Z",
-            "updatedAt": "2025-08-01T02:00:04.921Z"
+            "createdAt": "2025-08-01T02:21:25.660Z",
+            "updatedAt": "2025-08-01T02:21:25.660Z"
+        },
+        {
+            "id": "4",
+            "title": "How to Install and Dual Boot Linux on a Mac",
+            "url": "https:\/\/howtogeek.com\/linux-mac-dual-boot",
+            "description": "Installing Windows on your Mac is easy with Boot Camp, but Boot Camp won't help you install Linux. You'll have to get creative.",
+            "collectionId": null,
+            "tags": [
+                "macos",
+                "tutorial",
+                "linux"
+            ],
+            "favorite": false,
+            "createdAt": "2025-07-31T02:21:25.660Z",
+            "updatedAt": "2025-07-31T02:21:25.660Z"
+        },
+        {
+            "id": "5",
+            "title": "MongoDB Hosting: Database-as-a-Service by mLab",
+            "url": "https:\/\/mlab.com",
+            "description": "mLab is the largest cloud MongoDB service, hosting over 900,000 deployments worldwide on AWS, Azure, and Google Cloud.",
+            "collectionId": null,
+            "tags": [
+                "mongodb",
+                "database",
+                "cloud"
+            ],
+            "favorite": true,
+            "createdAt": "2025-07-30T02:21:25.660Z",
+            "updatedAt": "2025-07-30T02:21:25.660Z"
+        },
+        {
+            "id": "6",
+            "title": "Upgrading New 2014\/2015 Mac Mini to SSD (Solid State Drive)",
+            "url": "https:\/\/youtube.com\/watch?v=mac-mini-ssd-upgrade",
+            "description": "Taking apart the new late 2014 Mac Mini to replace the hard drive. The HDD is still a removable SATA drive. Replaced with Samsung 850 EVO SSD.",
+            "collectionId": null,
+            "tags": [
+                "macos",
+                "tutorial",
+                "hardware"
+            ],
+            "favorite": false,
+            "createdAt": "2025-07-29T02:21:25.660Z",
+            "updatedAt": "2025-07-29T02:21:25.660Z"
         }
     ],
     "collections": [
@@ -51,14 +96,20 @@
             "id": "1",
             "name": "Development",
             "description": "Web development resources and tools",
-            "createdAt": "2025-08-04T02:00:04.921Z"
+            "createdAt": "2025-08-04T02:21:25.660Z"
         },
         {
             "id": "2",
             "name": "Design",
             "description": "Design inspiration and resources",
-            "createdAt": "2025-08-04T02:00:04.921Z"
+            "createdAt": "2025-08-04T02:21:25.660Z"
+        },
+        {
+            "id": "3",
+            "name": "Tutorials",
+            "description": "Step-by-step guides and tutorials",
+            "createdAt": "2025-08-04T02:21:25.660Z"
         }
     ],
-    "lastUpdated": "2025-08-04T02:00:04+00:00"
+    "lastUpdated": "2025-08-04T02:21:25+00:00"
 }

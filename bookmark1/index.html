@@ -14,6 +14,21 @@
                     fontFamily: {
                         'inter': ['Inter', 'sans-serif'],
                     },
+                    colors: {
+                        'dark': {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    },
                     spacing: {
                         '18': '4.5rem',
                         '88': '22rem',
@@ -23,109 +38,254 @@
             }
         }
     </script>
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .bookmark-thumbnail {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .bookmark-card {
+            position: relative;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-inter">
+<body class="bg-dark-950 text-gray-100 font-inter">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
-        <aside class="w-80 bg-white border-r border-gray-200 hidden lg:block">
-            <div class="p-8">
-                <div class="mb-12">
-                    <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                        <i class="fas fa-bookmark text-blue-600"></i>
-                        Bookmarker
-                    </h1>
+        <aside class="w-80 bg-dark-900 border-r border-dark-700 hidden lg:block overflow-y-auto scrollbar-hide">
+            <div class="p-6">
+                <!-- User Account Section -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <span class="text-white font-semibold text-sm">A</span>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-medium">akdodji</h3>
+                                <p class="text-dark-400 text-xs">Free Account</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="p-2 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors">
+                                <i class="fas fa-sparkles text-sm"></i>
+                            </button>
+                            <button class="p-2 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors">
+                                <i class="fas fa-plus text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div class="relative mb-6">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-400 text-sm"></i>
+                        <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                    </div>
                 </div>
                 
-                <nav class="space-y-8">
+                <!-- Navigation -->
+                <nav class="space-y-6">
+                    <!-- Main Navigation -->
                     <div>
-                        <ul class="space-y-2">
+                        <ul class="space-y-1">
                             <li>
-                                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200 active" data-filter="all">
-                                    <i class="fas fa-home w-5"></i>
-                                    <span class="font-medium">All Bookmarks</span>
+                                <a href="#" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 active" data-filter="all">
+                                    <i class="fas fa-cloud w-4 text-sm"></i>
+                                    <span class="font-medium text-sm">All bookmarks</span>
+                                    <span class="ml-auto text-xs text-dark-400">4.6K</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="favorites">
-                                    <i class="fas fa-star w-5"></i>
-                                    <span class="font-medium">Favorites</span>
+                                <a href="#" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200" data-filter="unsorted">
+                                    <i class="fas fa-folder w-4 text-sm"></i>
+                                    <span class="font-medium text-sm">Unsorted</span>
+                                    <span class="ml-auto text-xs text-dark-400">102</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="recent">
-                                    <i class="fas fa-clock w-5"></i>
-                                    <span class="font-medium">Recent</span>
+                                <a href="#" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200" data-filter="favorites">
+                                    <i class="fas fa-star w-4 text-sm"></i>
+                                    <span class="font-medium text-sm">Favorites</span>
+                                    <span class="ml-auto text-xs text-dark-400">7</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     
+                    <!-- Collections Section -->
                     <div class="collections-section">
-                        <h3 class="text-sm font-semibold text-gray-900 mb-4 px-4">Collections</h3>
-                        <ul class="collections-list space-y-1 mb-6" id="collectionsList">
+                        <h3 class="text-xs font-semibold text-dark-400 uppercase tracking-wider mb-3 px-3">Collections</h3>
+                        <ul class="collections-list space-y-1 mb-4" id="collectionsList">
                             <!-- Collections will be dynamically added here -->
                         </ul>
-                        <button class="add-collection-btn w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors duration-200" id="addCollectionBtn">
-                            <i class="fas fa-plus w-5"></i>
+                        <button class="add-collection-btn w-full flex items-center gap-3 px-3 py-2 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors duration-200 text-sm" id="addCollectionBtn">
+                            <i class="fas fa-plus w-4"></i>
                             <span class="font-medium">New Collection</span>
                         </button>
                     </div>
+                    
+                    <!-- Filters Section -->
+                    <div class="filters-section">
+                        <h3 class="text-xs font-semibold text-dark-400 uppercase tracking-wider mb-3 px-3">Filters</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-heart w-4 text-sm"></i>
+                                    <span>Favorites</span>
+                                    <span class="ml-auto text-xs text-dark-400">7</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-sticky-note w-4 text-sm"></i>
+                                    <span>Notes</span>
+                                    <span class="ml-auto text-xs text-dark-400">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-highlighter w-4 text-sm"></i>
+                                    <span>Highlights</span>
+                                    <span class="ml-auto text-xs text-dark-400">3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-link w-4 text-sm"></i>
+                                    <span>Links</span>
+                                    <span class="ml-auto text-xs text-dark-400">3.7K</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-file-text w-4 text-sm"></i>
+                                    <span>Articles</span>
+                                    <span class="ml-auto text-xs text-dark-400">817</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-play w-4 text-sm"></i>
+                                    <span>Video</span>
+                                    <span class="ml-auto text-xs text-dark-400">68</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tags Section -->
+                    <div class="tags-section">
+                        <h3 class="text-xs font-semibold text-dark-400 uppercase tracking-wider mb-3 px-3">Tags (175)</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-hashtag w-4 text-sm"></i>
+                                    <span>AI</span>
+                                    <span class="ml-auto text-xs text-dark-400">99</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-hashtag w-4 text-sm"></i>
+                                    <span>Tutorial</span>
+                                    <span class="ml-auto text-xs text-dark-400">45</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                                    <i class="fas fa-hashtag w-4 text-sm"></i>
+                                    <span>Development</span>
+                                    <span class="ml-auto text-xs text-dark-400">32</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
+                
+                <!-- Upgrade Section -->
+                <div class="mt-8 p-4 bg-gradient-to-r from-purple-900/20 to-blue-900/20 rounded-lg border border-dark-700">
+                    <h4 class="text-sm font-medium text-white mb-2">Get the most out of Bookmarker</h4>
+                    <p class="text-xs text-dark-400 mb-3">Upgrade to PRO for advanced features</p>
+                    <button class="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+                        Upgrade to PRO
+                    </button>
+                </div>
             </div>
         </aside>
 
         <!-- Mobile Sidebar Toggle -->
         <div class="lg:hidden fixed top-4 left-4 z-50">
-            <button id="mobileMenuBtn" class="p-3 bg-white rounded-xl shadow-lg border border-gray-200">
-                <i class="fas fa-bars text-gray-700"></i>
+            <button id="mobileMenuBtn" class="p-3 bg-dark-800 rounded-xl shadow-lg border border-dark-700">
+                <i class="fas fa-bars text-white"></i>
             </button>
         </div>
 
         <!-- Mobile Sidebar -->
         <div id="mobileSidebar" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden">
-            <div class="fixed inset-y-0 left-0 w-80 bg-white shadow-xl">
-                <div class="p-8">
-                    <div class="flex items-center justify-between mb-12">
-                        <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                            <i class="fas fa-bookmark text-blue-600"></i>
+            <div class="fixed inset-y-0 left-0 w-80 bg-dark-900 shadow-xl overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-8">
+                        <h1 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fas fa-bookmark text-blue-500"></i>
                             Bookmarker
                         </h1>
-                        <button id="closeMobileMenu" class="p-2 text-gray-500 hover:text-gray-700">
+                        <button id="closeMobileMenu" class="p-2 text-dark-400 hover:text-white">
                             <i class="fas fa-times text-xl"></i>
                         </button>
                     </div>
                     
-                    <nav class="space-y-8">
+                    <!-- Mobile navigation content (same as desktop but with mobile-specific IDs) -->
+                    <nav class="space-y-6">
                         <div>
-                            <ul class="space-y-2">
+                            <ul class="space-y-1">
                                 <li>
-                                    <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200 active" data-filter="all">
-                                        <i class="fas fa-home w-5"></i>
-                                        <span class="font-medium">All Bookmarks</span>
+                                    <a href="#" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 active" data-filter="all">
+                                        <i class="fas fa-cloud w-4 text-sm"></i>
+                                        <span class="font-medium text-sm">All bookmarks</span>
+                                        <span class="ml-auto text-xs text-dark-400">4.6K</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="favorites">
-                                        <i class="fas fa-star w-5"></i>
-                                        <span class="font-medium">Favorites</span>
+                                    <a href="#" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200" data-filter="unsorted">
+                                        <i class="fas fa-folder w-4 text-sm"></i>
+                                        <span class="font-medium text-sm">Unsorted</span>
+                                        <span class="ml-auto text-xs text-dark-400">102</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="recent">
-                                        <i class="fas fa-clock w-5"></i>
-                                        <span class="font-medium">Recent</span>
+                                    <a href="#" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200" data-filter="favorites">
+                                        <i class="fas fa-star w-4 text-sm"></i>
+                                        <span class="font-medium text-sm">Favorites</span>
+                                        <span class="ml-auto text-xs text-dark-400">7</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         
                         <div class="collections-section">
-                            <h3 class="text-sm font-semibold text-gray-900 mb-4 px-4">Collections</h3>
-                            <ul class="collections-list space-y-1 mb-6" id="mobileCollectionsList">
+                            <h3 class="text-xs font-semibold text-dark-400 uppercase tracking-wider mb-3 px-3">Collections</h3>
+                            <ul class="collections-list space-y-1 mb-4" id="mobileCollectionsList">
                                 <!-- Collections will be dynamically added here -->
                             </ul>
-                            <button class="add-collection-btn w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors duration-200" id="mobileAddCollectionBtn">
-                                <i class="fas fa-plus w-5"></i>
+                            <button class="add-collection-btn w-full flex items-center gap-3 px-3 py-2 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors duration-200 text-sm" id="mobileAddCollectionBtn">
+                                <i class="fas fa-plus w-4"></i>
                                 <span class="font-medium">New Collection</span>
                             </button>
                         </div>
@@ -135,43 +295,57 @@
         </div>
 
         <!-- Main Content -->
-        <main class="flex-1 lg:ml-0">
+        <main class="flex-1 lg:ml-0 bg-dark-950">
             <!-- Header -->
-            <header class="bg-white border-b border-gray-200 px-6 py-8 lg:px-12">
-                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <header class="bg-dark-900 border-b border-dark-700 px-6 py-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div class="header-left">
-                        <h2 id="pageTitle" class="text-3xl font-bold text-gray-900 mb-2">All Bookmarks</h2>
-                        <span class="bookmark-count text-gray-600" id="bookmarkCount">0 bookmarks</span>
+                        <h2 id="pageTitle" class="text-2xl font-bold text-white mb-1">All Bookmarks</h2>
+                        <span class="bookmark-count text-dark-400 text-sm" id="bookmarkCount">0 bookmarks</span>
                     </div>
                     
                     <div class="header-right flex flex-col sm:flex-row gap-4">
                         <div class="search-container relative">
-                            <i class="fas fa-search search-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" id="searchInput" placeholder="Search bookmarks..." class="search-input w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                            <i class="fas fa-search search-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-400"></i>
+                            <input type="text" id="searchInput" placeholder="Q Search" class="search-input w-full pl-12 pr-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         </div>
                         
-                        <button class="add-bookmark-btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 flex items-center justify-center gap-2" id="addBookmarkBtn">
-                            <i class="fas fa-plus"></i>
-                            <span>Add Bookmark</span>
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <button class="p-3 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors" title="Manual">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <button class="p-3 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors" title="Cards">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="p-3 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors" title="Export">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="p-3 text-dark-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                            <button class="add-bookmark-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2" id="addBookmarkBtn">
+                                <i class="fas fa-plus"></i>
+                                <span>Add</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </header>
 
             <!-- Content Area -->
-            <div class="p-6 lg:p-12">
-                <div class="bookmarks-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="bookmarksGrid">
+            <div class="p-6 lg:p-8">
+                <div class="bookmarks-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6" id="bookmarksGrid">
                     <!-- Bookmarks will be dynamically added here -->
                 </div>
                 
                 <div class="empty-state hidden flex flex-col items-center justify-center py-24" id="emptyState">
                     <div class="empty-state-icon mb-8">
-                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-bookmark text-4xl text-gray-400"></i>
+                        <div class="w-24 h-24 bg-dark-800 rounded-full flex items-center justify-center">
+                            <i class="fas fa-bookmark text-4xl text-dark-400"></i>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">No bookmarks yet</h3>
-                    <p class="text-gray-600 text-center max-w-md mb-8">Start by adding your first bookmark to organize your web discoveries.</p>
+                    <h3 class="text-2xl font-bold text-white mb-4">No bookmarks yet</h3>
+                    <p class="text-dark-400 text-center max-w-md mb-8">Start by adding your first bookmark to organize your web discoveries.</p>
                     <button class="btn-primary bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-medium transition-colors duration-200 flex items-center gap-3" id="emptyStateAddBtn">
                         <i class="fas fa-plus"></i>
                         Add Your First Bookmark
@@ -183,44 +357,44 @@
 
     <!-- Add Bookmark Modal -->
     <div class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="addBookmarkModal">
-        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-2xl mx-4 my-8 lg:mx-auto lg:my-16 max-h-[90vh] overflow-y-auto">
-            <div class="modal-header p-8 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-2xl font-bold text-gray-900">Add New Bookmark</h3>
-                <button class="modal-close p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200" id="closeBookmarkModal">
+        <div class="modal-content bg-dark-900 rounded-2xl shadow-2xl max-w-2xl mx-4 my-8 lg:mx-auto lg:my-16 max-h-[90vh] overflow-y-auto border border-dark-700">
+            <div class="modal-header p-8 border-b border-dark-700 flex items-center justify-between">
+                <h3 class="text-2xl font-bold text-white">Add New Bookmark</h3>
+                <button class="modal-close p-2 text-dark-400 hover:text-white transition-colors duration-200" id="closeBookmarkModal">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
             
             <form id="addBookmarkForm" class="modal-form p-8 space-y-6">
                 <div class="form-group">
-                    <label for="bookmarkTitle" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                    <input type="text" id="bookmarkTitle" required placeholder="Enter bookmark title" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                    <label for="bookmarkTitle" class="block text-sm font-medium text-white mb-2">Title</label>
+                    <input type="text" id="bookmarkTitle" required placeholder="Enter bookmark title" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
                 </div>
                 
                 <div class="form-group">
-                    <label for="bookmarkUrl" class="block text-sm font-medium text-gray-700 mb-2">URL</label>
-                    <input type="url" id="bookmarkUrl" required placeholder="https://example.com" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                    <label for="bookmarkUrl" class="block text-sm font-medium text-white mb-2">URL</label>
+                    <input type="url" id="bookmarkUrl" required placeholder="https://example.com" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
                 </div>
                 
                 <div class="form-group">
-                    <label for="bookmarkDescription" class="block text-sm font-medium text-gray-700 mb-2">Description (optional)</label>
-                    <textarea id="bookmarkDescription" placeholder="Add a description..." rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none"></textarea>
+                    <label for="bookmarkDescription" class="block text-sm font-medium text-white mb-2">Description (optional)</label>
+                    <textarea id="bookmarkDescription" placeholder="Add a description..." rows="3" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none"></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="bookmarkCollection" class="block text-sm font-medium text-gray-700 mb-2">Collection</label>
-                    <select id="bookmarkCollection" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                    <label for="bookmarkCollection" class="block text-sm font-medium text-white mb-2">Collection</label>
+                    <select id="bookmarkCollection" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
                         <option value="">No collection</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="bookmarkTags" class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
-                    <input type="text" id="bookmarkTags" placeholder="work, inspiration, tutorial" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                    <label for="bookmarkTags" class="block text-sm font-medium text-white mb-2">Tags (comma separated)</label>
+                    <input type="text" id="bookmarkTags" placeholder="work, inspiration, tutorial" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
                 </div>
                 
                 <div class="form-actions flex gap-4 pt-6">
-                    <button type="button" class="btn-secondary flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200" id="cancelBookmarkBtn">Cancel</button>
+                    <button type="button" class="btn-secondary flex-1 px-6 py-3 border border-dark-600 text-white rounded-xl font-medium hover:bg-dark-800 transition-colors duration-200" id="cancelBookmarkBtn">Cancel</button>
                     <button type="submit" class="btn-primary flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200">Add Bookmark</button>
                 </div>
             </form>
@@ -229,27 +403,27 @@
 
     <!-- Add Collection Modal -->
     <div class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="addCollectionModal">
-        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-lg mx-4 my-8 lg:mx-auto lg:my-16">
-            <div class="modal-header p-8 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-2xl font-bold text-gray-900">Create New Collection</h3>
-                <button class="modal-close p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200" id="closeCollectionModal">
+        <div class="modal-content bg-dark-900 rounded-2xl shadow-2xl max-w-lg mx-4 my-8 lg:mx-auto lg:my-16 border border-dark-700">
+            <div class="modal-header p-8 border-b border-dark-700 flex items-center justify-between">
+                <h3 class="text-2xl font-bold text-white">Create New Collection</h3>
+                <button class="modal-close p-2 text-dark-400 hover:text-white transition-colors duration-200" id="closeCollectionModal">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
             
             <form id="addCollectionForm" class="modal-form p-8 space-y-6">
                 <div class="form-group">
-                    <label for="collectionName" class="block text-sm font-medium text-gray-700 mb-2">Collection Name</label>
-                    <input type="text" id="collectionName" required placeholder="Enter collection name" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                    <label for="collectionName" class="block text-sm font-medium text-white mb-2">Collection Name</label>
+                    <input type="text" id="collectionName" required placeholder="Enter collection name" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
                 </div>
                 
                 <div class="form-group">
-                    <label for="collectionDescription" class="block text-sm font-medium text-gray-700 mb-2">Description (optional)</label>
-                    <textarea id="collectionDescription" placeholder="Add a description..." rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none"></textarea>
+                    <label for="collectionDescription" class="block text-sm font-medium text-white mb-2">Description (optional)</label>
+                    <textarea id="collectionDescription" placeholder="Add a description..." rows="3" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none"></textarea>
                 </div>
                 
                 <div class="form-actions flex gap-4 pt-6">
-                    <button type="button" class="btn-secondary flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200" id="cancelCollectionBtn">Cancel</button>
+                    <button type="button" class="btn-secondary flex-1 px-6 py-3 border border-dark-600 text-white rounded-xl font-medium hover:bg-dark-800 transition-colors duration-200" id="cancelCollectionBtn">Cancel</button>
                     <button type="submit" class="btn-primary flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200">Create Collection</button>
                 </div>
             </form>

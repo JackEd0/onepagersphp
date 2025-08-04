@@ -2,6 +2,8 @@
 
 A beautiful, responsive bookmark manager built with Tailwind CSS and vanilla JavaScript. Features a modern design with big white spaces and JSON file storage.
 
+http://bookmark1.tld/
+
 ## Features
 
 - 🎨 **Modern Design**: Clean, minimalist interface with Tailwind CSS

@@ -179,21 +179,21 @@ class BookmarkManager {
     setActiveNav(activeLink) {
         // Update desktop navigation
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('bg-blue-50', 'text-blue-700');
-            link.classList.add('text-gray-700');
+            link.classList.remove('bg-blue-600/10', 'text-blue-400');
+            link.classList.add('text-dark-300');
         });
-        activeLink.classList.remove('text-gray-700');
-        activeLink.classList.add('bg-blue-50', 'text-blue-700');
+        activeLink.classList.remove('text-dark-300');
+        activeLink.classList.add('bg-blue-600/10', 'text-blue-400');
 
         // Update mobile navigation
         document.querySelectorAll('#mobileSidebar .nav-link').forEach(link => {
-            link.classList.remove('bg-blue-50', 'text-blue-700');
-            link.classList.add('text-gray-700');
+            link.classList.remove('bg-blue-600/10', 'text-blue-400');
+            link.classList.add('text-dark-300');
         });
         const mobileLink = document.querySelector(`#mobileSidebar .nav-link[data-filter="${activeLink.dataset.filter}"]`);
         if (mobileLink) {
-            mobileLink.classList.remove('text-gray-700');
-            mobileLink.classList.add('bg-blue-50', 'text-blue-700');
+            mobileLink.classList.remove('text-dark-300');
+            mobileLink.classList.add('bg-blue-600/10', 'text-blue-400');
         }
     }
 
@@ -341,6 +341,59 @@ class BookmarkManager {
         return filtered;
     }
 
+    getDomainFromUrl(url) {
+        try {
+            const domain = new URL(url).hostname.replace('www.', '');
+            return domain;
+        } catch {
+            return 'unknown';
+        }
+    }
+
+    getThumbnailColor(url) {
+        // Generate a consistent color based on the URL
+        let hash = 0;
+        for (let i = 0; i < url.length; i++) {
+            const char = url.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32-bit integer
+        }
+        
+        const colors = [
+            'from-blue-500 to-blue-600',
+            'from-purple-500 to-purple-600',
+            'from-green-500 to-green-600',
+            'from-red-500 to-red-600',
+            'from-yellow-500 to-yellow-600',
+            'from-pink-500 to-pink-600',
+            'from-indigo-500 to-indigo-600',
+            'from-teal-500 to-teal-600'
+        ];
+        
+        return colors[Math.abs(hash) % colors.length];
+    }
+
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) {
+            return 'Today';
+        } else if (diffDays === 2) {
+            return 'Yesterday';
+        } else if (diffDays <= 7) {
+            return `${diffDays - 1} days ago`;
+        } else {
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+            });
+        }
+    }
+
     renderBookmarks() {
         const bookmarksGrid = document.getElementById('bookmarksGrid');
         const filteredBookmarks = this.getFilteredBookmarks();
@@ -352,37 +405,53 @@ class BookmarkManager {
 
         bookmarksGrid.innerHTML = filteredBookmarks.map(bookmark => {
             const collection = this.collections.find(c => c.id === bookmark.collectionId);
-            const tagsHtml = bookmark.tags.map(tag => `<span class="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-lg mr-2 mb-2">${this.escapeHtml(tag)}</span>`).join('');
-            const date = new Date(bookmark.createdAt).toLocaleDateString();
+            const domain = this.getDomainFromUrl(bookmark.url);
+            const thumbnailColor = this.getThumbnailColor(bookmark.url);
+            const formattedDate = this.formatDate(bookmark.createdAt);
+            
+            const tagsHtml = bookmark.tags.map(tag => 
+                `<span class="inline-block bg-dark-700 text-dark-300 text-xs px-2 py-1 rounded-md mr-2 mb-2">#${this.escapeHtml(tag)}</span>`
+            ).join('');
             
             return `
-                <div class="bookmark-card bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200 ${bookmark.favorite ? 'ring-2 ring-yellow-200' : ''}" data-id="${bookmark.id}">
-                    <div class="bookmark-header flex items-start justify-between mb-4">
-                        <div class="bookmark-title flex-1">
-                            <h3 class="text-lg font-semibold text-gray-900 line-clamp-2 mb-2">${this.escapeHtml(bookmark.title)}</h3>
+                <div class="bookmark-card bg-dark-800 rounded-xl border border-dark-700 hover:border-dark-600 transition-all duration-200 overflow-hidden group ${bookmark.favorite ? 'ring-1 ring-yellow-500/30' : ''}" data-id="${bookmark.id}">
+                    <!-- Thumbnail -->
+                    <div class="bookmark-thumbnail h-32 bg-gradient-to-br ${thumbnailColor} relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-link text-white/80 text-2xl"></i>
                         </div>
-                        <div class="bookmark-actions flex gap-2 ml-4">
-                            <button class="action-btn p-2 text-gray-400 hover:text-yellow-500 transition-colors duration-200 ${bookmark.favorite ? 'text-yellow-500' : ''}" 
-                                    onclick="bookmarkManager.toggleFavorite('${bookmark.id}')" 
+                        <div class="absolute top-3 right-3 flex gap-1 z-10">
+                            <button class="action-btn p-1.5 text-white/60 hover:text-white hover:bg-black/20 rounded transition-colors duration-200 ${bookmark.favorite ? 'text-yellow-400' : ''}" 
+                                    onclick="event.stopPropagation(); bookmarkManager.toggleFavorite('${bookmark.id}')" 
                                     title="${bookmark.favorite ? 'Remove from favorites' : 'Add to favorites'}">
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star text-sm"></i>
                             </button>
-                            <button class="action-btn p-2 text-gray-400 hover:text-red-500 transition-colors duration-200" onclick="bookmarkManager.deleteBookmark('${bookmark.id}')" title="Delete bookmark">
-                                <i class="fas fa-trash"></i>
+                            <button class="action-btn p-1.5 text-white/60 hover:text-white hover:bg-black/20 rounded transition-colors duration-200" onclick="event.stopPropagation(); bookmarkManager.deleteBookmark('${bookmark.id}')" title="Delete bookmark">
+                                <i class="fas fa-trash text-sm"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="bookmark-url text-blue-600 hover:text-blue-800 cursor-pointer mb-3 text-sm truncate" onclick="window.open('${this.escapeHtml(bookmark.url)}', '_blank')" title="${this.escapeHtml(bookmark.url)}">
-                        ${this.escapeHtml(bookmark.url)}
-                    </div>
-                    ${bookmark.description ? `<div class="bookmark-description text-gray-600 text-sm mb-4 line-clamp-3">${this.escapeHtml(bookmark.description)}</div>` : ''}
-                    <div class="bookmark-meta">
-                        <div class="bookmark-tags mb-3">
-                            ${tagsHtml}
-                            ${collection ? `<span class="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-lg mr-2 mb-2">${this.escapeHtml(collection.name)}</span>` : ''}
+                    
+                    <!-- Content -->
+                    <div class="p-4">
+                        <div class="bookmark-header mb-3">
+                            <h3 class="text-white font-medium line-clamp-2 mb-2 text-sm leading-tight">${this.escapeHtml(bookmark.title)}</h3>
+                            <div class="text-dark-400 text-xs mb-2">${this.escapeHtml(domain)}</div>
                         </div>
-                        <div class="bookmark-date text-xs text-gray-500">${date}</div>
+                        
+                        ${bookmark.description ? `<div class="bookmark-description text-dark-300 text-xs mb-3 line-clamp-2">${this.escapeHtml(bookmark.description)}</div>` : ''}
+                        
+                        <div class="bookmark-meta">
+                            <div class="bookmark-tags mb-3">
+                                ${tagsHtml}
+                                ${collection ? `<span class="inline-block bg-blue-600/20 text-blue-400 text-xs px-2 py-1 rounded-md mr-2 mb-2">${this.escapeHtml(collection.name)}</span>` : ''}
+                            </div>
+                            <div class="bookmark-date text-xs text-dark-400">${formattedDate}</div>
+                        </div>
                     </div>
+                    
+                    <!-- Click overlay -->
+                    <div class="absolute inset-0 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200" onclick="window.open('${this.escapeHtml(bookmark.url)}', '_blank')"></div>
                 </div>
             `;
         }).join('');
@@ -394,15 +463,16 @@ class BookmarkManager {
         
         const renderList = (listElement) => {
             if (this.collections.length === 0) {
-                listElement.innerHTML = '<li class="text-gray-500 text-sm px-4 py-2">No collections yet</li>';
+                listElement.innerHTML = '<li class="text-dark-400 text-xs px-3 py-2">No collections yet</li>';
                 return;
             }
 
             listElement.innerHTML = this.collections.map(collection => `
                 <li class="collection-item" data-id="${collection.id}">
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                        <i class="fas fa-folder w-5 text-gray-400"></i>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 text-sm">
+                        <i class="fas fa-folder w-4 text-dark-400"></i>
                         <span class="font-medium">${this.escapeHtml(collection.name)}</span>
+                        <span class="ml-auto text-xs text-dark-400">${this.bookmarks.filter(b => b.collectionId === collection.id).length}</span>
                     </a>
                 </li>
             `).join('');
@@ -500,6 +570,39 @@ class BookmarkManager {
                     favorite: true,
                     createdAt: new Date(Date.now() - 259200000).toISOString(),
                     updatedAt: new Date(Date.now() - 259200000).toISOString()
+                },
+                {
+                    id: '4',
+                    title: 'How to Install and Dual Boot Linux on a Mac',
+                    url: 'https://howtogeek.com/linux-mac-dual-boot',
+                    description: 'Installing Windows on your Mac is easy with Boot Camp, but Boot Camp won\'t help you install Linux. You\'ll have to get creative.',
+                    collectionId: null,
+                    tags: ['macos', 'tutorial', 'linux'],
+                    favorite: false,
+                    createdAt: new Date(Date.now() - 345600000).toISOString(),
+                    updatedAt: new Date(Date.now() - 345600000).toISOString()
+                },
+                {
+                    id: '5',
+                    title: 'MongoDB Hosting: Database-as-a-Service by mLab',
+                    url: 'https://mlab.com',
+                    description: 'mLab is the largest cloud MongoDB service, hosting over 900,000 deployments worldwide on AWS, Azure, and Google Cloud.',
+                    collectionId: null,
+                    tags: ['mongodb', 'database', 'cloud'],
+                    favorite: true,
+                    createdAt: new Date(Date.now() - 432000000).toISOString(),
+                    updatedAt: new Date(Date.now() - 432000000).toISOString()
+                },
+                {
+                    id: '6',
+                    title: 'Upgrading New 2014/2015 Mac Mini to SSD (Solid State Drive)',
+                    url: 'https://youtube.com/watch?v=mac-mini-ssd-upgrade',
+                    description: 'Taking apart the new late 2014 Mac Mini to replace the hard drive. The HDD is still a removable SATA drive. Replaced with Samsung 850 EVO SSD.',
+                    collectionId: null,
+                    tags: ['macos', 'tutorial', 'hardware'],
+                    favorite: false,
+                    createdAt: new Date(Date.now() - 518400000).toISOString(),
+                    updatedAt: new Date(Date.now() - 518400000).toISOString()
                 }
             ];
 
@@ -514,6 +617,12 @@ class BookmarkManager {
                     id: '2',
                     name: 'Design',
                     description: 'Design inspiration and resources',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: '3',
+                    name: 'Tutorials',
+                    description: 'Step-by-step guides and tutorials',
                     createdAt: new Date().toISOString()
                 }
             ];

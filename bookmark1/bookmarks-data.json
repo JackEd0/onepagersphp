@@ -1,0 +1,64 @@
+{
+    "bookmarks": [
+        {
+            "id": "1",
+            "title": "GitHub - The world's leading software development platform",
+            "url": "https:\/\/github.com",
+            "description": "GitHub is where over 100 million developers shape the future of software, together.",
+            "collectionId": null,
+            "tags": [
+                "development",
+                "coding",
+                "git"
+            ],
+            "favorite": true,
+            "createdAt": "2025-08-03T02:00:04.921Z",
+            "updatedAt": "2025-08-03T02:00:04.921Z"
+        },
+        {
+            "id": "2",
+            "title": "Stack Overflow - Where Developers Learn, Share, & Build Careers",
+            "url": "https:\/\/stackoverflow.com",
+            "description": "Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge.",
+            "collectionId": null,
+            "tags": [
+                "programming",
+                "help",
+                "community"
+            ],
+            "favorite": false,
+            "createdAt": "2025-08-02T02:00:04.921Z",
+            "updatedAt": "2025-08-02T02:00:04.921Z"
+        },
+        {
+            "id": "3",
+            "title": "MDN Web Docs - Learn web development",
+            "url": "https:\/\/developer.mozilla.org",
+            "description": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.",
+            "collectionId": null,
+            "tags": [
+                "documentation",
+                "web",
+                "learning"
+            ],
+            "favorite": true,
+            "createdAt": "2025-08-01T02:00:04.921Z",
+            "updatedAt": "2025-08-01T02:00:04.921Z"
+        }
+    ],
+    "collections": [
+        {
+            "id": "1",
+            "name": "Development",
+            "description": "Web development resources and tools",
+            "createdAt": "2025-08-04T02:00:04.921Z"
+        },
+        {
+            "id": "2",
+            "name": "Design",
+            "description": "Design inspiration and resources",
+            "createdAt": "2025-08-04T02:00:04.921Z"
+        }
+    ],
+    "lastUpdated": "2025-08-04T02:00:04+00:00"
+}

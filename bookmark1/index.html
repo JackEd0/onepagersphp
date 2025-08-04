@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem',
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-inter">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <aside class="w-80 bg-white border-r border-gray-200 hidden lg:block">
+            <div class="p-8">
+                <div class="mb-12">
+                    <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                        <i class="fas fa-bookmark text-blue-600"></i>
+                        Bookmarker
+                    </h1>
+                </div>
+                
+                <nav class="space-y-8">
+                    <div>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200 active" data-filter="all">
+                                    <i class="fas fa-home w-5"></i>
+                                    <span class="font-medium">All Bookmarks</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="favorites">
+                                    <i class="fas fa-star w-5"></i>
+                                    <span class="font-medium">Favorites</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="recent">
+                                    <i class="fas fa-clock w-5"></i>
+                                    <span class="font-medium">Recent</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="collections-section">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-4 px-4">Collections</h3>
+                        <ul class="collections-list space-y-1 mb-6" id="collectionsList">
+                            <!-- Collections will be dynamically added here -->
+                        </ul>
+                        <button class="add-collection-btn w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors duration-200" id="addCollectionBtn">
+                            <i class="fas fa-plus w-5"></i>
+                            <span class="font-medium">New Collection</span>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Mobile Sidebar Toggle -->
+        <div class="lg:hidden fixed top-4 left-4 z-50">
+            <button id="mobileMenuBtn" class="p-3 bg-white rounded-xl shadow-lg border border-gray-200">
+                <i class="fas fa-bars text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Sidebar -->
+        <div id="mobileSidebar" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden">
+            <div class="fixed inset-y-0 left-0 w-80 bg-white shadow-xl">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-12">
+                        <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                            <i class="fas fa-bookmark text-blue-600"></i>
+                            Bookmarker
+                        </h1>
+                        <button id="closeMobileMenu" class="p-2 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <nav class="space-y-8">
+                        <div>
+                            <ul class="space-y-2">
+                                <li>
+                                    <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200 active" data-filter="all">
+                                        <i class="fas fa-home w-5"></i>
+                                        <span class="font-medium">All Bookmarks</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="favorites">
+                                        <i class="fas fa-star w-5"></i>
+                                        <span class="font-medium">Favorites</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition-colors duration-200" data-filter="recent">
+                                        <i class="fas fa-clock w-5"></i>
+                                        <span class="font-medium">Recent</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="collections-section">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-4 px-4">Collections</h3>
+                            <ul class="collections-list space-y-1 mb-6" id="mobileCollectionsList">
+                                <!-- Collections will be dynamically added here -->
+                            </ul>
+                            <button class="add-collection-btn w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors duration-200" id="mobileAddCollectionBtn">
+                                <i class="fas fa-plus w-5"></i>
+                                <span class="font-medium">New Collection</span>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-0">
+            <!-- Header -->
+            <header class="bg-white border-b border-gray-200 px-6 py-8 lg:px-12">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                    <div class="header-left">
+                        <h2 id="pageTitle" class="text-3xl font-bold text-gray-900 mb-2">All Bookmarks</h2>
+                        <span class="bookmark-count text-gray-600" id="bookmarkCount">0 bookmarks</span>
+                    </div>
+                    
+                    <div class="header-right flex flex-col sm:flex-row gap-4">
+                        <div class="search-container relative">
+                            <i class="fas fa-search search-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="searchInput" placeholder="Search bookmarks..." class="search-input w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                        </div>
+                        
+                        <button class="add-bookmark-btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 flex items-center justify-center gap-2" id="addBookmarkBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>Add Bookmark</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="p-6 lg:p-12">
+                <div class="bookmarks-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="bookmarksGrid">
+                    <!-- Bookmarks will be dynamically added here -->
+                </div>
+                
+                <div class="empty-state hidden flex flex-col items-center justify-center py-24" id="emptyState">
+                    <div class="empty-state-icon mb-8">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-bookmark text-4xl text-gray-400"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">No bookmarks yet</h3>
+                    <p class="text-gray-600 text-center max-w-md mb-8">Start by adding your first bookmark to organize your web discoveries.</p>
+                    <button class="btn-primary bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-medium transition-colors duration-200 flex items-center gap-3" id="emptyStateAddBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Your First Bookmark
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Bookmark Modal -->
+    <div class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="addBookmarkModal">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-2xl mx-4 my-8 lg:mx-auto lg:my-16 max-h-[90vh] overflow-y-auto">
+            <div class="modal-header p-8 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-2xl font-bold text-gray-900">Add New Bookmark</h3>
+                <button class="modal-close p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200" id="closeBookmarkModal">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="addBookmarkForm" class="modal-form p-8 space-y-6">
+                <div class="form-group">
+                    <label for="bookmarkTitle" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                    <input type="text" id="bookmarkTitle" required placeholder="Enter bookmark title" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookmarkUrl" class="block text-sm font-medium text-gray-700 mb-2">URL</label>
+                    <input type="url" id="bookmarkUrl" required placeholder="https://example.com" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookmarkDescription" class="block text-sm font-medium text-gray-700 mb-2">Description (optional)</label>
+                    <textarea id="bookmarkDescription" placeholder="Add a description..." rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookmarkCollection" class="block text-sm font-medium text-gray-700 mb-2">Collection</label>
+                    <select id="bookmarkCollection" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                        <option value="">No collection</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookmarkTags" class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
+                    <input type="text" id="bookmarkTags" placeholder="work, inspiration, tutorial" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                </div>
+                
+                <div class="form-actions flex gap-4 pt-6">
+                    <button type="button" class="btn-secondary flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200" id="cancelBookmarkBtn">Cancel</button>
+                    <button type="submit" class="btn-primary flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200">Add Bookmark</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Collection Modal -->
+    <div class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="addCollectionModal">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-lg mx-4 my-8 lg:mx-auto lg:my-16">
+            <div class="modal-header p-8 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-2xl font-bold text-gray-900">Create New Collection</h3>
+                <button class="modal-close p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200" id="closeCollectionModal">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="addCollectionForm" class="modal-form p-8 space-y-6">
+                <div class="form-group">
+                    <label for="collectionName" class="block text-sm font-medium text-gray-700 mb-2">Collection Name</label>
+                    <input type="text" id="collectionName" required placeholder="Enter collection name" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200">
+                </div>
+                
+                <div class="form-group">
+                    <label for="collectionDescription" class="block text-sm font-medium text-gray-700 mb-2">Description (optional)</label>
+                    <textarea id="collectionDescription" placeholder="Add a description..." rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none"></textarea>
+                </div>
+                
+                <div class="form-actions flex gap-4 pt-6">
+                    <button type="button" class="btn-secondary flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-200" id="cancelCollectionBtn">Cancel</button>
+                    <button type="submit" class="btn-primary flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200">Create Collection</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

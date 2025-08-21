@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Intersection Observer for fade-in animations
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
@@ -63,11 +63,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Add fade-in class to elements and observe them
-    const fadeElements = document.querySelectorAll('.bg-white.rounded-lg.shadow-lg, .bg-gray-50.rounded-lg');
-    fadeElements.forEach(element => {
+    const fadeMenuItems = document.querySelectorAll('#menu .grid > div');
+    const fadeTestimonialItems = document.querySelectorAll('#testimonials .grid > div');
+    const fadeContactItems = document.querySelectorAll('#contact .bg-gray-50.rounded-lg');
+
+    // Add staggered animations
+    fadeMenuItems.forEach((element, index) => {
         element.classList.add('fade-in');
+        element.style.transitionDelay = `${index * 0.1}s`;
         observer.observe(element);
     });
+
+    fadeTestimonialItems.forEach((element, index) => {
+        element.classList.add('fade-in');
+        element.style.transitionDelay = `${index * 0.15}s`;
+        observer.observe(element);
+    });
+
+    fadeContactItems.forEach((element, index) => {
+        element.classList.add('fade-in');
+        element.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(element);
+    });
+
+    // Add fade-in animations to section titles and content
+    const sectionHeaders = document.querySelectorAll('#menu .text-center, #testimonials .text-center, #contact .text-center');
+    sectionHeaders.forEach(header => {
+        header.classList.add('fade-in');
+        observer.observe(header);
+    });
+
+    // Add animation to contact form
+    const contactFormElement = document.querySelector('#contact form');
+    if (contactFormElement) {
+        contactFormElement.classList.add('fade-in');
+        contactFormElement.style.transitionDelay = '0.2s';
+        observer.observe(contactFormElement);
+    }
 
     // Contact form handling
     const contactForm = document.getElementById('contact-form');
@@ -181,18 +213,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Image lazy loading for better performance
-    const images = document.querySelectorAll('img[src]');
+    const images = document.querySelectorAll('#menu img, #testimonials img');
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.classList.add('fade-in');
+                img.style.opacity = '1';
+                img.style.transform = 'translateY(0)';
                 observer.unobserve(img);
             }
         });
     });
 
-    images.forEach(img => imageObserver.observe(img));
+    images.forEach(img => {
+        img.style.opacity = '0';
+        img.style.transform = 'translateY(20px)';
+        img.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        imageObserver.observe(img);
+    });
 
     // Add hover effects to testimonial cards
     const testimonialCards = document.querySelectorAll('#testimonials .bg-white.rounded-lg.shadow-lg');

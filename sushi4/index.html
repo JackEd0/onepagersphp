@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi 4 - Modern Sushi Restaurant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header -->
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-md fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-900">Sushi 4</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#hero" class="text-gray-600 hover:text-gray-900">Home</a>
+                <a href="#menu" class="text-gray-600 hover:text-gray-900">Menu</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-gray-900">Testimonials</a>
+                <a href="#contact" class="text-gray-600 hover:text-gray-900">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden flex items-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#hero" class="block py-2 px-4 text-sm hover:bg-gray-200">Home</a>
+            <a href="#menu" class="block py-2 px-4 text-sm hover:bg-gray-200">Menu</a>
+            <a href="#testimonials" class="block py-2 px-4 text-sm hover:bg-gray-200">Testimonials</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-200">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="pt-32 pb-16">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-4">Experience Authentic Sushi</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">The finest ingredients, masterfully prepared. Welcome to a new level of sushi.</p>
+                <div class="mt-8">
+                    <a href="#menu" class="bg-gray-900 text-white py-3 px-8 rounded-full font-semibold hover:bg-gray-700 transition-colors duration-300">Explore Our Menu</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu/Gallery Section -->
+        <section id="menu" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Our Menu</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Menu Item 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/sushi1.jpg" alt="Sushi 1" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Dragon Roll</h3>
+                            <p class="text-gray-600 mb-4">Eel, crab, and cucumber, topped with avocado and eel sauce.</p>
+                            <span class="text-xl font-semibold text-gray-900">$18</span>
+                        </div>
+                    </div>
+                    <!-- Menu Item 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/sushi2.jpg" alt="Sushi 2" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Spicy Tuna Roll</h3>
+                            <p class="text-gray-600 mb-4">Tuna, spicy mayo, and cucumber.</p>
+                            <span class="text-xl font-semibold text-gray-900">$14</span>
+                        </div>
+                    </div>
+                    <!-- Menu Item 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/sushi3.jpg" alt="Sushi 3" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">California Roll</h3>
+                            <p class="text-gray-600 mb-4">Crab, avocado, and cucumber.</p>
+                            <span class="text-xl font-semibold text-gray-900">$12</span>
+                        </div>
+                    </div>
+                    <!-- Menu Item 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/sushi4.jpg" alt="Sushi 4" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Salmon Nigiri</h3>
+                            <p class="text-gray-600 mb-4">Fresh salmon over rice.</p>
+                            <span class="text-xl font-semibold text-gray-900">$10</span>
+                        </div>
+                    </div>
+                    <!-- Menu Item 5 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/sushi5.jpg" alt="Sushi 5" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Rainbow Roll</h3>
+                            <p class="text-gray-600 mb-4">Crab, avocado, cucumber, topped with various fish.</p>
+                            <span class="text-xl font-semibold text-gray-900">$20</span>
+                        </div>
+                    </div>
+                    <!-- Menu Item 6 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="images/sushi6.jpg" alt="Sushi 6" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Gyoza</h3>
+                            <p class="text-gray-600 mb-4">Pan-fried pork dumplings.</p>
+                            <span class="text-xl font-semibold text-gray-900">$8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-16">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">What Our Customers Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <p class="text-gray-600 mb-4">"The best sushi I've ever had. The fish is so fresh and the presentation is beautiful. I can't wait to come back!"</p>
+                        <p class="font-semibold text-gray-900">- Sarah L.</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <p class="text-gray-600 mb-4">"A truly amazing experience. The atmosphere is modern and relaxing, and the staff is incredibly friendly. Highly recommended!"</p>
+                        <p class="font-semibold text-gray-900">- Michael B.</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <p class="text-gray-600 mb-4">"I'm a regular here for a reason. The quality is consistent and the menu has a great variety. The dragon roll is a must-try!"</p>
+                        <p class="font-semibold text-gray-900">- Emily K.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Contact Us</h2>
+                <div class="max-w-lg mx-auto text-center">
+                    <p class="text-lg text-gray-600 mb-4">123 Sushi Street, Foodie City, 12345</p>
+                    <p class="text-lg text-gray-600 mb-4">contact@sushi4.com</p>
+                    <p class="text-lg text-gray-600 mb-8">(123) 456-7890</p>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Opening Hours</h3>
+                    <p class="text-lg text-gray-600">Monday - Thursday: 11am - 10pm</p>
+                    <p class="text-lg text-gray-600">Friday - Saturday: 11am - 11pm</p>
+                    <p class="text-lg text-gray-600">Sunday: 12pm - 9pm</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-4">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Sushi 4. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

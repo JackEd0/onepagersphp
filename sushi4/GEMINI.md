@@ -18,6 +18,7 @@
 * Separate HTML, JS and CSS files for better organization and maintainability.
 * Use modern design with big white spaces.
 * Use images from unsplash.com for better visuals.
+* Avoid downloads and use CDN for assets or link directly to them unless specified.
 
 ## Implementation Notes
 

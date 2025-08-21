@@ -1,0 +1,184 @@
+{
+    "navigation": {
+        "brand": "Verdant",
+        "selector": ".navbar-brand",
+        "items": [
+            {
+                "id": "nav-about",
+                "text": "About",
+                "href": "#about",
+                "selector": "#nav-about"
+            },
+            {
+                "id": "nav-care-guides",
+                "text": "Care Guides",
+                "href": "#care-guides",
+                "selector": "#nav-care-guides"
+            },
+            {
+                "id": "nav-tips",
+                "text": "Expert Tips",
+                "href": "#tips",
+                "selector": "#nav-tips"
+            },
+            {
+                "id": "nav-contact",
+                "text": "Contact",
+                "href": "#contact",
+                "selector": "#nav-contact"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "hero",
+            "title": "Hero Section",
+            "selector": "#hero",
+            "content": {
+                "heading": "Bring life to your space with plants",
+                "headingSelector": "#hero-heading",
+                "subheading": "Learn how to care for your indoor plants with our expert guides and simple tips.",
+                "subheadingSelector": "#hero-subheading",
+                "buttonText": "Get Started",
+                "buttonSelector": "#hero-button",
+                "image": "https://images.unsplash.com/photo-1463320898484-cdee8141c787?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                "imageSelector": "#hero-image"
+            }
+        },
+        {
+            "id": "about",
+            "title": "About Section",
+            "selector": "#about",
+            "content": {
+                "heading": "About Verdant",
+                "headingSelector": "#about-heading",
+                "paragraphs": [
+                    "We believe that everyone deserves to enjoy the beauty and benefits of plants, regardless of experience level.",
+                    "Our mission is to make plant care accessible, enjoyable, and rewarding.",
+                    "Founded by a team of horticulture experts and plant enthusiasts, Verdant provides scientifically-based care advice while keeping things simple enough for beginners."
+                ],
+                "paragraphsSelector": ".about-paragraph",
+                "buttonText": "Learn More",
+                "buttonSelector": "#about-button",
+                "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                "imageSelector": "#about-image"
+            }
+        },
+        {
+            "id": "care-guides",
+            "title": "Care Guides Section",
+            "selector": "#care-guides",
+            "content": {
+                "heading": "Essential Care Guides",
+                "headingSelector": "#care-guides-heading",
+                "subheading": "Everything you need to know to keep your plants thriving",
+                "subheadingSelector": "#care-guides-subheading",
+                "guides": [
+                    {
+                        "title": "Watering",
+                        "description": "Learn the art of proper watering - when, how much, and how often for different types of plants.",
+                        "image": "https://images.unsplash.com/photo-1618498732743-b9907abfdf83?q=80&w=1170&auto=format&fit=crop",
+                        "selector": "#guide-watering"
+                    },
+                    {
+                        "title": "Light Requirements",
+                        "description": "Discover how to place your plants to give them the perfect amount of sunlight they need.",
+                        "image": "https://images.unsplash.com/photo-1592150621744-aca64f48394a?q=80&w=1170&auto=format&fit=crop",
+                        "selector": "#guide-light"
+                    },
+                    {
+                        "title": "Soil & Fertilizers",
+                        "description": "Understanding the right soil and nutrients that will help your plants flourish all year long.",
+                        "image": "https://images.unsplash.com/photo-1566836610593-62a64888a216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                        "selector": "#guide-soil"
+                    }
+                ],
+                "guidesContainerSelector": "#guides-container"
+            }
+        },
+        {
+            "id": "tips",
+            "title": "Expert Tips Section",
+            "selector": "#tips",
+            "content": {
+                "heading": "Expert Tips & Tricks",
+                "headingSelector": "#tips-heading",
+                "subheading": "Simple solutions to common plant problems",
+                "subheadingSelector": "#tips-subheading",
+                "tips": [
+                    {
+                        "title": "Rotate Your Plants Regularly",
+                        "description": "Plants grow toward light sources, so rotate them a quarter turn weekly to keep them growing evenly and balanced.",
+                        "selector": "#tip-1"
+                    },
+                    {
+                        "title": "Use Room Temperature Water",
+                        "description": "Cold water can shock plant roots. Always use room temperature water for a happier, healthier plant.",
+                        "selector": "#tip-2"
+                    },
+                    {
+                        "title": "Clean Those Leaves",
+                        "description": "Dusty leaves can block sunlight and prevent proper photosynthesis. Wipe them gently with a damp cloth monthly.",
+                        "selector": "#tip-3"
+                    },
+                    {
+                        "title": "Group Plants Together",
+                        "description": "Plants grouped together create a microclimate with higher humidity, which benefits most houseplants.",
+                        "selector": "#tip-4"
+                    }
+                ],
+                "tipsContainerSelector": "#tips-container"
+            }
+        },
+        {
+            "id": "newsletter",
+            "title": "Newsletter Section",
+            "selector": "#newsletter",
+            "content": {
+                "heading": "Join Our Plant Community",
+                "headingSelector": "#newsletter-heading",
+                "description": "Sign up for our newsletter to receive seasonal care tips, exclusive guides, and plant inspiration.",
+                "descriptionSelector": "#newsletter-description",
+                "buttonText": "Subscribe",
+                "buttonSelector": "#newsletter-button",
+                "inputPlaceholder": "Your email address",
+                "inputSelector": "#newsletter-input"
+            }
+        },
+        {
+            "id": "testimonials",
+            "title": "Testimonials Section",
+            "selector": "#testimonials",
+            "content": {
+                "heading": "What Our Community Says",
+                "headingSelector": "#testimonials-heading",
+                "subheading": "Hear from plant lovers who've transformed their spaces",
+                "subheadingSelector": "#testimonials-subheading",
+                "testimonials": [
+                    {
+                        "name": "Sarah J.",
+                        "role": "Plant Parent of 15",
+                        "quote": "The watering guide completely changed how I care for my plants. My fiddle leaf fig that was struggling is now thriving with new leaves!",
+                        "image": "https://randomuser.me/api/portraits/women/45.jpg",
+                        "selector": "#testimonial-1"
+                    },
+                    {
+                        "name": "Michael T.",
+                        "role": "Apartment Gardener",
+                        "quote": "As a beginner, I was killing every plant I brought home. The simple tips on this site helped me create a thriving indoor jungle in just months.",
+                        "image": "https://randomuser.me/api/portraits/men/32.jpg",
+                        "selector": "#testimonial-2"
+                    },
+                    {
+                        "name": "Elena R.",
+                        "role": "Office Plant Enthusiast",
+                        "quote": "I've transformed our office with plants thanks to the lighting recommendations. Everyone comments on how much more peaceful and productive the space feels now.",
+                        "image": "https://randomuser.me/api/portraits/women/68.jpg",
+                        "selector": "#testimonial-3"
+                    }
+                ],
+                "testimonialsContainerSelector": "#testimonials-container"
+            }
+        }
+    ]
+}

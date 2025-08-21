@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Care Admin</title>
+    <!-- Added Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#2D6A4F',
+                        'primary-light': '#40916C',
+                        'accent': '#95D5B2',
+                        'light': '#D8F3DC',
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header with layout controls -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <h1 class="text-3xl font-semibold text-primary">Verdant Admin Panel</h1>
+
+            <div class="flex items-center mt-4 md:mt-0 space-x-2 bg-white p-2 rounded-lg shadow-sm">
+                <button id="default-view" class="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium" title="Show both panels">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                    Default
+                </button>
+                <button id="editor-view" class="px-4 py-2 bg-white text-gray-700 hover:bg-gray-100 rounded-md text-sm font-medium" title="Show only the editor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Editor
+                </button>
+                <button id="preview-view" class="px-4 py-2 bg-white text-gray-700 hover:bg-gray-100 rounded-md text-sm font-medium" title="Show only the preview">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    Preview
+                </button>
+            </div>
+        </div>
+
+        <div id="layout-container" class="flex flex-col lg:flex-row gap-8">
+            <!-- Form Section -->
+            <div id="form-section" class="lg:w-1/2">
+                <form id="customization-form" class="bg-white rounded-lg shadow-md p-6" data-config-file="config/site.json">
+                    <h2 class="text-xl font-medium mb-6 pb-2 border-b border-gray-200">Customize Sections</h2>
+
+                    <!-- Section selector -->
+                    <div class="mb-6">
+                        <label for="section-selector" class="block text-sm font-medium mb-1 text-gray-700">Select Section to Edit:</label>
+                        <select id="section-selector" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="navigation">Navigation Menu</option>
+                            <option value="hero">Hero Section</option>
+                            <option value="about">About Section</option>
+                            <option value="care-guides">Care Guides Section</option>
+                            <option value="tips">Expert Tips Section</option>
+                            <option value="newsletter">Newsletter Section</option>
+                            <option value="testimonials">Testimonials Section</option>
+                        </select>
+                    </div>
+
+                    <!-- Navigation Menu Section -->
+                    <div id="navigation-section-form" class="section-form mb-8 hidden">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">Navigation Menu</h3>
+
+                        <div class="mb-4">
+                            <label for="nav-brand" class="block text-sm font-medium mb-1 text-gray-700">Brand Name:</label>
+                            <input type="text" id="nav-brand" name="nav-brand" placeholder="Enter brand name"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2 text-gray-700">Navigation Items:</label>
+                            <div id="nav-items-list" class="space-y-4">
+                                <!-- Nav items will be added dynamically here -->
+                                <template id="nav-item-template">
+                                    <div class="nav-item bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                        <div class="flex justify-between mb-2">
+                                            <h4 class="text-md font-medium">Navigation Item</h4>
+                                            <button class="remove-nav-item text-red-500 hover:text-red-700" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1 text-gray-700">Text:</label>
+                                                <input type="text" class="nav-item-text w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1 text-gray-700">Link:</label>
+                                                <input type="text" class="nav-item-href w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                            </div>
+                                            <div class="hidden">
+                                                <label class="block text-sm font-medium mb-1 text-gray-700">ID:</label>
+                                                <input type="text" class="nav-item-id w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" id="add-nav-item-btn" class="mt-3 text-sm bg-accent hover:bg-accent/80 text-primary font-medium py-1 px-3 rounded">
+                                + Add Navigation Item
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hero Section -->
+                    <div id="hero-section-form" class="section-form mb-8">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">Hero Section</h3>
+
+                        <div class="mb-4">
+                            <label for="hero-heading" class="block text-sm font-medium mb-1 text-gray-700">Heading:</label>
+                            <input type="text" id="hero-heading" name="hero-heading" placeholder="Enter hero heading"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="hero-subheading" class="block text-sm font-medium mb-1 text-gray-700">Subheading:</label>
+                            <textarea id="hero-subheading" name="hero-subheading" placeholder="Enter hero subheading" rows="2"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="hero-button-text" class="block text-sm font-medium mb-1 text-gray-700">Button Text:</label>
+                            <input type="text" id="hero-button-text" name="hero-button-text" placeholder="Enter button text"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="hero-image" class="block text-sm font-medium mb-1 text-gray-700">Image URL:</label>
+                            <div class="flex">
+                                <input type="text" id="hero-image" name="hero-image" placeholder="Enter image URL"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <button type="button" class="preview-image-btn bg-accent hover:bg-accent/80 px-3 rounded-r-md border-y border-r border-gray-300" data-target="hero-image-preview">
+                                    Preview
+                                </button>
+                            </div>
+                            <div class="mt-2">
+                                <div id="hero-image-preview" class="bg-gray-100 h-40 rounded-md flex items-center justify-center overflow-hidden">
+                                    <span class="text-gray-400">Image preview will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About Section -->
+                    <div id="about-section-form" class="section-form mb-8 hidden">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">About Section</h3>
+
+                        <div class="mb-4">
+                            <label for="about-heading" class="block text-sm font-medium mb-1 text-gray-700">Heading:</label>
+                            <input type="text" id="about-heading" name="about-heading" placeholder="Enter about heading"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div id="about-paragraphs-container" class="mb-4">
+                            <label for="about-content" class="block text-sm font-medium mb-1 text-gray-700">Content:</label>
+                            <textarea id="about-content" name="about-content" placeholder="Enter about section content" rows="6"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                            <p class="mt-1 text-sm text-gray-500">This editor supports basic formatting. You can later integrate a WYSIWYG editor like TinyMCE or CKEditor.</p>
+                        </div>
+
+                        <div class="mb-4 mt-4">
+                            <label for="about-button-text" class="block text-sm font-medium mb-1 text-gray-700">Button Text:</label>
+                            <input type="text" id="about-button-text" name="about-button-text" placeholder="Enter button text"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="about-image" class="block text-sm font-medium mb-1 text-gray-700">Image URL:</label>
+                            <div class="flex">
+                                <input type="text" id="about-image" name="about-image" placeholder="Enter about image URL"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <button type="button" class="preview-image-btn bg-accent hover:bg-accent/80 px-3 rounded-r-md border-y border-r border-gray-300" data-target="about-image-preview">
+                                    Preview
+                                </button>
+                            </div>
+                            <div class="mt-2">
+                                <div id="about-image-preview" class="bg-gray-100 h-40 rounded-md flex items-center justify-center overflow-hidden">
+                                    <span class="text-gray-400">Image preview will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Care Guides Section -->
+                    <div id="care-guides-section-form" class="section-form mb-8 hidden">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">Care Guides Section</h3>
+
+                        <div class="mb-4">
+                            <label for="guides-heading" class="block text-sm font-medium mb-1 text-gray-700">Heading:</label>
+                            <input type="text" id="guides-heading" name="guides-heading" placeholder="Enter guides heading"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="guides-subheading" class="block text-sm font-medium mb-1 text-gray-700">Subheading:</label>
+                            <textarea id="guides-subheading" name="guides-subheading" placeholder="Enter guides subheading" rows="2"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2 text-gray-700">Guides:</label>
+                            <div id="guides-list" class="space-y-6">
+                                <!-- Guides will be added dynamically here -->
+                                <template id="guide-template">
+                                    <div class="guide-item bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                        <div class="flex justify-between mb-2">
+                                            <h4 class="text-md font-medium">Guide</h4>
+                                            <button class="remove-guide text-red-500 hover:text-red-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                            <input type="hidden" class="guide-selector">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Title:</label>
+                                            <input type="text" class="guide-title w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Description:</label>
+                                            <textarea class="guide-description w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" rows="3"></textarea>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Image URL:</label>
+                                            <input type="text" class="guide-image w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                            <div class="mt-2">
+                                                <div class="guide-image-preview bg-gray-100 h-32 rounded-md flex items-center justify-center overflow-hidden">
+                                                    <span class="text-gray-400">Image preview will appear here</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" id="add-guide-btn" class="mt-3 text-sm bg-accent hover:bg-accent/80 text-primary font-medium py-1 px-3 rounded">
+                                + Add Guide
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Expert Tips Section -->
+                    <div id="tips-section-form" class="section-form mb-8 hidden">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">Expert Tips Section</h3>
+
+                        <div class="mb-4">
+                            <label for="tips-heading" class="block text-sm font-medium mb-1 text-gray-700">Heading:</label>
+                            <input type="text" id="tips-heading" name="tips-heading" placeholder="Enter tips heading"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="tips-subheading" class="block text-sm font-medium mb-1 text-gray-700">Subheading:</label>
+                            <textarea id="tips-subheading" name="tips-subheading" placeholder="Enter tips subheading" rows="2"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2 text-gray-700">Tips:</label>
+                            <div id="tips-list" class="space-y-6">
+                                <!-- Tips will be added dynamically here -->
+                                <template id="tip-template">
+                                    <div class="tip-item bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                        <div class="flex justify-between mb-2">
+                                            <h4 class="text-md font-medium">Tip</h4>
+                                            <button class="remove-tip text-red-500 hover:text-red-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Title:</label>
+                                            <input type="text" class="tip-title w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Description:</label>
+                                            <textarea class="tip-description w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" id="add-tip-btn" class="mt-3 text-sm bg-accent hover:bg-accent/80 text-primary font-medium py-1 px-3 rounded">
+                                + Add Tip
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Section -->
+                    <div id="newsletter-section-form" class="section-form mb-8 hidden">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">Newsletter Section</h3>
+
+                        <div class="mb-4">
+                            <label for="newsletter-heading" class="block text-sm font-medium mb-1 text-gray-700">Heading:</label>
+                            <input type="text" id="newsletter-heading" name="newsletter-heading" placeholder="Enter newsletter heading"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="newsletter-description" class="block text-sm font-medium mb-1 text-gray-700">Description:</label>
+                            <textarea id="newsletter-description" name="newsletter-description" placeholder="Enter newsletter description" rows="3"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="newsletter-button-text" class="block text-sm font-medium mb-1 text-gray-700">Button Text:</label>
+                            <input type="text" id="newsletter-button-text" name="newsletter-button-text" placeholder="Enter button text"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="newsletter-placeholder" class="block text-sm font-medium mb-1 text-gray-700">Input Placeholder:</label>
+                            <input type="text" id="newsletter-placeholder" name="newsletter-placeholder" placeholder="Enter input placeholder text"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <!-- Testimonials Section -->
+                    <div id="testimonials-section-form" class="section-form mb-8 hidden">
+                        <h3 class="text-lg font-medium mb-4 text-primary-light">Testimonials Section</h3>
+
+                        <div class="mb-4">
+                            <label for="testimonials-heading" class="block text-sm font-medium mb-1 text-gray-700">Heading:</label>
+                            <input type="text" id="testimonials-heading" name="testimonials-heading" placeholder="Enter testimonials heading"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="testimonials-subheading" class="block text-sm font-medium mb-1 text-gray-700">Subheading:</label>
+                            <textarea id="testimonials-subheading" name="testimonials-subheading" placeholder="Enter testimonials subheading" rows="2"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2 text-gray-700">Testimonials:</label>
+                            <div id="testimonials-list" class="space-y-6">
+                                <!-- Testimonials will be added dynamically here -->
+                                <template id="testimonial-template">
+                                    <div class="testimonial-item bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                        <div class="flex justify-between mb-2">
+                                            <h4 class="text-md font-medium">Testimonial</h4>
+                                            <button class="remove-testimonial text-red-500 hover:text-red-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Name:</label>
+                                            <input type="text" class="testimonial-name w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Role:</label>
+                                            <input type="text" class="testimonial-role w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Quote:</label>
+                                            <textarea class="testimonial-quote w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" rows="3"></textarea>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="block text-sm font-medium mb-1 text-gray-700">Image URL:</label>
+                                            <input type="text" class="testimonial-image w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" id="add-testimonial-btn" class="mt-3 text-sm bg-accent hover:bg-accent/80 text-primary font-medium py-1 px-3 rounded">
+                                + Add Testimonial
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                            <summary class="font-medium cursor-pointer">Advanced: Edit JSON Directly</summary>
+                            <div class="mt-2">
+                                <textarea id="raw-json-editor" rows="10" class="w-full px-3 py-2 border border-gray-300 rounded-md font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="JSON data will load here..."></textarea>
+                                <p class="mt-1 text-xs text-gray-500">Warning: Editing JSON directly may cause errors if not properly formatted.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <button type="submit" class="flex-grow bg-primary hover:bg-primary-light text-white py-3 px-4 rounded-md transition-colors">
+                            Save Changes
+                        </button>
+                        <button type="button" id="download-json-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-4 rounded-md transition-colors">
+                            Download JSON
+                        </button>
+                    </div>
+                    <div id="status-message" class="mt-4 p-3 rounded-md hidden"></div>
+                </form>
+            </div>
+
+            <!-- Preview Section -->
+            <div id="preview-section-container" class="lg:w-1/2">
+                <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                    <h2 class="text-xl font-medium mb-6 pb-2 border-b border-gray-200">
+                        Live Preview
+                        <button type="button" class="ml-2 p-1 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-600 refresh-preview-btn" title="Refresh Preview"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg></button>
+                    </h2>
+
+                    <div id="preview-section" class="overflow-auto h-screen max-h-[80vh] border border-gray-200 rounded-md">
+                        <iframe id="preview-iframe" src="http://verdant.test/" frameborder="0" class="w-full h-full"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Barber Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header -->
+    <header id="header" class="bg-white shadow-md py-4 px-8 fixed w-full top-0 z-10 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">The Barber Shop</h1>
+            <nav>
+                <ul class="flex space-x-8">
+                    <li><a href="#services" class="hover:text-gray-500">Services</a></li>
+                    <li><a href="#testimonials" class="hover:text-gray-500">Testimonials</a></li>
+                    <li><a href="#contact" class="hover:text-gray-500">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-32 pb-16 text-center">
+        <div class="container mx-auto">
+            <h2 class="text-5xl font-bold mb-4">Modern Cuts, Classic Style</h2>
+            <p class="text-xl mb-8">Experience the art of barbering in a relaxed and friendly atmosphere.</p>
+            <a href="#contact" class="bg-gray-800 text-white py-3 px-8 rounded-full hover:bg-gray-700">Book an Appointment</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Classic Haircut</h3>
+                    <p class="text-lg">$30</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Beard Trim</h3>
+                    <p class="text-lg">$20</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Hot Towel Shave</h3>
+                    <p class="text-lg">$40</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Kids Haircut</h3>
+                    <p class="text-lg">$25</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Hair Coloring</h3>
+                    <p class="text-lg">$50</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Facial</h3>
+                    <p class="text-lg">$35</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12">What Our Clients Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <p class="mb-4">"The best haircut I've ever had. The attention to detail is amazing."</p>
+                    <p class="font-bold">- John Doe</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <p class="mb-4">"A great place to relax and get a quality shave. Highly recommended."</p>
+                    <p class="font-bold">- Jane Smith</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <p class="mb-4">"Friendly staff and a great atmosphere. I'll definitely be back."</p>
+                    <p class="font-bold">- Mike Johnson</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-800 text-white">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12">Contact Us</h2>
+            <div class="flex flex-col md:flex-row justify-around items-center">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-4">Address</h3>
+                    <p>123 Main Street</p>
+                    <p>Anytown, USA 12345</p>
+                </div>
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-4">Opening Hours</h3>
+                    <p>Monday - Friday: 9am - 7pm</p>
+                    <p>Saturday: 9am - 5pm</p>
+                    <p>Sunday: Closed</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Phone</h3>
+                    <p>(123) 456-7890</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

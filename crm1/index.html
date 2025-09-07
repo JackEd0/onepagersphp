@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Dashboard - Real-time Insights</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .widget {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .widget:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .widget-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .widget-icon {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+
+        .large-chart {
+            height: 400px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 2s ease;
+            animation: progressAnimation 2s ease;
+        }
+
+        @keyframes progressAnimation {
+            from { width: 0; }
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-item:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .metric-value {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .heatmap-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            margin-top: 15px;
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+        }
+
+        .activity-low { background: linear-gradient(45deg, #a8e6cf, #88d8a3); }
+        .activity-medium { background: linear-gradient(45deg, #ffd93d, #ff9f43); }
+        .activity-high { background: linear-gradient(45deg, #ff6b6b, #ee5a52); }
+        .activity-none { background: #f1f3f4; color: #666; }
+
+        .real-time-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #28a745;
+            font-size: 0.9rem;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        .drag-handle {
+            cursor: move;
+            color: #ccc;
+            margin-left: 10px;
+        }
+
+        .widget.dragging {
+            opacity: 0.7;
+            transform: rotate(5deg);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            .widget {
+                padding: 20px;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1><i class="fas fa-chart-line"></i> CRM Dashboard</h1>
+            <div class="real-time-indicator">
+                <div class="pulse"></div>
+                Live Data - Last updated: <span id="lastUpdate"></span>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalRevenue">$247,892</div>
+                    <div class="stat-label">Total Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="activeLeads">1,247</div>
+                    <div class="stat-label">Active Leads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="conversionRate">24.7%</div>
+                    <div class="stat-label">Conversion Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="customerSat">4.8/5</div>
+                    <div class="stat-label">Customer Satisfaction</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid" id="dashboardGrid">
+            <!-- Sales Funnel Widget -->
+            <div class="widget" data-widget="funnel">
+                <div class="widget-header">
+                    <h3 class="widget-title">Sales Funnel</h3>
+                    <i class="fas fa-filter widget-icon"></i>
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                </div>
+                <div class="controls">
+                    <button class="control-btn active" onclick="updateFunnel('monthly')">Monthly</button>
+                    <button class="control-btn" onclick="updateFunnel('quarterly')">Quarterly</button>
+                    <button class="control-btn" onclick="updateFunnel('yearly')">Yearly</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="funnelChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Lead Sources Widget -->
+            <div class="widget" data-widget="sources">
+                <div class="widget-header">
+                    <h3 class="widget-title">Lead Sources</h3>
+                    <i class="fas fa-users widget-icon"></i>
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                </div>
+                <div class="notification-badge">3</div>
+                <div class="chart-container">
+                    <canvas id="leadSourcesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Activity Heatmap Widget -->
+            <div class="widget" data-widget="heatmap">
+                <div class="widget-header">
+                    <h3 class="widget-title">Activity Heatmap</h3>
+                    <i class="fas fa-calendar-alt widget-icon"></i>
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                </div>
+                <div class="controls">
+                    <button class="control-btn active" onclick="updateHeatmap('week')">This Week</button>
+                    <button class="control-btn" onclick="updateHeatmap('month')">This Month</button>
+                </div>
+                <div class="heatmap-container" id="heatmapContainer"></div>
+            </div>
+
+            <!-- Revenue Trends Widget -->
+            <div class="widget large-chart" data-widget="revenue">
+                <div class="widget-header">
+                    <h3 class="widget-title">Revenue Trends</h3>
+                    <i class="fas fa-chart-area widget-icon"></i>
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                </div>
+                <div class="controls">
+                    <button class="control-btn active" onclick="updateRevenue('6months')">6 Months</button>
+                    <button class="control-btn" onclick="updateRevenue('1year')">1 Year</button>
+                    <button class="control-btn" onclick="updateRevenue('2years')">2 Years</button>
+                </div>
+                <div class="chart-container large-chart">
+                    <div id="revenueChart"></div>
+                </div>
+            </div>
+
+            <!-- Customer Engagement Widget -->
+            <div class="widget" data-widget="engagement">
+                <div class="widget-header">
+                    <h3 class="widget-title">Customer Engagement</h3>
+                    <i class="fas fa-heart widget-icon"></i>
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Email Open Rate</span>
+                    <span class="metric-value">68.4%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 68.4%"></div>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-label">Click-Through Rate</span>
+                    <span class="metric-value">12.7%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 12.7%"></div>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-label">Social Media Engagement</span>
+                    <span class="metric-value">45.2%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45.2%"></div>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-label">Customer Retention</span>
+                    <span class="metric-value">89.1%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 89.1%"></div>
+                </div>
+            </div>
+
+            <!-- Campaign Performance Widget -->
+            <div class="widget" data-widget="campaigns">
+                <div class="widget-header">
+                    <h3 class="widget-title">Campaign Performance</h3>
+                    <i class="fas fa-bullhorn widget-icon"></i>
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                </div>
+                <div class="chart-container">
+                    <canvas id="campaignChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Real-time clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Initialize Charts
+        let funnelChart, leadSourcesChart, campaignChart, revenueChart;
+
+        // Sales Funnel Chart
+        function initFunnelChart() {
+            const ctx = document.getElementById('funnelChart').getContext('2d');
+            funnelChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Prospects', 'Qualified Leads', 'Proposals', 'Negotiations', 'Closed Won'],
+                    datasets: [{
+                        label: 'Count',
+                        data: [1500, 750, 380, 190, 95],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(118, 75, 162, 0.8)',
+                            'rgba(255, 159, 67, 0.8)',
+                            'rgba(255, 107, 107, 0.8)',
+                            'rgba(46, 204, 113, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(102, 126, 234, 1)',
+                            'rgba(118, 75, 162, 1)',
+                            'rgba(255, 159, 67, 1)',
+                            'rgba(255, 107, 107, 1)',
+                            'rgba(46, 204, 113, 1)'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(102, 126, 234, 1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutBounce'
+                    }
+                }
+            });
+        }
+
+        // Lead Sources Pie Chart
+        function initLeadSourcesChart() {
+            const ctx = document.getElementById('leadSourcesChart').getContext('2d');
+            leadSourcesChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Website', 'Social Media', 'Email Marketing', 'Referrals', 'Cold Calling', 'Trade Shows'],
+                    datasets: [{
+                        data: [35, 25, 20, 10, 6, 4],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(118, 75, 162, 0.8)',
+                            'rgba(255, 159, 67, 0.8)',
+                            'rgba(255, 107, 107, 0.8)',
+                            'rgba(46, 204, 113, 0.8)',
+                            'rgba(52, 152, 219, 0.8)'
+                        ],
+                        borderColor: 'white',
+                        borderWidth: 3,
+                        hoverBorderWidth: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        duration: 2000
+                    }
+                }
+            });
+        }
+
+        // Campaign Performance Chart
+        function initCampaignChart() {
+            const ctx = document.getElementById('campaignChart').getContext('2d');
+            campaignChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Reach', 'Engagement', 'Conversions', 'ROI', 'Brand Awareness', 'Customer Acquisition'],
+                    datasets: [{
+                        label: 'Current Campaign',
+                        data: [85, 72, 68, 90, 75, 82],
+                        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                        pointBorderColor: 'white',
+                        pointBorderWidth: 2,
+                        pointRadius: 6
+                    }, {
+                        label: 'Previous Campaign',
+                        data: [70, 65, 60, 75, 68, 70],
+                        backgroundColor: 'rgba(118, 75, 162, 0.2)',
+                        borderColor: 'rgba(118, 75, 162, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(118, 75, 162, 1)',
+                        pointBorderColor: 'white',
+                        pointBorderWidth: 2,
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+
+        // Revenue Trends Chart (ApexCharts)
+        function initRevenueChart() {
+            const options = {
+                series: [{
+                    name: 'Revenue',
+                    data: [45000, 52000, 48000, 61000, 55000, 67000, 72000, 68000, 75000, 82000, 78000, 89000]
+                }, {
+                    name: 'Target',
+                    data: [50000, 50000, 55000, 55000, 60000, 60000, 65000, 65000, 70000, 70000, 75000, 75000]
+                }],
+                chart: {
+                    height: 400,
+                    type: 'area',
+                    toolbar: {
+                        show: false
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 2000
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.3,
+                        stops: [0, 100]
+                    }
+                },
+                colors: ['#667eea', '#764ba2'],
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function (val) {
+                            return '$' + (val / 1000).toFixed(0) + 'K'
+                        }
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return '$' + val.toLocaleString()
+                        }
+                    }
+                },
+                grid: {
+                    borderColor: 'rgba(0, 0, 0, 0.1)'
+                }
+            };
+            revenueChart = new ApexCharts(document.querySelector("#revenueChart"), options);
+            revenueChart.render();
+        }
+
+        // Activity Heatmap
+        function initHeatmap() {
+            const container = document.getElementById('heatmapContainer');
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const activities = [
+                [12, 8, 15, 22, 18, 5, 3],
+                [18, 14, 25, 28, 22, 8, 6],
+                [15, 12, 20, 32, 25, 10, 4],
+                [22, 18, 28, 35, 30, 12, 8]
+            ];
+
+            container.innerHTML = '';
+
+            activities.forEach((week, weekIndex) => {
+                week.forEach((activity, dayIndex) => {
+                    const cell = document.createElement('div');
+                    cell.className = 'heatmap-cell';
+                    cell.textContent = activity;
+
+                    if (activity === 0) cell.classList.add('activity-none');
+                    else if (activity < 15) cell.classList.add('activity-low');
+                    else if (activity < 25) cell.classList.add('activity-medium');
+                    else cell.classList.add('activity-high');
+
+                    cell.title = `${days[dayIndex]}: ${activity} activities`;
+                    container.appendChild(cell);
+                });
+            });
+        }
+
+        // Control Functions
+        function updateFunnel(period) {
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let data;
+            if (period === 'monthly') {
+                data = [1500, 750, 380, 190, 95];
+            } else if (period === 'quarterly') {
+                data = [4500, 2250, 1140, 570, 285];
+            } else {
+                data = [18000, 9000, 4560, 2280, 1140];
+            }
+
+            funnelChart.data.datasets[0].data = data;
+            funnelChart.update('active');
+        }
+
+        function updateRevenue(period) {
+            // Update revenue chart based on period
+            console.log('Updating revenue for:', period);
+        }
+
+        function updateHeatmap(period) {
+            // Update heatmap based on period
+            console.log('Updating heatmap for:', period);
+        }
+
+        // Drag and Drop Functionality
+        let draggedWidget = null;
+
+        function initDragDrop() {
+            const widgets = document.querySelectorAll('.widget');
+            const grid = document.getElementById('dashboardGrid');
+
+            widgets.forEach(widget => {
+                const handle = widget.querySelector('.drag-handle');
+
+                handle.addEventListener('mousedown', (e) => {
+                    widget.draggable = true;
+                    draggedWidget = widget;
+                });
+
+                widget.addEventListener('dragstart', (e) => {
+                    widget.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', widget.outerHTML);
+                });
+
+                widget.addEventListener('dragend', (e) => {
+                    widget.classList.remove('dragging');
+                    widget.draggable = false;
+                });
+            });
+
+            grid.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            grid.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(grid, e.clientY);
+                if (afterElement == null) {
+                    grid.appendChild(draggedWidget);
+                } else {
+                    grid.insertBefore(draggedWidget, afterElement);
+                }
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.widget:not(.dragging)')];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // Simulated Real-time Data Updates
+        function simulateRealTimeUpdates() {
+            setInterval(() => {
+                // Update revenue
+                const revenue = document.getElementById('totalRevenue');
+                const currentRevenue = parseInt(revenue.textContent.replace(/[$,]/g, ''));
+                const newRevenue = currentRevenue + Math.floor(Math.random() * 1000) - 500;
+                revenue.textContent = '$' + newRevenue.toLocaleString();
+
+                // Update active leads
+                const leads = document.getElementById('activeLeads');
+                const currentLeads = parseInt(leads.textContent.replace(/,/g, ''));
+                const newLeads = currentLeads + Math.floor(Math.random() * 20) - 10;
+                leads.textContent = newLeads.toLocaleString();
+
+                // Update conversion rate
+                const conversion = document.getElementById('conversionRate');
+                const currentRate = parseFloat(conversion.textContent.replace('%', ''));
+                const newRate = Math.max(0, currentRate + (Math.random() * 2 - 1)).toFixed(1);
+                conversion.textContent = newRate + '%';
+            }, 5000);
+        }
+
+        // Tooltip functionality
+        function initTooltips() {
+            const tooltip = document.getElementById('tooltip');
+
+            document.querySelectorAll('[title]').forEach(element => {
+                element.addEventListener('mouseenter', (e) => {
+                    tooltip.textContent = e.target.title;
+                    tooltip.style.opacity = '1';
+                    e.target.removeAttribute('title');
+                    e.target.setAttribute('data-title', tooltip.textContent);
+                });
+
+                element.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = e.pageX + 10 + 'px';
+                    tooltip.style.top = e.pageY + 10 + 'px';
+                });
+
+                element.addEventListener('mouseleave', (e) => {
+                    tooltip.style.opacity = '0';
+                    e.target.setAttribute('title', e.target.getAttribute('data-title'));
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initFunnelChart();
+            initLeadSourcesChart();
+            initCampaignChart();
+            initRevenueChart();
+            initHeatmap();
+            initDragDrop();
+            initTooltips();
+            simulateRealTimeUpdates();
+        });
+    </script>
+</body>
+</html>

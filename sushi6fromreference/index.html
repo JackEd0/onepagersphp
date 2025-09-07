@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushise - Authentic Japanese Sushi</title>
+    <meta name="description" content="Experience premium sushi prepared by masterful chefs. Authentic Japanese flavors and artistic presentation in a modern setting.">
+    <meta name="keywords" content="sushi, japanese restaurant, fresh fish, authentic, tokyo, sashimi, maki, nigiri">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2>Sushise</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reservations">Reservations</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Taste-Bud <span class="highlight">Captivating</span> Sushi</h1>
+                <p>Experience premium sushi prepared by masterful chefs who have dedicated countless hours honing their craft in Japan. Discover the authentic flavors and artistic presentation that make our restaurant a destination for sushi lovers.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="openModal('reservationModal')">Order Online</button>
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                        <span>Our process!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="placeholder.php?width=500&height=400&text=Sushi Bowl&bg=2F6B4F" alt="Sushi Bowl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sushi Varieties Section -->
+    <section class="sushi-varieties">
+        <div class="container">
+            <h2>Explore Our Exquisite <span class="highlight">Sushi Delights</span></h2>
+            <div class="sushi-grid">
+                <div class="sushi-card">
+                    <div class="sushi-icon" style="background: #FFD700;">
+                        <img src="images/sashimi-sushi.png" alt="Sashimi Sushi">
+                    </div>
+                    <h3>Sashimi Sushi</h3>
+                </div>
+                <div class="sushi-card">
+                    <div class="sushi-icon" style="background: #2F6B4F;">
+                        <img src="images/maki-roll.png" alt="Maki Roll Sushi">
+                    </div>
+                    <h3>Maki Roll Sushi</h3>
+                </div>
+                <div class="sushi-card">
+                    <div class="sushi-icon" style="background: #FF6B35;">
+                        <img src="images/nigiri-sushi.png" alt="Nigiri Sushi">
+                    </div>
+                    <h3>Nigiri Sushi</h3>
+                </div>
+                <div class="sushi-card">
+                    <div class="sushi-icon" style="background: #4A90E2;">
+                        <img src="images/bowl-sushi.png" alt="Bowl Sushi">
+                    </div>
+                    <h3>Bowl Sushi</h3>
+                </div>
+                <div class="sushi-card">
+                    <div class="sushi-icon" style="background: #8B4513;">
+                        <img src="images/specialty-sushi.png" alt="Specialty Sushi">
+                    </div>
+                    <h3>Specialty Sushi</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavor Selection Section -->
+    <section class="flavor-selection">
+        <div class="container">
+            <div class="flavor-content">
+                <div class="flavor-text">
+                    <h2>Choose the flavor that fits your preference.</h2>
+                    <p>Experience the perfect harmony of traditional Japanese flavors with modern culinary innovation. Our master chefs carefully select the finest ingredients to create an extraordinary dining experience that satisfies all palates.</p>
+                    <button class="btn btn-secondary">Explore All Menu</button>
+                </div>
+                <div class="flavor-products">
+                    <div class="product-card featured">
+                        <div class="product-image">
+                            <img src="images/maguro-sushi.jpg" alt="Maguro Sushi">
+                        </div>
+                        <div class="product-info">
+                            <h3>Maguro Sushi</h3>
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.8/5</span>
+                            </div>
+                            <div class="price">$8.00</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="images/specialty-roll.jpg" alt="Specialty Roll">
+                        </div>
+                        <div class="product-info">
+                            <h3>Maguro Sushi</h3>
+                            <div class="price">$8.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fresh Sushi Section -->
+    <section class="fresh-sushi">
+        <div class="container">
+            <h2>Enjoy fresh sushi for a vibrant, healthy lifestyle.</h2>
+            <div class="fresh-grid">
+                <div class="fresh-card large">
+                    <div class="card-content">
+                        <div class="offer-badge">Free</div>
+                        <h3>Buy 1 get 2</h3>
+                        <p>Special offer on selected sushi sets</p>
+                    </div>
+                    <div class="card-image">
+                        <img src="images/sushi-set.jpg" alt="Sushi Set">
+                    </div>
+                </div>
+                <div class="fresh-card">
+                    <div class="discount-badge">OFF 30%</div>
+                    <div class="card-image">
+                        <img src="images/sushi-combo.jpg" alt="Sushi Combo">
+                    </div>
+                </div>
+                <div class="fresh-card">
+                    <div class="card-image">
+                        <img src="images/premium-sushi.jpg" alt="Premium Sushi">
+                    </div>
+                </div>
+                <div class="fresh-card">
+                    <div class="card-image">
+                        <img src="images/sushi-platter.jpg" alt="Sushi Platter">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <h2>Why Choose Us?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Expertise</h3>
+                    <p>Choose us for modern, vibrant sushi made with fresh ingredients and innovative techniques that honor traditional Japanese flavors.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Freshness</h3>
+                    <p>We source the finest ingredients daily from trusted suppliers to ensure every piece of sushi is fresh and flavorful.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Authenticity</h3>
+                    <p>Working closely with local fishermen and suppliers, we serve traditional recipes with modern presentation for an authentic taste.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Ambiance</h3>
+                    <p>Experience great atmosphere in our carefully designed space that combines traditional Japanese aesthetics with contemporary comfort.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Why Our Guests Keep Coming Back</h2>
+            <p class="testimonials-subtitle">Discover why our sushi is consistently among fresh flavors above spot and excellent customer base, we get about their dining experience with us.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/avatar1.jpg" alt="Esther Howard">
+                    </div>
+                    <h3>Esther Howard</h3>
+                    <p>"The freshest sushi I've ever experienced! The attention to detail and authentic flavors transport you straight to Japan."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/avatar2.jpg" alt="Brooklyn Simmons">
+                    </div>
+                    <h3>Brooklyn Simmons</h3>
+                    <p>"Incredible restaurant for sushi lovers! The variety of fresh fish and the skillful presentation make this a true culinary gem."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/avatar3.jpg" alt="Arlene McCoy">
+                    </div>
+                    <h3>Arlene McCoy</h3>
+                    <p>"Amazing flavors and great quality! Every visit brings a new favorite dish. The ambiance and service are equally impressive."</p>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <button class="nav-dot active"></button>
+                <button class="nav-dot"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Savor authentic Japanese sushi bursting with delicious flavors.</h2>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="openModal('reservationModal')">Book a Table</button>
+                    <button class="btn btn-outline" onclick="openModal('contactModal')">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h2>Sushise</h2>
+                        <div class="footer-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>100K</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Sushi Street, Tokyo, Japan</p>
+                        <p><i class="fas fa-phone"></i> +81 3-1234-5678</p>
+                        <p><i class="fas fa-envelope"></i> info@sushise.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sun: 11:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Opening Hours</h3>
+                    <div class="hours-info">
+                        <p>Monday - Thursday: 11:00 AM - 9:00 PM</p>
+                        <p>Friday - Saturday: 11:00 AM - 10:00 PM</p>
+                        <p>Sunday: 12:00 PM - 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sushise. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Contact Us</h2>
+            <form id="contactForm" action="handler.php" method="POST">
+                <input type="hidden" name="action" value="contact">
+                <div class="form-group">
+                    <label for="contactName">Name *</label>
+                    <input type="text" id="contactName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Email *</label>
+                    <input type="email" id="contactEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactPhone">Phone</label>
+                    <input type="tel" id="contactPhone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Message *</label>
+                    <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reservation Modal -->
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Make a Reservation</h2>
+            <form id="reservationForm" action="handler.php" method="POST">
+                <input type="hidden" name="action" value="reservation">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reservationName">Name *</label>
+                        <input type="text" id="reservationName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reservationEmail">Email *</label>
+                        <input type="email" id="reservationEmail" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reservationPhone">Phone</label>
+                        <input type="tel" id="reservationPhone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="reservationGuests">Guests *</label>
+                        <select id="reservationGuests" name="guests" required>
+                            <option value="">Select guests</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5 Guests</option>
+                            <option value="6">6 Guests</option>
+                            <option value="7">7 Guests</option>
+                            <option value="8">8 Guests</option>
+                            <option value="9">9 Guests</option>
+                            <option value="10">10 Guests</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reservationDate">Date *</label>
+                        <input type="date" id="reservationDate" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reservationTime">Time *</label>
+                        <select id="reservationTime" name="time" required>
+                            <option value="">Select time</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="14:30">2:30 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="15:30">3:30 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="16:30">4:30 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="20:30">8:30 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reservationSpecial">Special Requests</label>
+                    <textarea id="reservationSpecial" name="special_requests" rows="3" placeholder="Any dietary restrictions or special occasions?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Make Reservation</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

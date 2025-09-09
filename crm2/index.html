@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        /* 1. Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        /* 2. CSS Variables (Dark Mode Theme) */
+        :root {
+            --background-dark: #1a202c;
+            --widget-bg: #2d3748;
+            --border-color: #4a5568;
+            --accent-color: #4fd1c5;
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* 3. General & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        h3 { font-size: 1.1rem; color: var(--accent-color); }
+        p { color: var(--text-secondary); }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--widget-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 4. Main Layout */
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        /* 5. Widget Styling */
+        section {
+            background-color: var(--widget-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        #kpi-summary-cards {
+            grid-column: 1 / -1; /* Span full width */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .kpi-card {
+            background-color: #374151; /* Slightly lighter than widget bg */
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .kpi-card p {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Table Styling */
+        #recent-deals-table {
+            grid-column: 1 / -1; /* Span full width */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        thead {
+            background-color: #374151;
+        }
+
+        th {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* 6. Interactivity */
+        tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #3c4658;
+        }
+
+        /* Placeholder Styling */
+        div[id$="-placeholder"], div[class$="-placeholder"] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            border: 2px dashed var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+        }
+
+        /* 4. Layout - Responsive */
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr; /* Stack to a single column */
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sales & Engagement Overview</h1>
+        <div id="user-profile">
+            <p>User Profile Area</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="kpi-summary-cards">
+            <h2>KPI Summary</h2>
+            <article class="kpi-card">
+                <h3>Monthly Revenue</h3>
+                <p>Placeholder</p>
+            </article>
+            <article class="kpi-card">
+                <h3>New Leads</h3>
+                <p>Placeholder</p>
+            </article>
+            <article class="kpi-card">
+                <h3>Conversion Rate</h3>
+                <p>Placeholder</p>
+            </article>
+            <article class="kpi-card">
+                <h3>Active Deals</h3>
+                <p>Placeholder</p>
+            </article>
+        </section>
+
+        <section id="sales-pipeline-funnel">
+            <h2>Sales Pipeline Funnel</h2>
+            <div id="sales-pipeline-chart"></div>
+        </section>
+
+        <section id="lead-source-breakdown">
+            <h2>Lead Source Breakdown</h2>
+            <div id="lead-source-chart"></div>
+        </section>
+
+        <section id="team-activity-heatmap">
+            <h2>Team Activity Heatmap</h2>
+            <div id="team-activity-chart"></div>
+        </section>
+
+        <section id="revenue-vs-target">
+            <h2>Revenue vs. Target</h2>
+            <div id="revenue-chart"></div>
+        </section>
+
+        <section id="recent-deals-table">
+            <h2>Recent Deals</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deal Name</th>
+                        <th>Company</th>
+                        <th>Value</th>
+                        <th>Stage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Deal rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- MOCK DATA ---
+
+            const kpiData = {
+                monthlyRevenue: '$45,231.89',
+                newLeads: '2,340',
+                conversionRate: '15.8%',
+                activeDeals: '57'
+            };
+
+            const leadSourceData = {
+                series: [44, 55, 13, 43, 22],
+                labels: ['Organic', 'Direct', 'Referral', 'Social', 'Email']
+            };
+
+            const revenueData = {
+                revenue: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+                target: [80, 90, 95, 100, 90, 110, 95, 110, 100],
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+            };
+
+            const recentDealsData = [
+                { name: 'Project Alpha', company: 'Innovate Inc.', value: '$120,000', stage: 'Negotiation' },
+                { name: 'Website Redesign', company: 'Creative Solutions', value: '$75,000', stage: 'Proposal Sent' },
+                { name: 'Marketing Campaign', company: 'Growth Co.', value: '$250,000', stage: 'Closed Won' },
+                { name: 'Cloud Migration', company: 'Tech Forward', value: '$95,000', stage: 'Discovery' },
+                { name: 'Enterprise Software', company: 'Global Corp', value: '$500,000', stage: 'Negotiation' }
+            ];
+
+            // --- INITIALIZATION FUNCTIONS ---
+
+            function initKpiCards() {
+                document.querySelector('#kpi-summary-cards article:nth-child(2) p').textContent = kpiData.monthlyRevenue;
+                document.querySelector('#kpi-summary-cards article:nth-child(3) p').textContent = kpiData.newLeads;
+                document.querySelector('#kpi-summary-cards article:nth-child(4) p').textContent = kpiData.conversionRate;
+                document.querySelector('#kpi-summary-cards article:nth-child(5) p').textContent = kpiData.activeDeals;
+            }
+
+            function initLeadSourceChart() {
+                const options = {
+                    chart: {
+                        type: 'donut',
+                        height: 350,
+                        theme: {
+                            mode: 'dark'
+                        }
+                    },
+                    series: leadSourceData.series,
+                    labels: leadSourceData.labels,
+                    colors: ['#4fd1c5', '#f6ad55', '#fc8181', '#63b3ed', '#d53f8c'],
+                    tooltip: {
+                        theme: 'dark'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+
+                const chart = new ApexCharts(document.querySelector("#lead-source-chart"), options);
+                chart.render();
+            }
+
+            function initRevenueChart() {
+                const options = {
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        theme: {
+                            mode: 'dark'
+                        }
+                    },
+                    series: [{
+                        name: 'Revenue',
+                        type: 'column',
+                        data: revenueData.revenue
+                    }, {
+                        name: 'Target',
+                        type: 'line',
+                        data: revenueData.target
+                    }],
+                    stroke: {
+                        width: [0, 4]
+                    },
+                    title: {
+                        text: 'Monthly Performance'
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        enabledOnSeries: [1]
+                    },
+                    labels: revenueData.categories,
+                    xaxis: {
+                        type: 'category'
+                    },
+                    yaxis: [{
+                        title: {
+                            text: 'Revenue (in thousands)',
+                        },
+                    }],
+                    colors: ['#4fd1c5', '#e53e3e'],
+                    tooltip: {
+                        theme: 'dark'
+                    }
+                };
+
+                const chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+                chart.render();
+            }
+
+            function initRecentDealsTable() {
+                const tableBody = document.querySelector('#recent-deals-table tbody');
+                tableBody.innerHTML = ''; // Clear placeholder
+                recentDealsData.forEach(deal => {
+                    const row = `<tr>
+                        <td>${deal.name}</td>
+                        <td>${deal.company}</td>
+                        <td>${deal.value}</td>
+                        <td>${deal.stage}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            }
+
+            // --- RENDER WIDGETS ---
+            initKpiCards();
+            initLeadSourceChart();
+            initRevenueChart();
+            initRecentDealsTable();
+
+            // Placeholder for funnel and heatmap
+            document.querySelector('#sales-pipeline-chart').innerHTML = '<div class="sales-pipeline-funnel-placeholder">Funnel visualization would be here.</div>';
+            document.querySelector('#team-activity-chart').innerHTML = '<div class="team-activity-heatmap-placeholder">Activity heatmap would be here.</div>';
+
+        });
+    </script>
+</body>
+</html>

@@ -2,10 +2,10 @@
   <v-app-bar app color="white" flat class="border-b">
     <v-app-bar-title>Sushi Bar</v-app-bar-title>
     <v-spacer></v-spacer>
-    <v-btn text>Home</v-btn>
-    <v-btn text>Menu</v-btn>
-    <v-btn text>Testimonials</v-btn>
-    <v-btn text>Contact</v-btn>
+    <v-btn text href="#home">Home</v-btn>
+    <v-btn text href="#menu">Menu</v-btn>
+    <v-btn text href="#testimonials">Testimonials</v-btn>
+    <v-btn text href="#contact">Contact</v-btn>
   </v-app-bar>
 </template>
 

@@ -8,7 +8,7 @@
     <div class="text-center">
       <h1 class="text-h2 font-weight-bold text-white mb-4">Experience Authentic Sushi</h1>
       <h2 class="text-h5 text-white mb-8">Fresh ingredients, traditional flavors, unforgettable moments.</h2>
-      <v-btn color="primary" size="large" class="text-white">View Our Menu</v-btn>
+      <v-btn color="primary" size="large" class="text-white" href="#menu">View Our Menu</v-btn>
     </div>
   </v-img>
 </template>

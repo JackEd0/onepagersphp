@@ -11,10 +11,10 @@ import ContactHours from './components/ContactHours.vue';
     <Header />
     <v-main>
       <v-container fluid class="pa-0">
-        <Hero />
-        <ServicesGrid />
-        <Testimonials />
-        <ContactHours />
+        <Hero id="home" />
+        <ServicesGrid id="menu" />
+        <Testimonials id="testimonials" />
+        <ContactHours id="contact" />
       </v-container>
     </v-main>
   </v-app>

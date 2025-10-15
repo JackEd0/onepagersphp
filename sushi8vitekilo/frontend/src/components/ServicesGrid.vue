@@ -10,7 +10,7 @@
         md="4"
         lg="3"
       >
-        <v-card class="mx-auto" max-width="344">
+        <v-card class="mx-auto d-flex flex-column" max-width="344" height="100%">
           <v-img
             :src="item.image"
             height="200px"

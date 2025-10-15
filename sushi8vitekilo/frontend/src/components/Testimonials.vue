@@ -9,7 +9,7 @@
         md="6"
         lg="4"
       >
-        <v-card class="mx-auto pa-4" max-width="400">
+        <v-card class="mx-auto pa-4 d-flex flex-column" max-width="400" height="100%">
           <v-card-text class="text-center">
             <v-avatar size="80" class="mb-4">
               <v-img :src="testimonial.avatar" :alt="testimonial.name"></v-img>

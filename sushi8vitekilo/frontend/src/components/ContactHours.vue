@@ -3,7 +3,7 @@
     <h2 class="text-h3 text-center mb-8">Contact Us & Hours</h2>
     <v-row justify="center">
       <v-col cols="12" md="6" lg="4">
-        <v-card class="mx-auto pa-4" max-width="400">
+        <v-card class="mx-auto pa-4 d-flex flex-column" max-width="400" height="100%">
           <v-card-title class="text-h5">Contact Information</v-card-title>
           <v-card-text>
             <p class="mb-2">
@@ -22,7 +22,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6" lg="4">
-        <v-card class="mx-auto pa-4" max-width="400">
+        <v-card class="mx-auto pa-4 d-flex flex-column" max-width="400" height="100%">
           <v-card-title class="text-h5">Operating Hours</v-card-title>
           <v-card-text>
             <p class="mb-2">

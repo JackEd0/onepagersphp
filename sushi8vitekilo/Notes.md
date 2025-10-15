@@ -38,3 +38,5 @@ Stop code indexing by default
 move files from folder 'frontend' to project folder
 
 have better design
+
+build project and move all sushi projects that do not require PHP elsewhere

@@ -1,6 +1,6 @@
 <template>
   <v-img
-    src="https://images.unsplash.com/photo-1579871702107-87e1667981c8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    src="https://unsplash.com/photos/-o83L46t2hU/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTR8fHN1c2hpJTIwa2l0Y2hlbnxlbnwwfHx8fDE3NjA1Mzg2ODF8MA&force=true"
     cover
     height="600px"
     class="d-flex align-center justify-center"

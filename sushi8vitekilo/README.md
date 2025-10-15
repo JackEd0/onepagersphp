@@ -1,6 +1,6 @@
 # Sushi Bar Website
 
-A modern, responsive, and mobile-first single-page sushi bar website built with Vite and shadcn UI.
+A modern, responsive, and mobile-first single-page sushi bar website built with Vite, Vue.js, and Vuetify.
 
 ## Project Overview
 
@@ -8,8 +8,20 @@ This project aims to create a visually appealing and functional website for a su
 
 ## Installation
 
-(To be filled in after initial setup)
+1.  **Navigate to the `frontend` directory:**
+    ```bash
+    cd frontend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
 ## Usage
 
-(To be filled in after initial setup)
+1.  **Start the development server:**
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+    The application will be accessible at `http://localhost:5173/`.

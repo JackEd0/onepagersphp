@@ -2,8 +2,7 @@
 
 ## Planning and Setup
 - [ ] Create Vite project
-- [ ] Install shadcn UI and Tailwind CSS
-- [ ] Configure `tailwind.config.js` for custom themes and components
+- [ ] Install Vuetify and its dependencies
 
 ## Component Development
 - [ ] Design and implement `Header` component (sticky navigation)
@@ -16,7 +15,7 @@
 ## Styling and Responsiveness
 - [ ] Apply modern design principles with ample white space
 - [ ] Ensure mobile-first responsiveness for all sections
-- [ ] Implement consistent styling using Tailwind CSS and shadcn UI
+- [ ] Implement consistent styling using Vuetify
 
 ## Content Integration
 - [ ] Populate menu data for `ServicesGrid`

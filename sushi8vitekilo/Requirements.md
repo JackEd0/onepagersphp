@@ -14,9 +14,9 @@
 
 ## Technical Requirements
 
-*   **Framework:** Vite
-*   **UI Library:** shadcn UI (which is built on and requires Tailwind CSS for styling)
-*   **Styling:** Tailwind CSS (for both shadcn UI components and custom styles)
+*   **Framework:** Vite + Vue.js
+*   **UI Library:** Vuetify (Vue.js UI Framework)
+*   **Styling:** Vuetify's built-in styling, potentially supplemented by Tailwind CSS for custom utilities.
 *   **Image Hosting:** Unsplash (direct links, no downloads)
 *   **Dependencies:** Node.js, npm/yarn
 

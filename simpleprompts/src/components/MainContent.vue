@@ -43,7 +43,7 @@ import { ref, onMounted } from 'vue'
 import { prompts as mockPrompts } from '../mock-data.js'
 
 const prompts = ref([])
-const apiUrl = import.meta.env.PHP_API_URL
+const apiUrl = import.meta.env.VITE_PHP_API_URL
 
 onMounted(async () => {
   if (apiUrl) {
@@ -61,6 +61,7 @@ onMounted(async () => {
   } else {
     // Use mock data if no API URL is provided
     prompts.value = mockPrompts
+    console.warn('No API URL provided. Using mock data.')
   }
 })
 </script>

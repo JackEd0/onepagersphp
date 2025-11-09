@@ -1,40 +1,92 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-$prompts = [
-  [
-    'id' => 1,
-    'title' => 'Generate a Vue component',
-    'instructions' => 'Create a new component for a user profile card.',
-    'content' => 'Component should display user name, avatar, and a short bio.',
-    'tags' => ['vue', 'frontend', 'component'],
-    'favorite' => true,
-  ],
-  [
-    'id' => 2,
-    'title' => 'Write a SQL query',
-    'instructions' => 'Select all users from the "users" table who have signed up in the last 30 days.',
-    'content' => 'SELECT * FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY);',
-    'tags' => ['sql', 'database', 'backend'],
-    'favorite' => false,
-  ],
-  [
-    'id' => 3,
-    'title' => 'Explain a design pattern',
-    'instructions' => 'Describe the Singleton design pattern and its use cases.',
-    'content' => 'The Singleton pattern ensures that a class has only one instance and provides a global point of access to it.',
-    'tags' => ['design-patterns', 'software-architecture'],
-    'favorite' => true,
-  ],
-  [
-    'id' => 4,
-    'title' => 'CSS trick for centering',
-    'instructions' => 'Horizontally and vertically center a div.',
-    'content' => 'display: flex; justify-content: center; align-items: center;',
-    'tags' => ['css', 'frontend'],
-    'favorite' => false,
-  ],
-];
+use Notion\Notion;
+use Notion\Databases\Query;
+use Notion\Databases\Query\Sort;
 
-echo json_encode($prompts);
+// Load environment variables
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$notionApiKey = $_ENV['NOTION_API_KEY'];
+$databaseId = $_ENV['NOTION_DATABASE_ID'];
+
+if (!$notionApiKey || !$databaseId) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Notion API key or Database ID not configured.']);
+    exit;
+}
+
+try {
+    $notion = Notion::create($notionApiKey);
+
+    $query = Query::create($databaseId)
+        ->changeSort(Sort::ascending("title"));
+
+    $result = $notion->databases()->query($query);
+
+    $prompts = [];
+    foreach ($result->results() as $page) {
+        $properties = $page->properties();
+
+        // Default values
+        $title = 'Untitled';
+        $instructions = '';
+        $content = '';
+        $tags = [];
+        $favorite = false;
+
+        if (isset($properties['title']) && $properties['title']->isTitle()) {
+            $titleParts = [];
+            foreach ($properties['title']->title as $richText) {
+                $titleParts[] = $richText->plainText;
+            }
+            $title = implode("", $titleParts);
+        }
+
+        if (isset($properties['instructions']) && $properties['instructions']->isRichText()) {
+             $instructionParts = [];
+            foreach ($properties['instructions']->richText as $richText) {
+                $instructionParts[] = $richText->plainText;
+            }
+            $instructions = implode("", $instructionParts);
+        }
+
+        if (isset($properties['content']) && $properties['content']->isRichText()) {
+            $contentParts = [];
+            foreach ($properties['content']->richText as $richText) {
+                $contentParts[] = $richText->plainText;
+            }
+            $content = implode("", $contentParts);
+        }
+
+        if (isset($properties['tags']) && $properties['tags']->isMultiSelect()) {
+            foreach ($properties['tags']->multiSelect as $tag) {
+                $tags[] = $tag->name;
+            }
+        }
+
+        if (isset($properties['favorite']) && $properties['favorite']->isCheckbox()) {
+            $favorite = $properties['favorite']->checkbox;
+        }
+
+        $prompts[] = [
+            'id' => $page->id(),
+            'title' => $title,
+            'instructions' => $instructions,
+            'content' => $content,
+            'tags' => $tags,
+            'favorite' => $favorite,
+        ];
+    }
+
+    echo json_encode($prompts);
+
+} catch (\Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to fetch prompts from Notion: ' . $e->getMessage()]);
+}

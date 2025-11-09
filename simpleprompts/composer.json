@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mariosimao/notion-sdk-php": "^1.15"
+    }
+}

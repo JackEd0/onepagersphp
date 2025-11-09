@@ -40,18 +40,27 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { prompts as mockPrompts } from '../mock-data.js'
 
 const prompts = ref([])
+const apiUrl = import.meta.env.PHP_API_URL
 
 onMounted(async () => {
-  try {
-    const response = await fetch('/api/prompts.php')
-    prompts.value = await response.json()
-  } catch (error) {
-    console.error('Error fetching prompts:', error)
+  if (apiUrl) {
+    try {
+      const response = await fetch(apiUrl)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      prompts.value = await response.json()
+    } catch (error) {
+      console.error('Error fetching prompts from API:', error)
+      // Fallback to mock data if API fails
+      prompts.value = mockPrompts
+    }
+  } else {
+    // Use mock data if no API URL is provided
+    prompts.value = mockPrompts
   }
 })
-</script>
-<script setup>
-  //
 </script>

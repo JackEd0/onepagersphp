@@ -1,5 +1,6 @@
 {
     "require": {
-        "mariosimao/notion-sdk-php": "^1.15"
+        "mariosimao/notion-sdk-php": "^1.15",
+        "vlucas/phpdotenv": "^5.5"
     }
 }

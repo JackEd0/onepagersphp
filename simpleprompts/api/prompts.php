@@ -12,8 +12,8 @@ use Notion\Databases\Query\Sort;
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/');
 $dotenv->load();
 
-$notionApiKey = $_ENV['NOTION_API_KEY'];
-$databaseId = $_ENV['NOTION_DATABASE_ID'];
+$notionApiKey = $_ENV['NOTION_API_SECRET'];
+$databaseId = $_ENV['NOTION_DATASOURCE_ID'];
 
 if (!$notionApiKey || !$databaseId) {
     http_response_code(500);

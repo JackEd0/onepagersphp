@@ -20,5 +20,5 @@ AI agents rely on this file (AGENTS.md) to understand the project and continue w
 
 ## Restricted files
 
-Files in the list contain sensitive data, they MUST NOT be read
+Files in the list contain sensitive data, they MUST NOT be edited
 - .env

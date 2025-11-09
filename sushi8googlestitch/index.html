@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sushi Restaurant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .bg-wave-pattern {
+                background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+            .drip-transition {
+                position: relative;
+            }
+            .drip-transition::before {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 80px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFF8F0" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,149.3C672,128,768,128,864,154.7C960,181,1056,235,1152,240C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+                background-repeat: no-repeat;
+                background-size: cover;
+                transform: rotate(180deg);
+                z-index: 10;
+            }
+            .dark .drip-transition::before {
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231A1A1A" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,149.3C672,128,768,128,864,154.7C960,181,1056,235,1152,240C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+                transform: rotate(180deg);
+            }
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FF6B6B",
+                        "background-light": "#FFF8F0",
+                        "background-dark": "#1A1A1A",
+                        "text-light": "#333333",
+                        "text-dark": "#E5E5E5",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#2C2C2C",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        sans: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-gradient-to-br from-background-light to-rose-100 dark:from-background-dark dark:to-slate-900 font-sans text-text-light dark:text-text-dark bg-wave-pattern">
+<div class="container mx-auto px-4">
+<header class="flex justify-between items-center py-6">
+<a class="text-2xl font-bold font-display text-primary" href="#">Sushi House</a>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<a class="hover:text-primary transition-colors" href="#">Menu</a>
+<a class="hover:text-primary transition-colors" href="#">Gallery</a>
+<a class="hover:text-primary transition-colors" href="#">About</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<button class="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-opacity-90 transition-colors">Order Now</button>
+<button class="md:hidden">
+<span class="material-icons">
+                    menu
+                </span>
+</button>
+</header>
+<section class="relative flex flex-col md:flex-row items-center pt-16 pb-32">
+<div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+<h1 class="text-6xl font-display font-bold leading-tight">The finest <span class="text-primary">sushi</span>, delivered to your door.</h1>
+<p class="mt-4 mb-8 text-lg text-gray-600 dark:text-gray-400">Experience the art of Japanese cuisine with our fresh and delicious sushi creations.</p>
+<div class="flex justify-center md:justify-start space-x-4">
+<a class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors" href="#">View Menu</a>
+<a class="bg-gray-200 dark:bg-surface-dark text-text-light dark:text-text-dark px-8 py-3 rounded-full font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" href="#">Book a Table</a>
+</div>
+</div>
+<div class="md:w-1/2">
+<img alt="A beautiful platter of assorted sushi rolls and nigiri" class="rounded-lg shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7s2NkEgNOkyJQTH3irFrO7U_RPfLHuVywmf-2XqTh8Q_uqcp8iLCGQyu_Iz--S8ZvdI4Hhk99-Jhxchtwj8oo4PQLgK0_Hz5SMnKyqFG4-IG5Qxhrkh0RGp4M0k7HNdy2cRO-WvfIZxQ5d3UlT1OzfRIKDmsrjXGGndj2S01VSjgEm4gRiTlOzPMF00UkO6CYsIH8apt0JRtkpmHenTwiGEPJPLCcR79Jh51fRdX5Iy7f8Hoh2x1GIYrQfAh519FpTxYbsASoMEk"/>
+</div>
+<div class="drip-transition"></div>
+</section>
+<div class="bg-background-light dark:bg-background-dark -mt-1 relative z-20">
+<section class="py-12">
+<p class="text-center text-gray-500 dark:text-gray-400 mb-4">Delivering freshness with our trusted partners</p>
+<div class="flex justify-center items-center space-x-12">
+<span class="font-bold text-xl text-gray-400 dark:text-gray-500">Uber Eats</span>
+<span class="font-bold text-xl text-gray-400 dark:text-gray-500">Postmates</span>
+<span class="font-bold text-xl text-gray-400 dark:text-gray-500">DoorDash</span>
+</div>
+</section>
+<section class="py-20 text-center">
+<h2 class="text-4xl font-display font-bold mb-4">Explore Our Menu</h2>
+<p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 mb-12">From classic rolls to innovative creations, our menu has something for every sushi lover.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+<img alt="A serving of maki sushi rolls" class="w-24 h-24 mx-auto mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmagdhslx-kUfNuIgl3lU7C8XnvfCyPYRfhw2hrGYGqyUB5d6C9x7Emlazzjve0R6RCNCcAy84p6b03VDLjZpv1nSQTABgvTu7xRu7JrPz-RuhFTBUg1o4m6pFlZqPw6UfFEI69K6PHB0Zed9zQWUx_AOnAr01rUi-CskpogCeWX2RkJqwIYQY2LOr_TacTezeLw6N5Nwd7Xx0T3uNZKNsrquqcJJc_a70Gyd4WnThJKz5RefZxgvtIzcjHIQvN718pz1QIRq6E3g"/>
+<h3 class="text-xl font-semibold mb-2">Maki Rolls</h3>
+<p class="text-gray-500 dark:text-gray-400 mb-4">Classic seaweed-wrapped rolls with various fillings.</p>
+<a class="text-primary font-semibold hover:underline" href="#">Explore more <span class="material-icons text-sm align-middle">arrow_forward</span></a>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+<img alt="A serving of nigiri sushi" class="w-24 h-24 mx-auto mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdquXgy2rA-0EKE17aMGZezNXt00_hZBnwgRZU_OGO70iCB8qOGnO98NCzKLUBRrdBvKMY9lPhRwJOZ0w3VGnzrEYyPZ_umJpNQVxdirJu15Hjlw2Sb909Cdq29sgN_doSFetg1_z948GKZ45lfZ_6tHizFKsuwpmzioEhLN7vqu5_UX6RCVOTqjN2u_GlYAUyx0XrJcNwsKFyhwMj_wRnSkWDlMz89fa_2xUfDx28DaMElcIeH1Bk2nXa2HYekHsjlOOW82a_cFw"/>
+<h3 class="text-xl font-semibold mb-2">Nigiri</h3>
+<p class="text-gray-500 dark:text-gray-400 mb-4">A slice of fresh fish over a bed of seasoned rice.</p>
+<a class="text-primary font-semibold hover:underline" href="#">Explore more <span class="material-icons text-sm align-middle">arrow_forward</span></a>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+<img alt="A serving of sashimi" class="w-24 h-24 mx-auto mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNKhmwHVtGaXt-TzTQ2qHtih0YlPgbUlENqrziLUgTjZ5AGqmAutZ9X4kejIFhvrFbxqltbgK7GdpBqeetlVZWEVm1FwPrw0CF2lstVNUlEnCuZJ8psfIrcWRfbUc2ID9J5budjmj_JbrXG0uFSFTJFRf_quHLHCSFzqdQ2ZhH0kSGBBj7vZ1oX-HZEzjYb4sm5PJMH2QDRuTcAc_7zBapUHyAXwKbc4M4nWp7BRSRMrdtBOrz1KK62ph2cpwxjNacfOIfh-mJy7A"/>
+<h3 class="text-xl font-semibold mb-2">Sashimi</h3>
+<p class="text-gray-500 dark:text-gray-400 mb-4">Thick slices of premium, raw fish.</p>
+<a class="text-primary font-semibold hover:underline" href="#">Explore more <span class="material-icons text-sm align-middle">arrow_forward</span></a>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+<img alt="A special sushi roll with unique toppings" class="w-24 h-24 mx-auto mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2mlN1__3dhb1feQUV0OzhjQ8ET29dRo6d2Gd62aewpcoCjjqKHuRx3gLrVCWGzM3XYKytVFEZYPTZ_fCfxC2dz-39Jtj0JjSNxEDV3OfcZT8pmkr_WHjl70F0nLQ2QQJy4PGTOizEHc67AYcf2hnOjwcHn-jZ0XqFKXi0mPMi4kQAFXoP80mdhDqGfyxmqfFzTF95hdZoVICJ2VOwpRTKUwbxzwGCLUsL7mN3pLREzHAtQFK8qZpEleAZojP_OIyZQgh3_ppoS8s"/>
+<h3 class="text-xl font-semibold mb-2">Special Rolls</h3>
+<p class="text-gray-500 dark:text-gray-400 mb-4">Our chef's unique and flavorful creations.</p>
+<a class="text-primary font-semibold hover:underline" href="#">Explore more <span class="material-icons text-sm align-middle">arrow_forward</span></a>
+</div>
+</div>
+<div class="mt-12">
+<a class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors" href="#">Full Menu</a>
+</div>
+</section>
+<section class="py-20 text-center">
+<h2 class="text-4xl font-display font-bold mb-4">Our Gallery</h2>
+<p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 mb-12">A glimpse into our world of fresh ingredients, artful presentation, and cozy ambiance.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="grid gap-4">
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_vH4C4573L6i8Xy_8cR0Xz5Z_7K2mC0gQ5i0B5VwZ7S5wXj4D7f8b9e0R1k7Lz6oPqH6wT1Z3uC0c1bVwI1O2x3Y4z5G6p7q8R9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3k_J0l3q_V0r1wX5yZ8_A0b1C2d3E4f5G6h7I8j9K0l1M2n3O4p5Q6r7S8t9U0v1W2x3Y4z5_A6b7C8d9E0f1"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPxY8Z_k9n6m1j5g0d7c4b2a_l8i3p7r_o9q6z4x2w_e1f0v_h5s1t_u3y_v9i_j4k6l2m_n7o8p_q9r8s"/>
+</div>
+</div>
+<div class="grid gap-4">
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1_q_y4r_s2t_u6v_w8x_z0a_b1c_d3e_f5g_h7i_j9k_l1m_n3o_p5q_r7s_t9u_v0w_x2y_z4a_b6c_d8e_f0g"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4h2w_f_g3e_d_c_b_a_z_y_x_w_v_u_t_s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a_0_9_8_7_6_5_4_3_2_1"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2w3x4y5z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_0_1_2_3_4_5_6_7_8_9"/>
+</div>
+</div>
+<div class="grid gap-4">
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_z0y_x_w_v_u_t_s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a_9_8_7_6_5_4_3_2_1_0_z_y_x_w_v_u_t_s"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRl_s0k_j5i_h2g_f8e_d4c_b1a_z9y_x6w_v3u_t7s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_R_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a_z_y_x_w_v_u_t_s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c"/>
+</div>
+</div>
+<div class="grid gap-4">
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a_z_y_x_w_v_u_t_s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9g_h_f_e_d_c_b_a_z_y_x_w_v_u_t_s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a_0_1_2_3_4_5_6_7"/>
+</div>
+<div>
+<img alt="" class="h-auto max-w-full rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-9_8_7_6_5_4_3_2_1_0_z_y_x_w_v_u_t_s_r_q_p_o_n_m_l_k_j_i_h_g_f_e_d_c_b_a"/>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col md:flex-row items-center py-20 bg-background-light dark:bg-surface-dark rounded-lg">
+<div class="md:w-1/2 p-8">
+<img alt="A sushi chef carefully preparing a roll" class="rounded-lg shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjobTr86AJGLy-ga6mnsVETl9uJD1-4ce3qjOIpJmJb3-MRbGWzQ1Bjb7o7YjCBN9xHLgXk71hZMh_R3dud3KF-1QbTw5oGq7XNdVecRxgp_Wx_HsxaoMiw77HvP78X5W5Exc372mQ0UN70kUChPhBBB02u1wldmdhcFIypQbRf-qq_vSMfQTMbaaNPgY_IFGcjKAH4OjOXPSIFKp2W9hTl9PwJCXLujOmmVeu_rOJ491FIK2CuF2BaMBugoVD1b-3PUVd4GJ3oR4"/>
+</div>
+<div class="md:w-1/2 p-8 text-center md:text-left">
+<h2 class="text-4xl font-display font-bold mb-4">About Us</h2>
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Founded on a passion for authentic Japanese cuisine, Sushi House has been serving the community with the freshest ingredients and traditional techniques since 2010.</p>
+<p class="text-gray-500 dark:text-gray-500 mb-8">We believe in the art of sushi-making, where every piece is a testament to our dedication to quality and flavor.</p>
+<a class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors" href="#">Our Story</a>
+</div>
+</section>
+<section class="my-20 bg-primary text-white rounded-lg shadow-xl overflow-hidden">
+<div class="flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 p-12 text-center md:text-left">
+<h2 class="text-4xl font-display font-bold mb-4">Taste the most delicious sushi in Los Angeles, CA</h2>
+<p class="mb-8">Order now and experience an unforgettable culinary journey.</p>
+<a class="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors" href="#">Order Now</a>
+</div>
+<div class="md:w-1/2 h-64 md:h-auto">
+<img alt="A large, appetizing platter of various sushi rolls" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXDPkFNuLjAqRMDWX0AGe0z0JrpSvAyaI1KA1ETEctJCTE9CB9hLQG8FLFl21FNJXuOWc4ownWnNyBGSal5VEBpswnYNar2y5upkeWs5lT-BRztGHkxb48RJJ7npKQnE_glG-gLkKS1PMSzuw3ax3l4OJyOT_GElmIQALpW3PGjZei5ifSjWNYfaFk1ApgcGEBzq_EGuSeK3MbeZh0mCx3GtMXWky0d6IWTh0Hkkzxj2vFEtNhH9hYroWEGN1Dhgwb34G8rfb71rE"/>
+</div>
+</div>
+</section>
+<section class="py-20 text-center">
+<h2 class="text-4xl font-display font-bold mb-4">What our clients say</h2>
+<p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 mb-12">We are proud to have served so many happy customers. Here's what they have to say.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-lg shadow-md">
+<div class="flex items-center mb-4">
+<span class="text-yellow-400">★★★★★</span>
+</div>
+<p class="text-gray-600 dark:text-gray-400 mb-6">"The best sushi in LA, period. Incredibly fresh and the flavors are out of this world."</p>
+<div class="flex items-center">
+<img alt="Avatar of Jane Doe" class="w-10 h-10 rounded-full mr-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABfdCR4AzkgfUbJCFa3FbBJpdx3vaOx0NmWAzIg2evdtFIz6jP-72eUs4Nk1eId0-4_HWuDNOjKSPXN5L3zsy6MXCzjy0171lZitpX7gQwLm1Gjmu6UbrHvmuuI_GBHwEM4fSeG8JqnbVeA1cbpq_5WV5ukUqzWFiZ599m7mkQMajJQ_X8rO8SwL9QwLwbDWJRmvdA82E8Y0dcbb7sUDw6yt5nkpnRFKal8RalE_0paDWi7iT4qiXcHx1qSKef1UsLlQz3SagFHq8"/>
+<div>
+<p class="font-semibold">Jane Doe</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Food Blogger</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-lg shadow-md">
+<div class="flex items-center mb-4">
+<span class="text-yellow-400">★★★★★</span>
+</div>
+<p class="text-gray-600 dark:text-gray-400 mb-6">"An absolute delight. The attention to detail in every roll is remarkable. A true gem!"</p>
+<div class="flex items-center">
+<img alt="Avatar of John Smith" class="w-10 h-10 rounded-full mr-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAga2aXQHqZLfdq78ONNN4Nw85nz3IAW3FsdGyjEWOVxPPTDJn4p7EuDFf4S_405uBGudIWMPFXoNnuUP-rmvv5z9ZRI9p19ZDSrxMq_UxJUsOpYsTD0XyMtgWFXWtUbPRacBmPzQO_itprKGX7Sk8tQvI-uvZx6aXy23cNIzSiq3X02VNTUyRPDiBRNnsDvv2xaC6CUj1lrlZYjhexVqXJ22TI4moHJ7ddDaE5aAEyV_d1Mp-fv7jaPSs-SbTHBVJvRHw7v6fWMvE"/>
+<div>
+<p class="font-semibold">John Smith</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Sushi Enthusiast</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-lg shadow-md">
+<div class="flex items-center mb-4">
+<span class="text-yellow-400">★★★★★</span>
+</div>
+<p class="text-gray-600 dark:text-gray-400 mb-6">"Consistently fresh and delicious. My go-to for takeout and special occasions."</p>
+<div class="flex items-center">
+<img alt="Avatar of Emily White" class="w-10 h-10 rounded-full mr-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFCiM4QMF1aXlNAYBCpy9241MglZBNI8-GwtmQHg5ATJLpZbZnBRv9GdtQqJ9eQM82BU1DPw_03hTSPolBvK0NzaBz-LymCvQqBBDmaIuXwqkr-cjDUiQkkQtlpNKihQU5GnEsqR7Urxo79vBJNuPJja7gaN8KZVUx2fAsXjYyvOTBXtexGdtdRcB3FAKOFlzWRAcgV_SUlVJYZR6Yt2H3KJ4-hqTQqUlXBilcrzaZ_PtYg3Q-lLXpgpvXdHfQSiKGAR5Ev470Zwk"/>
+<div>
+<p class="font-semibold">Emily White</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Local resident</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 flex flex-col md:flex-row items-center bg-primary rounded-lg">
+<div class="md:w-1/2 p-12 text-white">
+<h2 class="text-4xl font-display font-bold mb-4">Book your table now</h2>
+<p class="mb-6">Reserve your spot for an unforgettable dining experience.</p>
+<div class="space-y-4">
+<div class="flex items-center">
+<span class="material-icons mr-3">phone</span>
+<span>(123) 456-7890</span>
+</div>
+<div class="flex items-center">
+<span class="material-icons mr-3">email</span>
+<span>contact@sushihouse.com</span>
+</div>
+<div class="flex items-center">
+<span class="material-icons mr-3">location_on</span>
+<span>123 Sushi St, Los Angeles, CA</span>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 p-8 w-full">
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-lg shadow-2xl">
+<form class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="name">Name</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" id="name" name="name" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="email">Email address</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" id="email" name="email" type="email"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="people">Number of people</label>
+<select class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 px-3 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm" id="people" name="people">
+<option>2 people</option>
+<option>3 people</option>
+<option>4 people</option>
+</select>
+</div>
+<div>
+<button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" type="submit">Book a table</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<footer class="pt-20 pb-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div>
+<a class="text-2xl font-bold font-display text-primary" href="#">Sushi House</a>
+<p class="mt-4 text-gray-500 dark:text-gray-400">The finest sushi, delivered to your door.</p>
+</div>
+<div>
+<h4 class="font-semibold text-lg mb-4">Pages</h4>
+<ul class="space-y-2">
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Home</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Menu</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">About Us</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-lg mb-4">Utility Pages</h4>
+<ul class="space-y-2">
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Styleguide</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Licenses</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Changelog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold text-lg mb-4">Follow us on Instagram</h4>
+<div class="grid grid-cols-3 gap-2">
+<img alt="Instagram photo of sushi" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk6sPK4V3_Eq8GKE37mmSTSjrCLLV_flV0GVw_Yxt5z4Eipjlosmh_W5hCrLU7Qwd1s42UWPSxch4XSPgD-HKoHeu19UEclgFZKfM_-qlsezr5y_WMgTQAu5EMWDUezbnLAUl1MjeKZ3rBoqheJ9Lj6k3F5lCxy7KZ1h4lp-jIP6BYl-O1GAd-2Pof9gTe5CKRVsi8nf4YxdpbHaqagzOIoEcopAmyDJoLBgbIBlTrRUP8WmEQcJ6jK1wBhhQjRmgEuO8LIwvppmE"/>
+<img alt="Instagram photo of sushi" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdyZs1E4wr-LakcTVh669ykbUKXYSs5pGM3Kc9DiNQ0MLNpAcpsPNpN87JukWONQ-7dgF3aoHOSxOWBSXelh4YrH7f7nEpeXvK-GY804EPCqu3VOn9PBSeJ-Ky2yiHacRmV5paWPpsfbOiH7wUzoguGhCuooOTIJQRYw0m0vAISzVgK3WIcNfsehCdtm9bKF30j9mvxo4eiYTwXdxRQ2lPfyIxgKxlDSkZuswSSn_U9EUf0chjcqRxcOT-vgK0964y0jEyzQdnMIE"/>
+<img alt="Instagram photo of sushi" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHKpwbfThi-gW2BzEN3dHKcCv0FQc48IgTbw7FoC8NbCvgrAHn1Tu5K3C-LlYqvrRR2Prwq59k7c66HlmhppZ4PpxFk37ePG7QkjjqhC9RMM1LdZbqY3FoZekfVCd693D9xpzgxitJoIicCLmwLc3hWK1driyjcwNJncw9EV07IJ6uotWGXLRe9RG44__j6VRe6hqn0lvb-g59ZMqIpJo9VYHwHUMQ5IxQjsETzvR0SgoFJ9vTpoaLIzAHyb2-D5rl_jc0hAYPEYU"/>
+<img alt="Instagram photo of sushi" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3K7M1RsaYQtPrfZRoHdJBX4596bI9ltT0H2_p4uFzB2Ar1xsps6_h1VGBDCAPJn7hDSCZxZfQYro5-_aDVASs4b5vhcapQsUhWvH8ZScRGXvuUEd2ZsVRt-W3VlylQGpJiDL3QwdYf2h1N5BJ5P8IWImWz6D3cG3Tcd73sWzBiMqB337o0sRwq_2C-mSp9joqjzE8QluZDGxxvf4kpT1nmq2wMV1_HpmONGWv9RWlb6ueoR53_FbY4Z9qsRVTNx-px62D8vXupIw"/>
+<img alt="Instagram photo of sushi" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmN7oxKPezLGchXUeAqsg4QCXVWlqK7F7YGhbD96vIWShOuLz2e01i_I2-jePTGihyV7yAhofNHS-oQcfGL6KTQXW-ZGuG26y5yGOlfuIFFld9Io0Z8FS6PSV1C5l-rNM9rbD5dQvUWNWNS7wI5rmsCvAeJcuwBvc7-PyZ-f2TCN-pSXYl0gBW2qjqXScir9C7e9_k4n6x1oXhXya8VwAzXiDlniZTHZbAiAI9EN3hMFBvgXmS-e0WsAGakS1G0fBpDFJyyCc9B9o"/>
+<img alt="Instagram photo of sushi" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8XFuBN9zB8xOJroaOwombqr57GW7LvkC8oW4sV1aJyNKhgD0VrxFBwmSQ-Ik_j_TpqDmaTh7FQErUGHmfSDxesRu_6KI5kg2ZL5HHFdPMKGJAaGwFty4Cg0w-C6xOGOQbNZsxrvDeZiaNhmzMbftYaIzzPv2SRpfoASUdFBdfs3syL2xwlo5YW3EI12syG3TPS19r28q1vWiG540vDnsm7KJMpcRySMozqHr9mzUVrIOGngoeASCyimXZMSz0Hp5N7X-pgThSDIo"/>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-700 pt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+<p>© Sushi House 2023. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>

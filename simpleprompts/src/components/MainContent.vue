@@ -49,6 +49,7 @@ onMounted(async () => {
   if (apiUrl) {
     try {
       const response = await fetch(apiUrl)
+      console.log('Raw API Response:', await response.clone().text());
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

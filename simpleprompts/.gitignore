@@ -2,6 +2,7 @@
 node_modules
 /dist
 vendor
+notion-sdk-php-docs
 
 # local env files
 .env.local

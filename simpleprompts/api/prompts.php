@@ -25,7 +25,7 @@ try {
     $notion = Notion::create($notionApiKey);
 
     $query = Query::create($databaseId)
-        ->changeSort(Sort::ascending("title"));
+        ->addSort(Sort::property("title")->ascending());
 
     $result = $notion->databases()->query($query);
 

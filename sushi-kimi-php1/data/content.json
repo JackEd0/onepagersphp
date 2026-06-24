@@ -1,0 +1,116 @@
+{
+    "site": {
+        "title": "Sakura Sushi | Premium Japanese Dining",
+        "favicon": ""
+    },
+    "hero": {
+        "heading": "The Art of Freshness 2",
+        "subheading": "Authentic Japanese flavors delivered with modern elegance. Experience the best sushi in town.",
+        "image": "https:\/\/images.unsplash.com\/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop"
+    },
+    "menu": [
+        {
+            "id": "salmon-nigiri",
+            "title": "Salmon Nigiri",
+            "price": "$8.00",
+            "description": "Two pieces of fresh Atlantic salmon over perfectly seasoned vinegar rice.",
+            "image": "https:\/\/images.unsplash.com\/photo-1633478062482-790e3b5dd810?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "spicy-tuna-roll",
+            "title": "Spicy Tuna Roll",
+            "price": "$12.00",
+            "description": "Fresh tuna mixed with spicy mayo, cucumber, and sesame seeds.",
+            "image": "https:\/\/images.unsplash.com\/photo-1558985250-27a406d64cb3?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "dragon-roll",
+            "title": "Dragon Roll",
+            "price": "$16.00",
+            "description": "Eel and cucumber inside, topped with avocado, tobiko and eel sauce.",
+            "image": "uploads\/6a3c1313c7433_BarberShop-Hair-Salon-HTML-Template.jpg"
+        },
+        {
+            "id": "california-roll",
+            "title": "California Roll",
+            "price": "$9.50",
+            "description": "Crab meat imitation, avocado, and cucumber. A classic favorite.",
+            "image": "https:\/\/images.unsplash.com\/photo-1615361200141-f45040f367be?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "sashimi-deluxe",
+            "title": "Sashimi Deluxe",
+            "price": "$24.00",
+            "description": "Chef's choice of 12 pieces of assorted fresh raw fish (no rice).",
+            "image": "https:\/\/images.unsplash.com\/photo-1534482421-64566f976cfa?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "shrimp-tempura",
+            "title": "Shrimp Tempura",
+            "price": "$11.00",
+            "description": "Crispy deep-fried shrimp served with savory dipping sauce.",
+            "image": "https:\/\/images.unsplash.com\/photo-1626804475297-411dbe703093?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "rainbow-roll",
+            "title": "Rainbow Roll",
+            "price": "$17.00",
+            "description": "California roll topped with assorted sashimi slices and avocado.",
+            "image": "https:\/\/images.unsplash.com\/photo-1579871494447-9811cf80d66c?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "miso-soup",
+            "title": "Miso Soup",
+            "price": "$4.00",
+            "description": "Traditional soybean paste soup with tofu, seaweed, and scallions.",
+            "image": "https:\/\/images.unsplash.com\/photo-1611143669185-af224c5e3252?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            "id": "matcha-mochi",
+            "title": "Matcha Mochi",
+            "price": "$6.00",
+            "description": "Sweet rice cake filled with green tea ice cream. Perfect dessert.",
+            "image": "https:\/\/images.unsplash.com\/photo-1562886877-f1632d37e258?q=80&w=1000&auto=format&fit=crop"
+        }
+    ],
+    "testimonials": [
+        {
+            "id": "t1",
+            "name": "Sarah Jenkins",
+            "quote": "The Dragon Roll was absolutely stunning. Best sushi place in the city by far! The atmosphere is so relaxing.",
+            "image": "https:\/\/randomuser.me\/api\/portraits\/women\/44.jpg",
+            "stars": 5
+        },
+        {
+            "id": "t2",
+            "name": "Michael Ross",
+            "quote": "Fresh ingredients and fast service. The sashimi melt in your mouth. Highly recommend booking a table on weekends!",
+            "image": "https:\/\/randomuser.me\/api\/portraits\/men\/32.jpg",
+            "stars": 4.5
+        },
+        {
+            "id": "t3",
+            "name": "Emily Dao",
+            "quote": "I love the clean design of the place and the food matches the vibe. The Matcha Mochi is a must-try dessert.",
+            "image": "https:\/\/randomuser.me\/api\/portraits\/women\/65.jpg",
+            "stars": 5
+        }
+    ],
+    "contact": {
+        "intro": "We are located in the heart of the downtown district. Come visit us for lunch or dinner.",
+        "address": "123 Sakura Blvd, Food District, NY 10012",
+        "phone": "+1 (555) 123-4567",
+        "email": "hello@sakurasushi.com",
+        "social": {
+            "instagram": "#",
+            "facebook": "#",
+            "twitter": "#"
+        }
+    },
+    "opening_hours": {
+        "mon_thu": "11:00 AM - 10:00 PM",
+        "fri": "11:00 AM - 11:00 PM",
+        "sat": "12:00 PM - 11:00 PM",
+        "sun": "12:00 PM - 09:30 PM"
+    }
+}

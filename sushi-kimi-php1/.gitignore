@@ -1,0 +1,3 @@
+# Ignore live config and uploaded files from version control
+config.php
+uploads/

@@ -1,0 +1,5 @@
+# Deny direct access to JSON data files
+<FilesMatch "\.json$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

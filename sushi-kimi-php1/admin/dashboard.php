@@ -132,220 +132,808 @@ function e($str) {
     return htmlspecialchars($str ?? '', ENT_QUOTES, 'UTF-8');
 }
 
-function currentImage($path) {
-    if (empty($path)) return 'No image set';
-    if (strpos($path, 'http') === 0) {
-        return '<img src="' . e($path) . '" class="img-thumbnail" style="max-height:80px;"> (URL)';
-    }
-    return '<img src="' . e($path) . '" class="img-thumbnail" style="max-height:80px;"> (Uploaded)';
+function currentImagePreview($path) {
+    if (empty($path)) return '<div class="no-image"><i class="fas fa-image"></i><span>No image</span></div>';
+    $src = (strpos($path, 'http') === 0) ? $path : '../' . $path;
+    return '<div class="image-preview-wrapper"><img src="' . e($src) . '" class="image-preview" alt="Preview"><span class="image-tag">' . (strpos($path, 'http') === 0 ? 'URL' : 'File') . '</span></div>';
 }
+
+function renderStars($stars) {
+    $full = floor($stars);
+    $half = ($stars - $full) >= 0.5;
+    $html = '';
+    for ($i = 0; $i < $full; $i++) {
+        $html .= '<i class="fas fa-star text-warning"></i>';
+    }
+    if ($half) {
+        $html .= '<i class="fas fa-star-half-alt text-warning"></i>';
+    }
+    return $html;
+}
+
+$sections = [
+    'site' => ['icon' => 'fa-globe', 'label' => 'Site Settings'],
+    'hero' => ['icon' => 'fa-image', 'label' => 'Hero Section'],
+    'menu' => ['icon' => 'fa-utensils', 'label' => 'Menu Items'],
+    'testimonials' => ['icon' => 'fa-comments', 'label' => 'Testimonials'],
+    'contact' => ['icon' => 'fa-address-card', 'label' => 'Contact Info'],
+    'hours' => ['icon' => 'fa-clock', 'label' => 'Opening Hours'],
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Sakura Sushi</title>
+    <title>Sakura Admin — Content Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #f8f9fa; }
-        .sidebar { min-height: 100vh; background: #222; color: white; position: fixed; width: 260px; padding: 30px 20px; }
-        .sidebar a { color: #ccc; text-decoration: none; display: block; padding: 10px 15px; border-radius: 8px; margin-bottom: 5px; }
-        .sidebar a:hover, .sidebar a.active { background: #ff7f7f; color: white; }
-        .main-content { margin-left: 260px; padding: 30px; }
-        .section-card { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .btn-primary-custom { background-color: #ff7f7f; border-color: #ff7f7f; color: white; padding: 12px 30px; border-radius: 50px; transition: all 0.3s ease; }
-        .btn-primary-custom:hover { background-color: #ff6b6b; border-color: #ff6b6b; }
-        .preview-img { max-height: 80px; border-radius: 8px; border: 1px solid #ddd; }
-        @media (max-width: 768px) { .sidebar { position: relative; width: 100%; min-height: auto; } .main-content { margin-left: 0; } }
+        :root {
+            --primary: #ff7f7f;
+            --primary-hover: #ff6b6b;
+            --primary-glow: rgba(255, 127, 127, 0.15);
+            --dark-bg: #0f1115;
+            --dark-surface: #1a1d24;
+            --dark-surface-hover: #22262e;
+            --dark-border: #2a2f3a;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8a8f9e;
+            --text-muted: #5a6070;
+            --success: #4ade80;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * { scrollbar-width: thin; scrollbar-color: var(--dark-border) var(--dark-bg); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--dark-border); border-radius: 3px; }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, .brand-title { font-family: 'Playfair Display', serif; }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 280px;
+            background: var(--dark-surface);
+            border-right: 1px solid var(--dark-border);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-brand {
+            padding: 30px 28px 20px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+        .sidebar-brand h3 {
+            font-size: 1.4rem;
+            margin: 0;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+        .sidebar-brand small {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 16px;
+            overflow-y: auto;
+        }
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 18px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+        }
+        .sidebar-nav a:hover {
+            background: var(--dark-surface-hover);
+            color: var(--text-primary);
+        }
+        .sidebar-nav a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 127, 127, 0.3);
+        }
+        .sidebar-nav a i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .sidebar-footer {
+            padding: 20px 28px;
+            border-top: 1px solid var(--dark-border);
+        }
+        .sidebar-footer a {
+            color: var(--danger);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.2s;
+        }
+        .sidebar-footer a:hover { opacity: 0.8; }
+
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 16px; left: 16px;
+            z-index: 1100;
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            color: var(--text-primary);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+        .page-header {
+            margin-bottom: 36px;
+        }
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Cards */
+        .admin-card {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            margin-bottom: 32px;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .admin-card:hover {
+            border-color: var(--dark-border);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+        .card-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card-header-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: var(--primary-glow);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .card-header h4 {
+            font-size: 1.15rem;
+            margin: 0;
+            color: var(--text-primary);
+        }
+        .card-body {
+            padding: 28px;
+        }
+
+        /* Form Elements */
+        .form-label {
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .form-control, .form-select {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-primary);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            background: var(--dark-bg);
+            border-color: var(--primary);
+            color: var(--text-primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+        .form-control::placeholder { color: var(--text-muted); }
+        textarea.form-control { resize: vertical; min-height: 80px; }
+
+        .form-text {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        /* Image Upload */
+        .image-upload-block {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .image-preview-wrapper {
+            position: relative;
+            width: 160px;
+            height: 120px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--dark-border);
+            flex-shrink: 0;
+            background: var(--dark-bg);
+        }
+        .image-preview-wrapper img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .image-tag {
+            position: absolute;
+            bottom: 8px; right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .no-image {
+            width: 160px; height: 120px;
+            border-radius: var(--radius-sm);
+            border: 2px dashed var(--dark-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .no-image i { font-size: 1.5rem; }
+        .no-image span { font-size: 0.75rem; font-weight: 500; }
+        .image-upload-controls {
+            flex: 1;
+            min-width: 200px;
+        }
+        .upload-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .upload-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0; top: 0; opacity: 0;
+            width: 100%; height: 100%;
+            cursor: pointer;
+        }
+        .upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--dark-bg);
+            border: 1px dashed var(--dark-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .upload-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-glow);
+        }
+        .upload-filename {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-height: 20px;
+        }
+
+        /* Menu & Testimonial Items */
+        .item-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        .item-card:hover {
+            border-color: var(--dark-border);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .item-card:last-child { margin-bottom: 0; }
+        .item-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .item-number {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--primary-glow);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .item-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .item-rating {
+            margin-left: auto;
+            font-size: 0.8rem;
+        }
+
+        /* Save Button */
+        .save-btn-wrapper {
+            position: fixed;
+            bottom: 32px;
+            right: 48px;
+            z-index: 100;
+        }
+        .save-btn {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(255, 127, 127, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .save-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255, 127, 127, 0.5);
+        }
+        .save-btn:active { transform: translateY(0); }
+
+        /* Alerts */
+        .alert {
+            border-radius: var(--radius-sm);
+            border: none;
+            padding: 16px 20px;
+            font-weight: 500;
+            font-size: 0.92rem;
+        }
+        .alert-success {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+        .alert-danger {
+            background: rgba(248, 113, 113, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+        }
+        .alert-dismissible .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+            opacity: 0.5;
+        }
+
+        /* Mobile */
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-toggle { display: flex; }
+            .main-content { margin-left: 0; padding: 80px 20px 40px; }
+            .save-btn-wrapper { right: 20px; bottom: 20px; }
+            .save-btn { padding: 14px 28px; font-size: 0.95rem; }
+        }
+        @media (max-width: 576px) {
+            .main-content { padding: 80px 16px 40px; }
+            .card-body { padding: 20px; }
+            .image-upload-block { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h4 class="mb-4 fw-bold">Sakura Admin</h4>
-        <a href="#site">Site Settings</a>
-        <a href="#hero">Hero Section</a>
-        <a href="#menu">Menu Items</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Contact Info</a>
-        <a href="#hours">Opening Hours</a>
-        <a href="logout.php" class="mt-4 text-danger">Logout</a>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <h3>Sakura Sushi</h3>
+            <small>Content Manager</small>
+        </div>
+        <div class="sidebar-nav">
+            <?php foreach ($sections as $id => $sec): ?>
+            <a href="#<?php echo $id; ?>" class="nav-link" data-section="<?php echo $id; ?>">
+                <i class="fas <?php echo $sec['icon']; ?>"></i>
+                <?php echo $sec['label']; ?>
+            </a>
+            <?php endforeach; ?>
+        </div>
+        <div class="sidebar-footer">
+            <a href="logout.php">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
     </div>
 
     <div class="main-content">
-        <h2 class="fw-bold mb-4">Edit Website Content</h2>
+        <div class="page-header">
+            <h1>Edit Website Content</h1>
+            <p>Manage your site content, images, and information from one place.</p>
+        </div>
 
         <?php if ($message): ?>
-        <div class="alert alert-<?php echo $messageType; ?> alert-dismissible fade show" role="alert">
+        <div class="alert alert-<?php echo $messageType; ?> alert-dismissible fade show mb-4" role="alert">
             <?php echo e($message); ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         <?php endif; ?>
 
-        <form method="post" action="" enctype="multipart/form-data">
+        <form method="post" action="" enctype="multipart/form-data" id="contentForm">
 
             <!-- Site Settings -->
-            <div id="site" class="section-card">
-                <h4 class="fw-bold mb-3">Site Settings</h4>
-                <div class="mb-3">
-                    <label class="form-label">Website Title</label>
-                    <input type="text" class="form-control" name="site_title" value="<?php echo e($data['site']['title']); ?>">
+            <div id="site" class="admin-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-globe"></i></div>
+                    <h4>Site Settings</h4>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Favicon</label>
-                    <div class="mb-2"><?php echo currentImage($data['site']['favicon']); ?></div>
-                    <input type="text" class="form-control mb-2" name="site_favicon_url" placeholder="Or enter image URL" value="<?php echo e($data['site']['favicon'] ?? ''); ?>">
-                    <input type="file" class="form-control" name="site_favicon" accept=".jpg,.jpeg,.png,.webp,.gif,.ico">
-                    <div class="form-text">Leave URL empty and choose file to upload. Max 2MB.</div>
-                </div>
-            </div>
-
-            <!-- Hero -->
-            <div id="hero" class="section-card">
-                <h4 class="fw-bold mb-3">Hero Section</h4>
-                <div class="mb-3">
-                    <label class="form-label">Heading</label>
-                    <input type="text" class="form-control" name="hero_heading" value="<?php echo e($data['hero']['heading']); ?>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Subheading</label>
-                    <textarea class="form-control" name="hero_subheading" rows="2"><?php echo e($data['hero']['subheading']); ?></textarea>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Background Image</label>
-                    <div class="mb-2"><?php echo currentImage($data['hero']['image']); ?></div>
-                    <input type="text" class="form-control mb-2" name="hero_image_url" placeholder="Or enter image URL" value="<?php echo e($data['hero']['image'] ?? ''); ?>">
-                    <input type="file" class="form-control" name="hero_image" accept=".jpg,.jpeg,.png,.webp,.gif">
-                    <div class="form-text">Recommended: wide image (1920x1080). Max 2MB.</div>
-                </div>
-            </div>
-
-            <!-- Menu -->
-            <div id="menu" class="section-card">
-                <h4 class="fw-bold mb-3">Menu Items</h4>
-                <?php foreach ($data['menu'] as $index => $item): ?>
-                <div class="border rounded p-3 mb-3 bg-light">
-                    <h6 class="fw-bold"><?php echo e($item['title']); ?></h6>
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <div class="mb-2"><?php echo currentImage($item['image']); ?></div>
-                            <input type="text" class="form-control form-control-sm mb-2" name="menu_image_url_<?php echo $index; ?>" placeholder="Image URL" value="<?php echo e($item['image'] ?? ''); ?>">
-                            <input type="file" class="form-control form-control-sm" name="menu_image_<?php echo $index; ?>" accept=".jpg,.jpeg,.png,.webp,.gif">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <label class="form-label">Website Title</label>
+                        <input type="text" class="form-control" name="site_title" value="<?php echo e($data['site']['title']); ?>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Favicon</label>
+                        <div class="image-upload-block">
+                            <?php echo currentImagePreview($data['site']['favicon'] ?? ''); ?>
+                            <div class="image-upload-controls">
+                                <input type="text" class="form-control mb-2" name="site_favicon_url" placeholder="Or paste an image URL" value="<?php echo e($data['site']['favicon'] ?? ''); ?>">
+                                <div class="upload-input-wrapper">
+                                    <div class="upload-btn">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Choose file to upload</span>
+                                    </div>
+                                    <input type="file" name="site_favicon" accept=".jpg,.jpeg,.png,.webp,.gif,.ico" onchange="showFileName(this)">
+                                </div>
+                                <div class="upload-filename" id="filename-site_favicon"></div>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-2">
-                            <label class="form-label small">Title</label>
-                            <input type="text" class="form-control form-control-sm" name="menu_title_<?php echo $index; ?>" value="<?php echo e($item['title']); ?>">
-                        </div>
-                        <div class="col-md-2 mb-2">
-                            <label class="form-label small">Price</label>
-                            <input type="text" class="form-control form-control-sm" name="menu_price_<?php echo $index; ?>" value="<?php echo e($item['price']); ?>">
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <label class="form-label small">Description</label>
-                            <textarea class="form-control form-control-sm" name="menu_desc_<?php echo $index; ?>" rows="2"><?php echo e($item['description']); ?></textarea>
-                        </div>
+                        <div class="form-text">Recommended: 32x32px .ico or .png. Max 2MB.</div>
                     </div>
                 </div>
-                <?php endforeach; ?>
+            </div>
+
+            <!-- Hero Section -->
+            <div id="hero" class="admin-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-image"></i></div>
+                    <h4>Hero Section</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <label class="form-label">Heading</label>
+                        <input type="text" class="form-control" name="hero_heading" value="<?php echo e($data['hero']['heading']); ?>">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Subheading</label>
+                        <textarea class="form-control" name="hero_subheading" rows="2"><?php echo e($data['hero']['subheading']); ?></textarea>
+                    </div>
+                    <div>
+                        <label class="form-label">Background Image</label>
+                        <div class="image-upload-block">
+                            <?php echo currentImagePreview($data['hero']['image'] ?? ''); ?>
+                            <div class="image-upload-controls">
+                                <input type="text" class="form-control mb-2" name="hero_image_url" placeholder="Or paste an image URL" value="<?php echo e($data['hero']['image'] ?? ''); ?>">
+                                <div class="upload-input-wrapper">
+                                    <div class="upload-btn">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Choose file to upload</span>
+                                    </div>
+                                    <input type="file" name="hero_image" accept=".jpg,.jpeg,.png,.webp,.gif" onchange="showFileName(this)">
+                                </div>
+                                <div class="upload-filename" id="filename-hero_image"></div>
+                            </div>
+                        </div>
+                        <div class="form-text">Recommended: 1920x1080px. Max 2MB.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Items -->
+            <div id="menu" class="admin-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-utensils"></i></div>
+                    <h4>Menu Items</h4>
+                </div>
+                <div class="card-body">
+                    <?php foreach ($data['menu'] as $index => $item): ?>
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-number"><?php echo $index + 1; ?></div>
+                            <h5 class="item-title"><?php echo e($item['title']); ?></h5>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Dish Image</label>
+                                <?php echo currentImagePreview($item['image'] ?? ''); ?>
+                                <input type="text" class="form-control form-control-sm mt-2" name="menu_image_url_<?php echo $index; ?>" placeholder="Or paste URL" value="<?php echo e($item['image'] ?? ''); ?>">
+                                <div class="upload-input-wrapper mt-2">
+                                    <div class="upload-btn" style="padding: 8px 14px; font-size: 0.82rem;">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Upload image</span>
+                                    </div>
+                                    <input type="file" name="menu_image_<?php echo $index; ?>" accept=".jpg,.jpeg,.png,.webp,.gif" onchange="showFileName(this)">
+                                </div>
+                                <div class="upload-filename" id="filename-menu_image_<?php echo $index; ?>"></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row g-3">
+                                    <div class="col-sm-7">
+                                        <label class="form-label">Dish Name</label>
+                                        <input type="text" class="form-control" name="menu_title_<?php echo $index; ?>" value="<?php echo e($item['title']); ?>">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label class="form-label">Price</label>
+                                        <input type="text" class="form-control" name="menu_price_<?php echo $index; ?>" value="<?php echo e($item['price']); ?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Description</label>
+                                        <textarea class="form-control" name="menu_desc_<?php echo $index; ?>" rows="2"><?php echo e($item['description']); ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <!-- Testimonials -->
-            <div id="testimonials" class="section-card">
-                <h4 class="fw-bold mb-3">Testimonials</h4>
-                <?php foreach ($data['testimonials'] as $index => $t): ?>
-                <div class="border rounded p-3 mb-3 bg-light">
-                    <h6 class="fw-bold"><?php echo e($t['name']); ?></h6>
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <div class="mb-2"><?php echo currentImage($t['image']); ?></div>
-                            <input type="text" class="form-control form-control-sm mb-2" name="test_image_url_<?php echo $index; ?>" placeholder="Image URL" value="<?php echo e($t['image'] ?? ''); ?>">
-                            <input type="file" class="form-control form-control-sm" name="test_image_<?php echo $index; ?>" accept=".jpg,.jpeg,.png,.webp,.gif">
+            <div id="testimonials" class="admin-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-comments"></i></div>
+                    <h4>Testimonials</h4>
+                </div>
+                <div class="card-body">
+                    <?php foreach ($data['testimonials'] as $index => $t): ?>
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-number"><?php echo $index + 1; ?></div>
+                            <h5 class="item-title"><?php echo e($t['name']); ?></h5>
+                            <div class="item-rating">
+                                <?php echo renderStars($t['stars'] ?? 5); ?>
+                                <span class="text-muted ms-1">(<?php echo e($t['stars'] ?? 5); ?>)</span>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-2">
-                            <label class="form-label small">Name</label>
-                            <input type="text" class="form-control form-control-sm" name="test_name_<?php echo $index; ?>" value="<?php echo e($t['name']); ?>">
-                        </div>
-                        <div class="col-md-2 mb-2">
-                            <label class="form-label small">Stars (1-5)</label>
-                            <input type="number" step="0.5" min="0" max="5" class="form-control form-control-sm" name="test_stars_<?php echo $index; ?>" value="<?php echo e($t['stars']); ?>">
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <label class="form-label small">Quote</label>
-                            <textarea class="form-control form-control-sm" name="test_quote_<?php echo $index; ?>" rows="2"><?php echo e($t['quote']); ?></textarea>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Customer Photo</label>
+                                <?php echo currentImagePreview($t['image'] ?? ''); ?>
+                                <input type="text" class="form-control form-control-sm mt-2" name="test_image_url_<?php echo $index; ?>" placeholder="Or paste URL" value="<?php echo e($t['image'] ?? ''); ?>">
+                                <div class="upload-input-wrapper mt-2">
+                                    <div class="upload-btn" style="padding: 8px 14px; font-size: 0.82rem;">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Upload photo</span>
+                                    </div>
+                                    <input type="file" name="test_image_<?php echo $index; ?>" accept=".jpg,.jpeg,.png,.webp,.gif" onchange="showFileName(this)">
+                                </div>
+                                <div class="upload-filename" id="filename-test_image_<?php echo $index; ?>"></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row g-3">
+                                    <div class="col-sm-7">
+                                        <label class="form-label">Customer Name</label>
+                                        <input type="text" class="form-control" name="test_name_<?php echo $index; ?>" value="<?php echo e($t['name']); ?>">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label class="form-label">Star Rating</label>
+                                        <input type="number" step="0.5" min="0" max="5" class="form-control" name="test_stars_<?php echo $index; ?>" value="<?php echo e($t['stars']); ?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Quote</label>
+                                        <textarea class="form-control" name="test_quote_<?php echo $index; ?>" rows="2"><?php echo e($t['quote']); ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
             </div>
 
-            <!-- Contact -->
-            <div id="contact" class="section-card">
-                <h4 class="fw-bold mb-3">Contact Info</h4>
-                <div class="mb-3">
-                    <label class="form-label">Introduction Text</label>
-                    <textarea class="form-control" name="contact_intro" rows="2"><?php echo e($data['contact']['intro']); ?></textarea>
+            <!-- Contact Info -->
+            <div id="contact" class="admin-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-address-card"></i></div>
+                    <h4>Contact Info</h4>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Address</label>
-                        <input type="text" class="form-control" name="contact_address" value="<?php echo e($data['contact']['address']); ?>">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <label class="form-label">Introduction Text</label>
+                        <textarea class="form-control" name="contact_intro" rows="2"><?php echo e($data['contact']['intro']); ?></textarea>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Phone</label>
-                        <input type="text" class="form-control" name="contact_phone" value="<?php echo e($data['contact']['phone']); ?>">
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" name="contact_address" value="<?php echo e($data['contact']['address']); ?>">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Phone</label>
+                            <input type="text" class="form-control" name="contact_phone" value="<?php echo e($data['contact']['phone']); ?>">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" name="contact_email" value="<?php echo e($data['contact']['email']); ?>">
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="text" class="form-control" name="contact_email" value="<?php echo e($data['contact']['email']); ?>">
-                    </div>
-                </div>
-                <h6 class="fw-bold mt-3">Social Media Links</h6>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Instagram</label>
-                        <input type="text" class="form-control" name="social_instagram" value="<?php echo e($data['contact']['social']['instagram'] ?? ''); ?>">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Facebook</label>
-                        <input type="text" class="form-control" name="social_facebook" value="<?php echo e($data['contact']['social']['facebook'] ?? ''); ?>">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Twitter / X</label>
-                        <input type="text" class="form-control" name="social_twitter" value="<?php echo e($data['contact']['social']['twitter'] ?? ''); ?>">
+                    <div style="border-top: 1px solid var(--dark-border); padding-top: 24px;">
+                        <h5 class="mb-3" style="font-size: 0.95rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Social Media Links</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label"><i class="fab fa-instagram me-1 text-muted"></i> Instagram</label>
+                                <input type="text" class="form-control" name="social_instagram" value="<?php echo e($data['contact']['social']['instagram'] ?? ''); ?>">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label"><i class="fab fa-facebook me-1 text-muted"></i> Facebook</label>
+                                <input type="text" class="form-control" name="social_facebook" value="<?php echo e($data['contact']['social']['facebook'] ?? ''); ?>">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label"><i class="fab fa-twitter me-1 text-muted"></i> Twitter / X</label>
+                                <input type="text" class="form-control" name="social_twitter" value="<?php echo e($data['contact']['social']['twitter'] ?? ''); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Opening Hours -->
-            <div id="hours" class="section-card">
-                <h4 class="fw-bold mb-3">Opening Hours</h4>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Monday - Thursday</label>
-                        <input type="text" class="form-control" name="hours_mon_thu" value="<?php echo e($data['opening_hours']['mon_thu']); ?>">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Friday</label>
-                        <input type="text" class="form-control" name="hours_fri" value="<?php echo e($data['opening_hours']['fri']); ?>">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Saturday</label>
-                        <input type="text" class="form-control" name="hours_sat" value="<?php echo e($data['opening_hours']['sat']); ?>">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Sunday</label>
-                        <input type="text" class="form-control" name="hours_sun" value="<?php echo e($data['opening_hours']['sun']); ?>">
+            <div id="hours" class="admin-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-clock"></i></div>
+                    <h4>Opening Hours</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Monday — Thursday</label>
+                            <input type="text" class="form-control" name="hours_mon_thu" value="<?php echo e($data['opening_hours']['mon_thu']); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Friday</label>
+                            <input type="text" class="form-control" name="hours_fri" value="<?php echo e($data['opening_hours']['fri']); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Saturday</label>
+                            <input type="text" class="form-control" name="hours_sat" value="<?php echo e($data['opening_hours']['sat']); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Sunday</label>
+                            <input type="text" class="form-control" name="hours_sun" value="<?php echo e($data['opening_hours']['sun']); ?>">
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center mb-5">
-                <button type="submit" class="btn btn-primary-custom btn-lg px-5">Save All Changes</button>
+            <div class="save-btn-wrapper">
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-check"></i>
+                    Save All Changes
+                </button>
             </div>
 
         </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function showFileName(input) {
+            const id = 'filename-' + input.name;
+            const el = document.getElementById(id);
+            if (el && input.files && input.files.length > 0) {
+                el.textContent = 'Selected: ' + input.files[0].name;
+                el.style.color = '#ff7f7f';
+            }
+        }
+
+        // Active nav link based on scroll
+        const sections = document.querySelectorAll('.admin-card');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (window.innerWidth < 992) {
+                        document.getElementById('sidebar').classList.remove('open');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -8,3 +8,12 @@ prompts:
       1. you can indeed make them editable, thanks
       2. the site is version controlled so we can add the password into a config.php with default sakura2024. then create a template config.template.php
       Go with implementation
+  - id: admin-1
+    content: |
+      Perfect, everything working as it should, now i want to make the admin space `admin\dashboard.php` more unique and beautiful
+  - id: commands
+    content: |
+      php -S localhost:8000
+    variations:
+      - http://localhost:8000/ is index.php
+      - http://localhost:8000/admin/ -> login -> http://localhost:8000/admin/dashboard.php

@@ -2,7 +2,9 @@ version: 2026.06.24
 prompts:
   - id: 1
     content: |
-      there is a file `references\gemini1.html` that i a simple website for sushi shop. after hosting on hostinger, my client want to be able to change some data on the website without my (devlopper) help. so i need to create a simple admin page/section/space for the client (with no coding knowledge). the client need to be able to change all images on the website and the favicon. also the title of the website, and every text in the contact info and opening hours. hostinger allow php, mysql, js etc so we can use those. i want to keep it simple, we are allow to edit the html a litte, maybe add HTML attributes to sections so they can be edited or pure PHP and using the html file as template. let's discuss first and tell me what you think, do not start any implementation unless i say 'go with implementation'
+      there is a file `references\gemini1.html` that i a simple website for sushi shop. after hosting on hostinger, my client want to be able to change some data on the website without my (devlopper) help. so i need to create a simple admin page/section/space for the client (with no coding knowledge). the client need to be able to change all images on the website and the favicon. also the title of the website, and every text in the contact info and opening hours. hostinger allow php, mysql, js etc so we can use those. i want to keep it simple, we are allowed to edit the html a litte, maybe add HTML attributes to sections so they can be edited or pure PHP and using the html file as template. let's discuss first and tell me what you think, do not start any implementation unless i say 'go with implementation'
+    comments: |
+      at the start there is only AGENTS.md, project.code-workspace and references/sushi1.html.
   - id: 2
     content: |
       1. you can indeed make them editable, thanks
